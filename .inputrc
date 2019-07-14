@@ -1,0 +1,11 @@
+# set vi readlines
+set editing-mode vi
+
+# show vi mode
+set show-mode-in-prompt on
+
+# no terminal bell
+set bell-style none
+
+# show completion matches immediately
+set show-all-if-ambiguous on
