@@ -1,0 +1,276 @@
+# Super Key as Mod
+set $mod Mod4
+
+# Font
+font pango:Noto Sans 10
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# dmenu (i3-dmenu-desktop which only displays applications shipping a .desktop file.)
+bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu -i -nb '#cccccc' -nf '#000000' -sb '#000000' -sf '#cccccc'"
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+# Window Manipulation
+#---------------------
+# disable focus follows mouse
+focus_follows_mouse no
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# toggle split orientation
+bindsym $mod+v split toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+z focus child
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+
+# Windows
+#---------
+new_window pixel 3
+new_float normal
+
+gaps inner 14
+gaps outer -2
+
+smart_gaps on
+smart_borders on
+
+
+# Workspaces
+#-------------
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+#navigate workspaces next / previous
+bindsym $mod+Ctrl+j workspace next
+bindsym $mod+Ctrl+k workspace prev
+
+
+# Modes
+#-------
+# Resize
+mode "resize" {
+        bindsym h resize shrink width  10 px or 10 ppt
+        bindsym j resize grow   height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow   width  10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left  resize shrink width  10 px or 10 ppt
+        bindsym Down  resize grow   height 10 px or 10 ppt
+        bindsym Up    resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow   width  10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# System
+set $Locker i3lock && sleep 1
+set $mode_system (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l       exec --no-startup-id $Locker,                        mode "default"
+    bindsym e       exec --no-startup-id i3-msg exit,                    mode "default"
+    bindsym s       exec --no-startup-id $Locker && systemctl suspend,   mode "default"
+    bindsym h       exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r       exec --no-startup-id systemctl reboot,               mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i,          mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Escape mode "$mode_system"
+
+# Gaps
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+
+# Colour
+#--------
+set $bg-color            #cccccc
+set $inactive-bg-color   #000000
+set $text-color          #000000
+set $inactive-text-color #cccccc
+set $urgent-bg-color     #E53935
+set $grey                #757575
+
+# window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          #00ffff
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color  #00ffff
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color  #00ffff
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ffff
+
+# Bar
+#-----
+bar {
+        status_command i3status
+        colors {
+                #                  border             background         text
+                focused_workspace  $bg-color          $bg-color          $text-color
+                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+
+                background $inactive-bg-color
+                separator  $grey
+        }
+}
+
+
+# Screenshot Functionality
+#--------------------------
+bindsym Print                exec --no-startup-id "scrot    ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym $mod+Print --release exec --no-startup-id "scrot -s ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+
+
+# Start Up Applications
+#-----------------------
+exec --no-startup-id nitrogen --random --set-zoom-fill; sleep 1; compton -b
+exec --no-startup-id redshift-gtk
+exec --no-startup-id nm-applet
+exec --no-startup-id dunst
+exec --no-startup-id mpd
+
+
+# Applications
+#--------------
+bindsym $mod+c exec qutebrowser
+bindsym $mod+x exec firefox
+
+
+# Desktop
+#---------
+bindsym $mod+Prior exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym $mod+Next  exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym $mod+m     exec --no-startup-id pactl set-sink-mute   0 toggle
+
+
+# Laptop
+#--------
+exec --no-startup-id xfce4-power-manager
