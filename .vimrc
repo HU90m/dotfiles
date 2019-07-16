@@ -4,17 +4,27 @@ tnoremap <Esc><Esc> <C-\><C-n>
 " Remove tab bar
 set showtabline=0
 
-" Disable swap file
-set noswapfile
+" Enables/disables changed buffers to be hidden
+set hidden
+
+" Show prompt when closing unsaved file
+set confirm
+
+" Enable case insensitive search, except when using capital letters in query
+set ignorecase
+set smartcase
+
+" Enables/disables swap file
+set swapfile
 
 " Inserts spaces in lieu of tabs
 set expandtab
-
 " The number of spaces used to represent a tab
 set tabstop=4
-
 " The number of spaces inserted for indentation
 set shiftwidth=4
+" Set auto-indent for standard files
+set autoindent
 
 " Disables text wrapping
 set nowrap
@@ -39,7 +49,6 @@ set spell
 
 " Activates/deactivates highlighting search results
 set hlsearch
-"set nohlsearch
 
 " Wildmenu
 set wildmode=longest,list
@@ -49,11 +58,9 @@ set wildmenu
 "set cursorline
 
 " Activates/deactivates ruler
-"set ruler
 set noruler
 
 " Activates/deactivates line numbers
-"set number
 set nonumber
 
 " Let there be colour!
