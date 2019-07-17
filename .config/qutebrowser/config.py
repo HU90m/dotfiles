@@ -50,3 +50,7 @@ c.url.start_pages = ['about:blank']
 # Type: FuzzyUrl
 c.url.default_page = 'about:blank'
 
+## Default monospace fonts. Whenever "monospace" is used in a font
+## setting, it's replaced with the fonts listed here.
+## Type: Font
+c.fonts.monospace = 'Monospace, "Noto Sans Mono"'
