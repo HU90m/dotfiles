@@ -27,6 +27,7 @@ alias q="exit"
 alias h="history"
 alias ll="ls -hl"
 alias du="du -h"
+alias df="df -h"
 alias sls="screen -ls"
 alias tls="tmux ls"
 
