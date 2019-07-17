@@ -1,6 +1,16 @@
 " Terminal Escape
 tnoremap <Esc><Esc> <C-\><C-n>
 
+" Normal Mode Bindings
+nnoremap <Leader><C-W>t <C-W>t
+nnoremap <C-W>t <C-W>s<C-W>T
+
+nnoremap <Leader>n n
+nnoremap n nzz
+
+nnoremap <Leader>N N
+nnoremap N Nzz
+
 " Remove tab bar
 set showtabline=0
 
@@ -9,10 +19,6 @@ set hidden
 
 " Show prompt when closing unsaved file
 set confirm
-
-" Enable case insensitive search, except when using capital letters in query
-set ignorecase
-set smartcase
 
 " Enables/disables swap file
 set swapfile
@@ -44,8 +50,8 @@ set showcmd
 " Changes the language to proper English
 set spelllang=en_gb
 
-" Activates spell-check
-set spell
+" Enables/disables spell-check
+set nospell
 
 " Activates/deactivates highlighting search results
 set hlsearch
