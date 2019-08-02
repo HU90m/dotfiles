@@ -1,28 +1,18 @@
-## Background color of unselected even and odd tabs.
+# Background color of unselected even and odd tabs.
 c.colors.tabs.even.bg = '#000000'
 c.colors.tabs.odd.bg  = '#000000'
 
-## Foreground color of unselected even and odd tabs.
+# Foreground color of unselected even and odd tabs.
 c.colors.tabs.even.fg = '#cccccc'
 c.colors.tabs.odd.fg  = '#cccccc'
 
-## Background color of selected even and odd tabs.
+# Background color of selected even and odd tabs.
 c.colors.tabs.selected.even.bg = '#cccccc'
 c.colors.tabs.selected.odd.bg  = '#cccccc'
 
-## Foreground color of selected even and odd tabs.
+# Foreground color of selected even and odd tabs.
 c.colors.tabs.selected.even.fg = '#000000'
 c.colors.tabs.selected.odd.fg  = '#000000'
-
-# How to behave when the last tab is closed.
-# Type: String
-# Valid values:
-#   - ignore: Don't do anything.
-#   - blank: Load a blank page.
-#   - startpage: Load the start page.
-#   - default-page: Load the default page.
-#   - close: Close the window.
-c.tabs.last_close = 'ignore'
 
 # Search engines which can be used via the address bar. Maps a search
 # engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
@@ -34,7 +24,6 @@ c.tabs.last_close = 'ignore'
 # `:open google qutebrowser`.
 # Type: Dict
 c.url.searchengines = {
-    'DEFAULT': 'https://www.duckduckgo.com/?q={}',
     'DEFAULT': 'https://www.duckduckgo.com/?q={}',
     'wikipedia': 'https://en.wikipedia.org/w/index.php?search={}',
     'google': 'https://google.com/search?q={}',
@@ -50,7 +39,30 @@ c.url.start_pages = ['about:blank']
 # Type: FuzzyUrl
 c.url.default_page = 'about:blank'
 
-## Default monospace fonts. Whenever "monospace" is used in a font
-## setting, it's replaced with the fonts listed here.
-## Type: Font
+# Default monospace fonts. Whenever "monospace" is used in a font
+# setting, it's replaced with the fonts listed here.
+# Type: Font
 c.fonts.monospace = 'Monospace, "Noto Sans Mono"'
+
+# Always restore open sites when qutebrowser is reopened.
+# Type: Bool
+c.auto_save.session = True
+
+# How to behave when the last tab is closed.
+# Type: String
+# Valid values:
+#   - ignore: Don't do anything.
+#   - blank: Load a blank page.
+#   - startpage: Load the start page.
+#   - default-page: Load the default page.
+#   - close: Close the window.
+c.tabs.last_close = 'close'
+
+## Require a confirmation before quitting the application.
+## Type: ConfirmQuit
+## Valid values:
+##   - always: Always show a confirmation.
+##   - multiple-tabs: Show a confirmation if multiple tabs are opened.
+##   - downloads: Show a confirmation if downloads are running
+##   - never: Never show a confirmation.
+c.confirm_quit = ['always']
