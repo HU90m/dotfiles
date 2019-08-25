@@ -28,6 +28,8 @@ alias h="history"
 alias ll="ls -hl"
 alias du="du -h"
 alias df="df -h"
+alias d="dirs -v"
+alias pd="pushd"
 alias sls="screen -ls"
 alias tls="tmux ls"
 
