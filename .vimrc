@@ -1,34 +1,83 @@
-" Terminal Escape
+" Terminal Mode Maps
 tnoremap <Esc><Esc> <C-\><C-n>
 
-" Normal Mode Bindings
-nnoremap <Leader><C-W>t <C-W>t
-nnoremap <C-W>t <C-W>s<C-W>T
+" Terminal Mode Remaps
+tnoremap <Leader><C-W>t <C-W>t
+tnoremap <C-W>t <C-W>v<C-W>T
 
+" Normal Mode Maps
+nnoremap <silent> <Leader>t :tabs<CR>
+nnoremap <silent> <Leader>s :set spell!<CR>
+
+" Normal Mode Remaps
 nnoremap <Leader>n n
 nnoremap n nzz
 
 nnoremap <Leader>N N
 nnoremap N Nzz
 
-" Remove tab bar
+nnoremap <Leader><C-W>t <C-W>t
+nnoremap <C-W>t <C-W>v<C-W>T
+
+" Splitting Preferences
+set splitright
+set splitbelow
+
+" Folding Stuff
+set foldenable
+set foldmethod=indent
+set foldcolumn=0
+set foldtext=FoldText()
+
+function! FoldText()
+    " Pre-body
+    let level = v:foldlevel
+    let pre_body = '(' . level . ') '
+
+    " Post-body
+    let lnum = v:foldend - v:foldstart + 1
+    let post_body = ' [' . lnum . '] '
+
+    " Body
+    let line = getline(v:foldstart)
+    let len_body = winwidth(0) - (len(pre_body) + len(post_body))
+    if (len(line) > len_body)
+        let body = line[0:(len_body - 4)] . '...'
+    else
+        let body = line . repeat(' ', len_body - len(line))
+    endif
+
+    " Return
+    return pre_body . body . post_body
+endfunction
+
+" Tab bar verbosity
 set showtabline=0
+
+" Status bar verbosity
+set laststatus=1
 
 " Enables/disables changed buffers to be hidden
 set hidden
+
+" Adds 6 lines of context when scrolling
+set scrolloff=6
 
 " Show prompt when closing unsaved file
 set confirm
 
 " Enables/disables swap file
-set swapfile
+set noswapfile
 
 " Inserts spaces in lieu of tabs
 set expandtab
+
 " The number of spaces used to represent a tab
 set tabstop=4
+
 " The number of spaces inserted for indentation
 set shiftwidth=4
+
 " Set auto-indent for standard files
 set autoindent
 
@@ -37,6 +86,9 @@ set nowrap
 
 " Adds automatic new line (text width)
 "set tw=80
+
+" Enable Backspace
+set bs=2
 
 " This sets custom white-space characters
 set listchars=tab:>-,trail:-,extends:>,precedes:<
@@ -50,7 +102,7 @@ set showcmd
 " Changes the language to proper English
 set spelllang=en_gb
 
-" Enables/disables spell-check
+" Activates/deactivates spell-check
 set nospell
 
 " Activates/deactivates highlighting search results
@@ -64,7 +116,7 @@ set wildmenu
 "set cursorline
 
 " Activates/deactivates ruler
-set noruler
+set ruler
 
 " Activates/deactivates line numbers
 set nonumber
