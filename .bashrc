@@ -7,7 +7,7 @@
 
 
 # the size of the bash history
-HISTSIZE=1500
+HISTSIZE=10000
 
 # prompt
 export PS1="\[\e[1m\] \u@\h:\[\e[35m\]\w\[\e[0m\e[2m\]\n \[\e[0m\]\$ "
@@ -37,6 +37,9 @@ alias tls="tmux ls"
 alias rm="rm -i"
 alias cp="cp -i"
 
+# because I can never remember
+alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
+
 # Change GNU Readlines to vi
-# better to change this universally in ~/.inputrc
+# I have changed this universally in ~/.inputrc
 #set -o vi
