@@ -283,7 +283,7 @@ scrot
 ```
 (gobject needed for redshift)
 
-My configurations and files
+configs and files
 ```
 ~/.wallpapers
 ~/.config/dunst/dunstrc
@@ -305,14 +305,14 @@ install
 tmux
 gvim
 git
+youtube-dl
 ```
 
 configs
 ```
 ~/.bashrc
 ~/.tmux.conf
-~/.config/nvim/init.vim
-~/.config/vifm
+~/.vimrc
 ```
 
 ### YAY (Yet Another Yogurt)
@@ -334,6 +334,7 @@ pulsemixer
 install
 ```
 firefox
+qutebrowser
 zathura zathura-pdf-mupdf
 libreoffice-still libreoffice-still-en-gb
 texlive-most
