@@ -1,10 +1,10 @@
-# Arch Install
+# Arch Install Notes
 
 ## Install Commands
 
 ### Set the Keyboard Layout
 ```bash
-loadkeys /usr/share/kbd/keymaps/i386/qwerty/uk.map.gz 
+loadkeys /usr/share/kbd/keymaps/i386/qwerty/uk.map.gz
 ```
 
 ### Verify the Boot Mode
@@ -244,7 +244,7 @@ install drivers
 sudo pacman -S nvidia
 ```
 
-## Install programs
+## Programs
 
 ### Xorg
 install
@@ -302,7 +302,6 @@ light
 ### Terminal Programs
 install
 ```
-vifm
 tmux
 gvim
 git
@@ -314,6 +313,14 @@ configs
 ~/.tmux.conf
 ~/.config/nvim/init.vim
 ~/.config/vifm
+```
+
+### YAY (Yet Another Yogurt)
+The following commands will install yay.
+```bash
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
 ```
 
 ### Audio
