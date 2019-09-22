@@ -39,6 +39,7 @@ alias cp="cp -i"
 
 # because I can never remember
 alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
+alias sotonvpn="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
 
 # Change GNU Readlines to vi
 # I have changed this universally in ~/.inputrc
