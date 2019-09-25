@@ -69,6 +69,9 @@ set confirm
 " Enables/disables swap file
 set noswapfile
 
+" For fear of madness
+set belloff=all
+
 " Inserts spaces in lieu of tabs
 set expandtab
 
@@ -81,8 +84,11 @@ set shiftwidth=4
 " Set auto-indent for standard files
 set autoindent
 
-" Disables text wrapping
-set nowrap
+" Enables text wrapping
+set wrap
+
+" Wrap on breatat character
+set linebreak
 
 " Adds automatic new line (text width)
 "set tw=80
@@ -103,7 +109,7 @@ set showcmd
 set spelllang=en_gb
 
 " Activates/deactivates spell-check
-set nospell
+set spell
 
 " Activates/deactivates highlighting search results
 set hlsearch
@@ -139,8 +145,11 @@ if has('gui_running')
   set go-=r
 
   " Sets font
-  set guifont=Monospace
+  set guifont=Droid\ Sans\ Mono\ 13
+
+  " Set the size
+  set lines=40 columns=90
 
   " Sets colorsheme
-  colorscheme desert
+  colorscheme peachpuff
 endif
