@@ -368,6 +368,59 @@ mkdir -p ~/Music/Songs
 ```
 
 
+### Printer
+#### Drivers
+install printer driver collection
+```
+gutenprint
+```
+I need a specific driver in the AUR for my printer
+```
+epson-inkjet-printer-201211w
+```
+#### Avahi
+install avahi to allow your computer to search the network for printers.
+```
+avahi
+```
+start avahi
+```bash
+system start avahi-daemon.service
+```
+#### CUPS
+install CUPS
+```
+cups
+cups-pdf
+```
+enable CUPS socket
+```bash
+systemctl enable org.cups.cupsd.socket
+```
+search for printers and drivers
+```bash
+lpinfo -v
+lpinfo -m
+```
+make a new queue and make it the default
+```bash
+lpadmin -p WF2510 -E -v "usb://EPSON/WF-2510%20Series?serial=523256593033393112&interface=1" -m "epson-inkjet-printer-201211w/EPSON_WF_2510.ppd"
+lpoptions -d WF2510
+```
+#### Printing
+print a file
+```bash
+lpr file.pdf
+```
+pipe to printer
+```bash
+echo "hello" | lpr
+```
+
+
+
+
+
 ### Steam
 requires multi-lib
 ```
