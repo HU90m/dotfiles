@@ -10,7 +10,6 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec alacritty -e tmux
 bindsym $mod+Shift+Return exec i3-sensible-terminal
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -57,7 +56,7 @@ bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
 # toggle split orientation
-bindsym $mod+v split toggle
+bindsym $mod+b split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -261,8 +260,11 @@ exec --no-startup-id mpd
 
 # Applications
 #--------------
-bindsym $mod+c exec qutebrowser
-bindsym $mod+x exec firefox
+bindsym $mod+c       exec qutebrowser
+bindsym $mod+x       exec firefox
+bindsym $mod+v       exec gvim
+bindsym $mod+Shift+v exec gvim -S ~/.vim/sesh.vim
+bindsym $mod+p       exec zathura
 
 
 # Desktop
