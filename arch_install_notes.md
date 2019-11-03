@@ -385,7 +385,7 @@ avahi
 ```
 start avahi
 ```bash
-system start avahi-daemon.service
+systemctl start avahi-daemon.service
 ```
 #### CUPS
 install CUPS
