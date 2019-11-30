@@ -14,7 +14,7 @@ bindsym $mod+Shift+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # dmenu (i3-dmenu-desktop which only displays applications shipping a .desktop file.)
-bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu -i -nb '#cccccc' -nf '#000000' -sb '#000000' -sf '#cccccc'"
+bindsym $mod+o exec i3-dmenu-desktop --dmenu="dmenu -i -nb '#cccccc' -nf '#000000' -sb '#000000' -sf '#cccccc'"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -90,6 +90,9 @@ gaps outer -2
 smart_gaps on
 smart_borders on
 
+floating_minimum_size 300 x 200
+floating_maximum_size 1680 x 945
+
 
 # Workspaces
 #-------------
@@ -139,10 +142,15 @@ bindsym $mod+Ctrl+k workspace prev
 #-------
 # Resize
 mode "resize" {
-        bindsym h resize shrink width  10 px or 10 ppt
-        bindsym j resize grow   height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow   width  10 px or 10 ppt
+        bindsym h resize shrink width  20 px or 20 ppt
+        bindsym j resize grow   height 20 px or 20 ppt
+        bindsym k resize shrink height 20 px or 20 ppt
+        bindsym l resize grow   width  20 px or 20 ppt
+
+        bindsym Shift+h resize shrink width  100 px or 100 ppt
+        bindsym Shift+j resize grow   height 100 px or 100 ppt
+        bindsym Shift+k resize shrink height 100 px or 100 ppt
+        bindsym Shift+l resize grow   width  100 px or 100 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left  resize shrink width  10 px or 10 ppt
@@ -245,8 +253,9 @@ bar {
 
 # Screenshot Functionality
 #--------------------------
-bindsym Print                exec --no-startup-id "scrot    ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
-bindsym $mod+Print --release exec --no-startup-id "scrot -s ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym Print                      exec --no-startup-id "scrot    ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym $mod+Print       --release exec --no-startup-id "scrot -s ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym $mod+Shift+Print --release exec --no-startup-id "scrot -u ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 
 
 # Start Up Applications
@@ -254,6 +263,7 @@ bindsym $mod+Print --release exec --no-startup-id "scrot -s ~/Pictures/screensho
 exec --no-startup-id nitrogen --random --set-zoom-fill; sleep 1; compton -b
 exec --no-startup-id redshift-gtk
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id dunst
 exec --no-startup-id mpd
 
@@ -265,6 +275,7 @@ bindsym $mod+x       exec firefox
 bindsym $mod+v       exec gvim
 bindsym $mod+Shift+v exec gvim -S ~/.vim/sesh.vim
 bindsym $mod+p       exec zathura
+bindsym $mod+t       exec artha
 
 
 # Desktop
