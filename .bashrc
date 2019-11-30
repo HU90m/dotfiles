@@ -26,6 +26,8 @@ export VISUAL="vim"
 alias q="exit"
 alias h="history"
 alias ll="ls -hl"
+alias la="ls -ha"
+alias lla="ls -hla"
 alias du="du -h"
 alias df="df -h"
 alias d="dirs -v"
@@ -44,3 +46,9 @@ alias sotonvpn="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.
 # Change GNU Readlines to vi
 # I have changed this universally in ~/.inputrc
 #set -o vi
+
+# functions
+function za {
+    zathura $1 &
+    disown zathura
+}
