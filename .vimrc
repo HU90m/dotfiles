@@ -135,21 +135,25 @@ syntax on
 
 " GVim settings
 if has('gui_running')
-  " Remove tool-bar
-  set go-=T
+    " Remove tool-bar
+    set go-=T
 
-  " Remove menu-bar
-  set go-=m
+    " Remove menu-bar
+    set go-=m
 
-  " Remove scroll-bar
-  set go-=r
+    " Remove scroll-bar
+    set go-=r
 
-  " Sets font
-  set guifont=Droid\ Sans\ Mono\ 13
+    " Sets font
+    set guifont=Droid\ Sans\ Mono\ 13
 
-  " Set the size
-  set lines=40 columns=90
+    " Set the size
+    set lines=40 columns=90
 
-  " Sets colorsheme
-  colorscheme peachpuff
+    " Sets colorsheme
+    colorscheme peachpuff
+else
+    " Creates a 'ruler' to be used as guide at column 80
+    highlight ColorColumn ctermbg=0 guibg=lightgrey
+    set colorcolumn=80
 endif
