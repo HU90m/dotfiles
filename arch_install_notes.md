@@ -298,6 +298,17 @@ xfce4-power-manager
 light
 ```
 
+### Bluetooth
+install
+```
+blueman
+```
+enable and default to off at start up
+```bash
+systemctl enable bluetooth
+gsettings set org.blueman.plugins.powermanager auto-power-on false
+```
+
 
 ### Terminal Programs
 install
@@ -418,7 +429,22 @@ echo "hello" | lpr
 ```
 
 
-
+### Clock Synchronisation
+install
+```
+ntp
+```
+to synchronise time once per boot
+```bash
+systemctl enable ntpdate.service
+```
+To update the hardware clock as well,
+make `/etc/systemd/system/ntpdate.service.d/hwclock.conf`
+and insert
+```
+[Service]
+ExecStart=/usr/bin/hwclock -w
+```
 
 
 ### Steam
