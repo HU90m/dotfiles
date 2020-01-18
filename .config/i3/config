@@ -10,6 +10,7 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec alacritty -e tmux
 bindsym $mod+Shift+Return exec i3-sensible-terminal
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -21,9 +22,6 @@ bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 
 # Window Manipulation
@@ -71,11 +69,11 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-bindsym $mod+z focus child
+bindsym $mod+Shift+a focus child
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 
@@ -174,7 +172,7 @@ mode "$mode_system" {
     bindsym s       exec --no-startup-id $Locker && systemctl suspend,   mode "default"
     bindsym h       exec --no-startup-id $Locker && systemctl hibernate, mode "default"
     bindsym r       exec --no-startup-id systemctl reboot,               mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i,          mode "default"  
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i,          mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -274,16 +272,27 @@ bindsym $mod+c       exec qutebrowser
 bindsym $mod+x       exec firefox
 bindsym $mod+v       exec gvim
 bindsym $mod+Shift+v exec gvim -S ~/.vim/sesh.vim
-bindsym $mod+p       exec zathura
-bindsym $mod+t       exec artha
+bindsym $mod+z       exec zathura
+bindsym $mod+w       exec artha
+
+
+# Commands
+#----------
+bindsym $mod+semicolon exec xclip -o -selection primary | xclip -i -selection clipboard
+bindsym $mod+p         exec xsel -p | flite -voice /home/hugo/misc/voices/cmu_us_jmk.flitevox
+bindsym $mod+Shift+p   exec pkill flite
 
 
 # Desktop
 #---------
+# default
 bindsym $mod+Prior exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym $mod+Next  exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym $mod+m     exec --no-startup-id pactl set-sink-mute   0 toggle
 
+# bluetooth headset tends to be sink 1
+bindsym $mod+Home  exec --no-startup-id pactl set-sink-volume 1 +5%
+bindsym $mod+End   exec --no-startup-id pactl set-sink-volume 1 -5%
 
 # Laptop
 #--------
