@@ -19,6 +19,9 @@ nnoremap N Nzz
 nnoremap <Leader><C-W>t <C-W>t
 nnoremap <C-W>t <C-W>v<C-W>T
 
+" Insert Mode Remaps
+inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
+
 " Splitting Preferences
 set splitright
 set splitbelow
@@ -90,9 +93,6 @@ set wrap
 " Wrap on breatat character
 set linebreak
 
-" Adds automatic new line (text width)
-"set tw=80
-
 " Enable Backspace
 set bs=2
 
@@ -127,9 +127,6 @@ set ruler
 " Activates/deactivates line numbers
 set nonumber
 
-" Let there be colour!
-colorscheme ron
-
 " Set syntax highlighting
 syntax on
 
@@ -152,8 +149,19 @@ if has('gui_running')
 
     " Sets colorsheme
     colorscheme peachpuff
+
+    " Creates a 'ruler' to be used as guide at column 80
+    "highlight ColorColumn ctermbg=0 guibg=#e3c1a5
+    "set colorcolumn=80
 else
+    " Let there be colour!
+    colorscheme ron
+
+    " Adds automatic new line (text width)
+    set tw=80
+
     " Creates a 'ruler' to be used as guide at column 80
     highlight ColorColumn ctermbg=0 guibg=lightgrey
     set colorcolumn=80
+
 endif
