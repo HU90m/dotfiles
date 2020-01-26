@@ -1,5 +1,10 @@
 # Arch Install Notes
 
+## Making bootable USB
+```bash
+dd bs=4M if=path/to/archlinux.iso of=/dev/sdx status=progress oflag=sync
+```
+
 ## Install Commands
 
 ### Set the Keyboard Layout
