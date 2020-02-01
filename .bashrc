@@ -39,9 +39,17 @@ alias tls="tmux ls"
 alias rm="rm -i"
 alias cp="cp -i"
 
-# because I can never remember
+# preferences
 alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
+alias flite="flite -voice /home/hugo/misc/voices/cmu_us_awb.flitevox"
+
+# because I can never remember
 alias sotonvpn="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
+alias sshsoton="ssh hm6g17@ssh.soton.ac.uk"
+alias sshiridis5="ssh hm6g17@iridis5_a.soton.ac.uk"
+alias MountSD="sudo mount /dev/sdb /mnt/one/ -o uid=1000,gid=1000"
+
+
 
 # Change GNU Readlines to vi
 # I have changed this universally in ~/.inputrc
@@ -49,6 +57,6 @@ alias sotonvpn="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.
 
 # functions
 function za {
-    zathura $1 &
+    zathura "$1" &
     disown zathura
 }
