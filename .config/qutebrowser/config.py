@@ -27,7 +27,8 @@ c.url.searchengines = {
     'DEFAULT': 'https://www.duckduckgo.com/?q={}',
     'wikipedia': 'https://en.wikipedia.org/w/index.php?search={}',
     'google': 'https://google.com/search?q={}',
-    'maps': 'https://maps.google.com/?q={}'
+    'scholar': 'https://scholar.google.com/scholar?hl=en&q={}',
+    'maps': 'https://maps.google.com/?q={}',
 }
 
 # Page(s) to open at the start.
@@ -38,11 +39,6 @@ c.url.start_pages = ['about:blank']
 # for a blank page.
 # Type: FuzzyUrl
 c.url.default_page = 'about:blank'
-
-# Default monospace fonts. Whenever "monospace" is used in a font
-# setting, it's replaced with the fonts listed here.
-# Type: Font
-c.fonts.monospace = 'Monospace, "Noto Sans Mono"'
 
 # Always restore open sites when qutebrowser is reopened.
 # Type: Bool
