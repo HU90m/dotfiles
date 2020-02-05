@@ -112,8 +112,8 @@ generate /etc/adjtime
 hwclock --systohc
 ```
 
-
 ### Install Grub
+For UEFI systems don't use grub use bootctl (part of the systemd suit)
 ```bash
 pacman -S grub
 ```
@@ -126,6 +126,40 @@ grub-install --bootloader-id=GRUB --target=i386-pc /dev/sda
 generate grub config
 ```bash
 grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### Bootctl
+[For more information](https://wiki.archlinux.org/index.php/Systemd-boot)
+#### Install
+```
+bootctl install
+```
+
+#### Configuration
+/boot/loader/loader.conf
+```
+default arch-lts
+```
+
+/boot/loader/entries/arch.conf
+```
+title Arch Linux
+linux /vmlinuz-linux
+initrd /initramfs-linux.img
+options root=PARTUUID=982aebe0-23f7-4d2c-9f01-06164fe84421  rw
+```
+
+/boot/loader/entries/arch-lts.conf
+```
+title Arch Linux LTS Kernel
+linux /vmlinuz-linux-lts
+initrd /initramfs-linux-lts.img
+options root=PARTUUID=982aebe0-23f7-4d2c-9f01-06164fe84421  rw
+```
+
+Use the following command to find the PARTUUID of the root partition:
+```bash
+blkid
 ```
 
 
