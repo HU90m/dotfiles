@@ -281,7 +281,7 @@ bindsym $mod+w       exec artha
 # Commands
 #----------
 bindsym $mod+semicolon exec xclip -o -selection primary | xclip -i -selection clipboard
-bindsym $mod+p         exec xsel -p | flite -voice /home/hugo/misc/voices/cmu_us_jmk.flitevox
+bindsym $mod+p         exec xsel -p | flite -voice ~/.config/flite/misc/voices/cmu_us_jmk.flitevox
 bindsym $mod+Shift+p   exec pkill flite
 
 

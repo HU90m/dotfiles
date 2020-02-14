@@ -41,7 +41,7 @@ alias cp="cp -i"
 
 # preferences
 alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
-alias flite="flite -voice /home/hugo/misc/voices/cmu_us_awb.flitevox"
+alias flite="flite -voice ~/.config/flite/voices/cmu_us_awb.flitevox"
 
 # because I can never remember
 alias sotonvpn="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
