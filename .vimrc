@@ -22,6 +22,9 @@ nnoremap <C-W>t <C-W>v<C-W>T
 " Insert Mode Remaps
 inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
 
+" Commands
+command SaveSesh mksession! ~/.vim/sesh.vim
+
 " Splitting Preferences
 set splitright
 set splitbelow
