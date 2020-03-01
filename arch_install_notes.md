@@ -417,6 +417,32 @@ mkdir -p ~/.config/mpd/playlists
 mkdir -p ~/Music/Songs
 ```
 
+### XDG default applications
+query what mime type a file is
+```bash
+xdg-mime query filetype file.pdf
+```
+
+get a list of the applications' desktop files
+```bash
+ls /usr/share/applications/
+```
+
+change the default application for a mime type
+```bash
+xdg-mime default org.pwmt.zathura.desktop application/pdf
+```
+
+query what application is used for a mime type
+```bash
+xdg-mime query default application/pdf
+```
+
+open files with your new defaults
+```bash
+xdg-open file.pdf
+```
+
 
 ### Printer
 #### Drivers
