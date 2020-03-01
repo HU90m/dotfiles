@@ -24,6 +24,7 @@ inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
 
 " Commands
 command SaveSesh mksession! ~/.vim/sesh.vim
+command RemoveTrailing %s/\s\+$//g
 
 " Splitting Preferences
 set splitright
