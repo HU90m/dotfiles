@@ -13,7 +13,9 @@ loadkeys /usr/share/kbd/keymaps/i386/qwerty/uk.map.gz
 ```
 
 ### Verify the Boot Mode
-if the below exists UEFI mode is enabled
+if the below exists UEFI mode is enabled and you should follow the *EFI*
+instructions, else follow the normal instructions.
+You may have to disable secure boot in the motherboard settings to use *EFI*.
 ```bash
 ls /sys/firmware/efi/efivars
 ```
@@ -26,13 +28,38 @@ ip link
 
 bring interface up
 ```bash
-ip link wlp7s0 up
+ip link set wlp7s0 up
 ```
 
-if wifi, connect to wireless access point
-```bash
-wpa_supplicant -B -d -i wlp7s0 -c <(wpa_passphrase Winifred 126Mayfield)
+Make a file called `/etc/wpa_supplicant/wpa_supplicant.conf` containing
 ```
+ctrl_interface=/run/wpa_supplicant
+update_config=1
+```
+
+start *wpa\_supplicant* and run
+```bash
+wpa_supplicant -B -i wlp7s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_cli
+```
+
+then in the interactive prompt
+```
+> scan
+> scan_results
+> add_network
+> set_network 0 ssid "YourSSID"
+> set_network 0 psk "passphrase"
+> enable_network 0
+> save_config
+> quit
+```
+
+then grab an ip address manually
+```bash
+dhcpcd wlp7s0
+```
+
 
 ### Update System Clock
 ```bash
@@ -52,6 +79,19 @@ fdisk /dev/sdX
 
 Possible Layout:
 
+
+if *EFI*,
+
+| Mount     | Partition | Type                | Size                 |
+|-----------|-----------|---------------------|----------------------|
+| /mnt/boot | /dev/sdX1 | EFI System          | 256-512MB            |
+| [SWAP]    | /dev/sdX2 | Linux Swap          | ~RAM size            |
+| /mnt      | /dev/sdX3 | Linux root (x86-64) | 30GB                 |
+| /mnt/home | /dev/sdX4 | Linux home          | the rest of the disk |
+
+
+else,
+
 | Mount     | Partition | Type                | Size                 |
 |-----------|-----------|---------------------|----------------------|
 | /mnt/boot | /dev/sdX1 | BIOS boot           | 256-512MB            |
@@ -62,9 +102,18 @@ Possible Layout:
 
 ### Format Partitions
 ```bash
-mkfs.ext4 /dev/sdX1
 mkfs.ext4 /dev/sdX3
 mkfs.ext4 /dev/sdX4
+```
+
+if *EFI*,
+```bash
+mkfs.vfat /dev/sdX1
+```
+
+else,
+```bash
+mkfs.ext4 /dev/sdX1
 ```
 
 ### Swap
@@ -84,8 +133,12 @@ mount /dev/sdX4 /mnt/home
 ### Install Base Packages
 you can also install other stuff to make your life easier
 ```bash
-pacstrap /mnt base base-devel neovim networkmanager
+pacstrap /mnt base linux linux-firmware base-devel vim networkmanager
 ```
+If you are running a desktop, try the `linux-zen` kernel instead of `linux`.
+If you want stability, try the `linux-lts` kernel instead of `linux`.
+Can't decide? Install them all and decide at boot.
+
 
 
 ### Generate File Systems Table
@@ -112,8 +165,23 @@ generate /etc/adjtime
 hwclock --systohc
 ```
 
-### Install Grub
-For UEFI systems don't use grub use bootctl (part of the systemd suit)
+### Localisation
+```bash
+vim /etc/locale.gen
+```
+
+uncomment all beginning with en\_GB
+```bash
+locale-gen
+```
+
+### Microcode
+This will put an image in the boot partition.
+```bash
+pacman -S amd-ucode
+```
+
+### if not *EFI*, Install Grub
 ```bash
 pacman -S grub
 ```
@@ -128,14 +196,16 @@ generate grub config
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-### Bootctl
+### if *EFI*, Install Bootctl
 [For more information](https://wiki.archlinux.org/index.php/Systemd-boot)
+
 #### Install
-```
+```bash
 bootctl install
 ```
 
 #### Configuration
+
 /boot/loader/loader.conf
 ```
 default arch-lts
@@ -145,16 +215,18 @@ default arch-lts
 ```
 title Arch Linux
 linux /vmlinuz-linux
+initrd /amd-ucode.img
 initrd /initramfs-linux.img
-options root=PARTUUID=982aebe0-23f7-4d2c-9f01-06164fe84421  rw
+options root="PARTUUID=982aebe0-23f7-4d2c-9f01-06164fe84421"  rw
 ```
 
 /boot/loader/entries/arch-lts.conf
 ```
 title Arch Linux LTS Kernel
 linux /vmlinuz-linux-lts
+initrd /amd-ucode.img
 initrd /initramfs-linux-lts.img
-options root=PARTUUID=982aebe0-23f7-4d2c-9f01-06164fe84421  rw
+options root="PARTUUID=982aebe0-23f7-4d2c-9f01-06164fe84421"  rw
 ```
 
 Use the following command to find the PARTUUID of the root partition:
@@ -162,15 +234,10 @@ Use the following command to find the PARTUUID of the root partition:
 blkid
 ```
 
-
-### Localisation
+### Init RAM File System
+recreate initramfs image (not usually required unless using LVM, RAID, system encryption, etc...)
 ```bash
-vim /etc/locale.gen
-```
-
-uncomment all beginning with en\_GB
-```bash
-locale-gen
+mkinitcpio -P
 ```
 
 ### Keyboard
@@ -188,15 +255,17 @@ echo "127.0.0.1  localhost" >> /etc/hosts
 echo "::1        localhost" >> /etc/hosts
 ```
 
-### Init RAM File System
-recreate initramfs image (not usually required unless using LVM, RAID, system encryption, etc...)
-```bash
-mkinitcpio -p linux
-```
-
 ### Change root password
 ```bash
 passwd
+```
+
+### Reboot
+```bash
+exit
+umount /mnt/boot
+umount /mnt
+reboot
 ```
 
 
@@ -206,6 +275,11 @@ passwd
 enables Network Manager on start-up
 ```bash
 systemctl enable NetworkManager
+```
+
+start Network Manager
+```bash
+systemctl start NetworkManager
 ```
 
 list wifi access point
@@ -227,7 +301,7 @@ pacman -S sudo
 
 open config using this command
 ```bash
-visudo
+EDITOR=vim visudo
 ```
 uncomment this line: `%wheel ALL=(ALL) ALL`
 
@@ -252,10 +326,28 @@ su hugo
 ### SSH
 install ssh
 ```bash
-sudo pacman -S openssh
+pacman -S openssh
 ```
 will be up and running on the next restart
 its service is called sshd and can be controlled via systemd
+
+get the ip address of the active interfaces
+```bash
+ip addr
+```
+
+
+to enable X11 Forwarding
+```bash
+pacman -S xorg-xauth xorg-xhost
+```
+in `/etc/ssh/sshd_config` set the following
+```
+AllowTcpForwarding yes
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+```
 
 ### Enable Multi-lib
 ```bash
@@ -414,7 +506,7 @@ config
 make directories
 ```bash
 mkdir -p ~/.config/mpd/playlists
-mkdir -p ~/Music/Songs
+mkdir -p ~/Audio/Music/Songs
 ```
 
 ### XDG default applications
@@ -445,6 +537,7 @@ xdg-open file.pdf
 
 
 ### Printer
+
 #### Drivers
 install printer driver collection
 ```
@@ -510,6 +603,35 @@ and insert
 [Service]
 ExecStart=/usr/bin/hwclock -w
 ```
+
+
+### Password Store
+to get a password (use -c flag to copy to clipboard)
+```bash
+pass path/password_name
+```
+generate a new password of 14 characters (use -n flag for no symbols)
+```bash
+pass generate path/password_name 14
+```
+generate a random password of 14 characters
+```bash
+pwgen -cny 14 1
+```
+insert a password into the store
+```bash
+pass insert path/password_name
+```
+remove a password
+```bash
+pass rm path/password_name
+```
+Change the gpg key of the password store
+where $(gpg-id) is the new key.
+```bash
+pass init [-p path] $(gpg-id)
+```
+
 
 
 ### Steam
