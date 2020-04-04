@@ -633,6 +633,22 @@ pass init [-p path] $(gpg-id)
 ```
 
 
+### Trackpad Settings
+find your trackpad's id
+```bash
+xinput list
+```
+list properties you can change
+```bash
+xinput list-props <trackpad-id>
+```
+change property
+```bash
+xinput set-prop <trackpad-id> <property-id> <setting>
+```
+One can use the name string as oppose to the id.
+(Properties with the 'Default' suffix are the read-only start-up settings.)
+
 
 ### Steam
 requires multi-lib
