@@ -23,8 +23,10 @@ nnoremap <C-W>t <C-W>v<C-W>T
 inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
 
 " Commands
+command PandocToPDF !pandoc % -o %:r.pdf -V geometry:margin=6em -V fontsize=12pt
 command SaveSesh mksession! ~/.vim/sesh.vim
 command RemoveTrailing %s/\s\+$//g
+command W w
 
 " Splitting Preferences
 set splitright
@@ -94,6 +96,10 @@ set autoindent
 " Enables text wrapping
 set wrap
 
+" Disables automatic new line (text width)
+set tw=0
+set tm=0
+
 " Wrap on breatat character
 set linebreak
 
@@ -154,18 +160,11 @@ if has('gui_running')
     " Sets colorsheme
     colorscheme peachpuff
 
-    " Creates a 'ruler' to be used as guide at column 80
-    "highlight ColorColumn ctermbg=0 guibg=#e3c1a5
-    "set colorcolumn=80
 else
     " Let there be colour!
     colorscheme ron
 
-    " Adds automatic new line (text width)
-    set tw=80
-
     " Creates a 'ruler' to be used as guide at column 80
     highlight ColorColumn ctermbg=0 guibg=lightgrey
     set colorcolumn=80
-
 endif

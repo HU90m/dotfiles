@@ -25,9 +25,9 @@ export VISUAL="vim"
 # time savers
 alias q="exit"
 alias h="history"
+alias l="ls -A"
 alias ll="ls -hl"
-alias la="ls -ha"
-alias lla="ls -hla"
+alias la="ls -hlA"
 alias du="du -h"
 alias df="df -h"
 alias d="dirs -v"
@@ -36,8 +36,9 @@ alias sls="screen -ls"
 alias tls="tmux ls"
 
 # safety
-alias rm="rm -i"
-alias cp="cp -i"
+alias rm="rm -vir"
+alias cp="cp -vir"
+alias mv="mv -v"
 
 # preferences
 alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
@@ -46,7 +47,8 @@ alias flite="flite -voice ~/.config/flite/voices/cmu_us_awb.flitevox"
 # because I can never remember
 alias sotonvpn="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
 alias sshsoton="ssh hm6g17@ssh.soton.ac.uk"
-alias sshiridis5="ssh hm6g17@iridis5_a.soton.ac.uk"
+alias sshiridis5="ssh -J hm6g17@ssh.soton.ac.uk hm6g17@iridis5_a.soton.ac.uk"
+alias sshjustiridis5="ssh hm6g17@iridis5_a.soton.ac.uk"
 alias sshpi="ssh pi@192.168.0.10"
 alias MountSD="sudo mount /dev/sdb /mnt/one/ -o uid=1000,gid=1000"
 
