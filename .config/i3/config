@@ -259,6 +259,11 @@ bindsym $mod+Print       --release exec --no-startup-id "scrot -s ~/Pictures/scr
 bindsym $mod+Shift+Print --release exec --no-startup-id "scrot -u ~/Pictures/screenshots/$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 
 
+# Start Up Hardware Setup
+#-------------------------
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+
 # Start Up Applications
 #-----------------------
 exec --no-startup-id nitrogen --random --set-zoom-fill; sleep 1; compton -b
@@ -267,6 +272,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id dunst
 exec --no-startup-id mpd
+exec --no-startup-id safeeyes
 
 
 # Applications
@@ -282,8 +288,9 @@ bindsym $mod+w       exec artha
 # Commands
 #----------
 bindsym $mod+semicolon exec xclip -o -selection primary | xclip -i -selection clipboard
-bindsym $mod+p         exec xsel -p | flite -voice ~/.config/flite/misc/voices/cmu_us_jmk.flitevox
-bindsym $mod+Shift+p   exec pkill flite
+bindsym $mod+i         exec xsel -p | flite -voice ~/.config/flite/voices/cmu_us_jmk.flitevox
+bindsym $mod+Shift+i   exec pkill flite
+bindsym $mod+p         exec passmenu
 
 
 # Desktop
