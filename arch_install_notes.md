@@ -411,6 +411,7 @@ redshift python-gobject
 network-manager-applet
 dunst
 scrot
+flite
 ```
 (gobject needed for redshift)
 
@@ -421,6 +422,8 @@ configs and files
 ~/.config/i3/config
 ~/.config/i3status/config
 ~/.config/alacritty/alacritty.yml
+~/.config/flite/voices/cmu_us_awb.flitevox
+~/.config/flite/voices/cmu_us_jmk.flitevox
 ```
 
 install laptop specific programs
@@ -507,9 +510,9 @@ config
 ```
 ~/.config/mpd/mpd.conf
 ```
-make directories
+make directories and enable socket
 ```bash
-mkdir -p ~/.config/mpd/playlists
+mkdir -p ~/Audio/Music/Playlists
 mkdir -p ~/Audio/Music/Songs
 ```
 
@@ -610,6 +613,14 @@ ExecStart=/usr/bin/hwclock -w
 
 
 ### Password Store
+install
+```
+pass yubikey-manager
+```
+enable smartcard daemon
+```bash
+systemctl enable pcscd.socket
+```
 to get a password (use -c flag to copy to clipboard)
 ```bash
 pass path/password_name
