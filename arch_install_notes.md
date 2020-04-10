@@ -405,8 +405,8 @@ noto-fonts noto-fonts-emoji
 
 install programs used in config
 ```
-compton
-nitrogen
+picom
+feh
 redshift python-gobject
 network-manager-applet
 dunst
@@ -425,8 +425,12 @@ configs and files
 
 install laptop specific programs
 ```
-xfce4-power-manager
 light
+cbatticon
+```
+add user to video group for light program
+```bash
+usermod -a -G video hugo
 ```
 
 ### Bluetooth

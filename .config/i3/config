@@ -266,7 +266,8 @@ exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natu
 
 # Start Up Applications
 #-----------------------
-exec --no-startup-id nitrogen --random --set-zoom-fill; sleep 1; compton -b
+exec --no-startup-id find ~/.wallpapers -type f | sort -R | head -1 | xargs feh --bg-scale
+exec --no-startup-id picom -b
 exec --no-startup-id redshift-gtk
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
@@ -296,14 +297,16 @@ bindsym $mod+p         exec passmenu
 # Desktop
 #---------
 # default
-bindsym $mod+Prior exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym $mod+Next  exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym $mod+m     exec --no-startup-id pactl set-sink-mute   0 toggle
+bindsym $mod+Prior exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
+bindsym $mod+Next  exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
+bindsym $mod+m     exec --no-startup-id pactl set-sink-mute   alsa_output.pci-0000_00_1f.3.analog-stereo toggle
 
-# bluetooth headset tends to be sink 1
-bindsym $mod+Home  exec --no-startup-id pactl set-sink-volume 1 +5%
-bindsym $mod+End   exec --no-startup-id pactl set-sink-volume 1 -5%
+# my bluetooth headphones
+bindsym $mod+Home  exec --no-startup-id pactl set-sink-volume bluez_sink.E8_AB_FA_30_AC_83.a2dp_sink +5%
+bindsym $mod+End   exec --no-startup-id pactl set-sink-volume bluez_sink.E8_AB_FA_30_AC_83.a2dp_sink -5%
 
 # Laptop
 #--------
-exec --no-startup-id xfce4-power-manager
+exec --no-startup-id cbatticon
+bindsym $mod+bracketright exec --no-startup-id light -A 10%
+bindsym $mod+bracketleft exec --no-startup-id light -U 10%
