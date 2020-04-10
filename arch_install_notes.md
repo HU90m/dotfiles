@@ -621,6 +621,10 @@ enable smartcard daemon
 ```bash
 systemctl enable pcscd.socket
 ```
+clone password store
+```bash
+git clone https://github.com/HU90m/ssssssh ~/.password-store
+```
 to get a password (use -c flag to copy to clipboard)
 ```bash
 pass path/password_name

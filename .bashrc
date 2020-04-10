@@ -36,7 +36,7 @@ alias sls="screen -ls"
 alias tls="tmux ls"
 
 # safety
-alias rm="rm -vir"
+alias rm="rm -ir"
 alias cp="cp -vir"
 alias mv="mv -v"
 
