@@ -45,13 +45,15 @@ alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
 alias flite="flite -voice ~/.config/flite/voices/cmu_us_awb.flitevox"
 
 # because I can never remember
-alias sotonvpn="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
+alias vpnsoton="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
 alias sshsoton="ssh hm6g17@ssh.soton.ac.uk"
 alias sshiridis5="ssh -J hm6g17@ssh.soton.ac.uk hm6g17@iridis5_a.soton.ac.uk"
 alias sshjustiridis5="ssh hm6g17@iridis5_a.soton.ac.uk"
-alias sshpi="ssh pi@192.168.0.10"
-alias MountSD="sudo mount /dev/sdb /mnt/one/ -o uid=1000,gid=1000"
+alias sshheadless="ssh pi@hms-headless.fritz.box"
 
+alias mntsd="sudo mount /dev/sdb -o uid=1000,gid=1000"
+alias mntheadless="sudo mount hms-headless.fritz.box:/mnt/one/"
+alias umnt="sudo umount"
 
 
 # Change GNU Readlines to vi
