@@ -55,6 +55,8 @@ alias mntsd="sudo mount /dev/sdb -o uid=1000,gid=1000"
 alias mntheadless="sudo mount hms-headless.fritz.box:/mnt/one/"
 alias umnt="sudo umount"
 
+alias changewallpaper="find ~/.wallpapers -type f | sort -R | head -1 | xargs feh --bg-fill"
+
 
 # Change GNU Readlines to vi
 # I have changed this universally in ~/.inputrc
