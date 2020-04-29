@@ -21,6 +21,12 @@ ls /sys/firmware/efi/efivars
 ```
 
 ### Connect to the Internet
+if you want to use wifi, first try wifi-menu.
+if it doesn't work continue with this section.
+```bash
+wifi-menu
+```
+
 to see the network devices
 ```bash
 ip link
@@ -166,11 +172,16 @@ hwclock --systohc
 ```
 
 ### Localisation
-```bash
-vim /etc/locale.gen
-```
 
 uncomment all beginning with en\_GB
+```
+/etc/locale.gen
+```
+
+```bash
+echo "LANG=en_GB.UTF-8" > /etc/locale.conf
+```
+
 ```bash
 locale-gen
 ```
