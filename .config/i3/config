@@ -267,7 +267,7 @@ exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natu
 # Start Up Applications
 #-----------------------
 exec --no-startup-id find ~/.wallpapers -type f | sort -R | head -1 | xargs feh --bg-fill
-exec --no-startup-id picom -b
+exec --no-startup-id picom --vsync -GCb
 exec --no-startup-id redshift-gtk
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
