@@ -1,7 +1,6 @@
 " Terminal Mode Maps
 tnoremap <Esc><Esc> <C-\><C-n>
 
-" Terminal Mode Remaps
 tnoremap <Leader><C-W>t <C-W>t
 tnoremap <C-W>t <C-W>v<C-W>T
 
@@ -9,11 +8,16 @@ tnoremap <C-W>t <C-W>v<C-W>T
 nnoremap <silent> <Leader>t :tabs<CR>
 nnoremap <silent> <Leader>s :set spell!<CR>
 
-" Normal Mode Remaps
-nnoremap <Leader>n n
-nnoremap n nzz
+nnoremap <silent> <Leader>j :n<CR>
+nnoremap <silent> <Leader>k :N<CR>
 
-nnoremap <Leader>N N
+nnoremap <silent> <Leader>w :up<CR>
+nnoremap <silent> <Leader>h :noh<CR>
+
+nnoremap <silent> <Leader>n n
+nnoremap <silent> <Leader>N N
+
+nnoremap n nzz
 nnoremap N Nzz
 
 nnoremap <Leader><C-W>t <C-W>t
@@ -98,7 +102,6 @@ set wrap
 
 " Disables automatic new line (text width)
 set tw=0
-set tm=0
 
 " Wrap on breatat character
 set linebreak
