@@ -388,6 +388,17 @@ sudo pacman -S nvidia
 
 ## Programs
 
+### Create a better mirror list
+install
+```
+reflector
+```
+run
+```bash
+reflector --country "United Kingdom" --age 12 --sort rate --save /etc/pacman.d/mirrorlist
+```
+
+
 ### Xorg
 install
 ```
