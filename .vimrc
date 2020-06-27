@@ -64,6 +64,10 @@ function! FoldText()
     return pre_body . body . post_body
 endfunction
 
+" Number of milliseconds to wait for a key sequence
+set timeout
+set timeoutlen=300
+
 " Tab bar verbosity
 set showtabline=0
 
@@ -155,7 +159,7 @@ if has('gui_running')
     set go-=r
 
     " Sets font
-    set guifont=Droid\ Sans\ Mono\ 13
+    set guifont=Droid\ Sans\ Mono\ 17
 
     " Set the size
     set lines=40 columns=90
