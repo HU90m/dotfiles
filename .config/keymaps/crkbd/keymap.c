@@ -12,13 +12,14 @@
 // Layer Keys
 #define LA2_TAB LT(LAY_LA2, KC_TAB)
 #define LI2_TAB LT(LAY_LI2, KC_TAB)
-
 #define LC3_ENT LT(LAY_LC3, KC_ENT)
-#define TG_LC5 TG(LAY_LC5)
-#define MO_LC6 MO(LAY_LC6)
 
+#define MO_LC6  MO(LAY_LC6)
+
+#define TG_LC7  TG(LAY_LC7)
 #define DF_LA1  DF(LAY_LA1)
 #define DF_LI1  DF(LAY_LI1)
+#define DF_LC5  DF(LAY_LC5)
 
 // Mod Tap Keys
 #define SFT_ESC LSFT_T(KC_ESC)
@@ -39,19 +40,20 @@ enum layer_names {
   LAY_LA2, //   ANSI Layer 2 (symbols and numbers)
   LAY_LC3, // Common Layer 3 (navigation)
   LAY_LC5, // Common Layer 5 (normal layout like)
-  LAY_LC6, // Common Layer 5 (lowered numbers for normal layout like)
+  LAY_LC6, // Common Layer 6 (lowered numbers for normal layout like)
+  LAY_LC7, // Common Layer 7 (for selecting default layer)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAY_LI1] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       DF_LA1,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_NUHS,\
+       TG_LC7,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_NUHS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_NUBS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            KC_NO, LI2_TAB, SFT_ESC,    CTL_SPC, LC3_ENT,  TG_LC5 \
+                                            KC_NO, LI2_TAB, SFT_ESC,    CTL_SPC, LC3_ENT,   KC_NO \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -69,13 +71,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAY_LA1] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       DF_LI1,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_HASH,\
+       TG_LC7,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_HASH,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            KC_NO, LA2_TAB, SFT_ESC,    CTL_SPC, LC3_ENT,  TG_LC5 \
+                                            KC_NO, LA2_TAB, SFT_ESC,    CTL_SPC, LC3_ENT,   KC_NO \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -111,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL,  MO_LC6,  KC_SPC,     KC_SPC,  KC_ENT, KC_TRNS \
+                                          KC_LCTL,  MO_LC6,  KC_SPC,     KC_SPC,  KC_ENT,  TG_LC7 \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -123,7 +125,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL, KC_TRNS,  KC_SPC,     KC_SPC,  KC_ENT, KC_TRNS \
+                                          KC_LCTL, KC_TRNS,  KC_SPC,     KC_SPC,  KC_ENT,   KC_NO \
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [LAY_LC7] = LAYOUT( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,  DF_LI1,  DF_LA1,  DF_LC5,   KC_NO,   KC_NO,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                            KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO, KC_TRNS \
                                       //`--------------------------'  `--------------------------'
   ),
 
