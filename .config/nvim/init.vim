@@ -1,5 +1,6 @@
 " Terminal Mode Maps
 tnoremap <Esc><Esc> <C-\><C-n>
+tnoremap <C-w> <C-\><C-N><C-w>
 
 " Normal Mode Maps
 nnoremap <silent> <Leader>t :tabs<CR>
