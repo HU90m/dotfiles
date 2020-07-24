@@ -89,26 +89,27 @@ gaps outer -2
 smart_gaps on
 smart_borders on
 
-floating_minimum_size 300 x 200
-floating_maximum_size 1680 x 945
+floating_minimum_size 300 x 225
+floating_maximum_size 3360 x 1920
 
 
 # Workspaces
 #-------------
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1  "1"
-set $ws2  "2"
-set $ws3  "3"
-set $ws4  "4"
-set $ws5  "5"
-set $ws6  "6"
-set $ws7  "7"
-set $ws8  "8"
-set $ws9  "9"
-set $ws10 "10"
+set $ws0 "0"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
 
 # switch to workspace
+bindsym $mod+0 workspace $ws0
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -118,9 +119,9 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
+bindsym $mod+Shift+0 move container to workspace $ws0
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -130,7 +131,6 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
 
 #navigate workspaces next / previous
 bindsym $mod+Ctrl+j workspace next
@@ -279,11 +279,11 @@ exec --no-startup-id safeeyes
 # Applications
 #--------------
 bindsym $mod+c       exec qutebrowser
-bindsym $mod+x       exec firefox
+bindsym $mod+w       exec firefox
 bindsym $mod+v       exec gvim
 bindsym $mod+Shift+v exec gvim -S ~/.vim/sesh.vim
 bindsym $mod+z       exec zathura
-bindsym $mod+w       exec artha
+bindsym $mod+u       exec artha
 
 
 # Commands
@@ -294,8 +294,13 @@ bindsym $mod+Shift+i   exec pkill flite
 bindsym $mod+p         exec passmenu
 
 
-# Desktop
-#---------
+# Window Specific Settings
+#--------------------------
+for_window [class="matplotlib"] floating enable
+
+
+# Audio
+#--------
 # default
 bindsym $mod+Prior exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
 bindsym $mod+Next  exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
