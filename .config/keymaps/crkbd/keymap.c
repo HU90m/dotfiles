@@ -14,8 +14,8 @@
 #define LI2_TAB LT(LAY_LI2, KC_TAB)
 #define LC3_ENT LT(LAY_LC3, KC_ENT)
 
-#define TG_LI2  TG(LAY_LI2)
-#define TG_LA2  TG(LAY_LA2)
+#define TT_LI2  TT(LAY_LI2)
+#define TT_LA2  TT(LAY_LA2)
 
 #define MO_LC6  MO(LAY_LC6)
 #define MO_LC8  MO(LAY_LC8)
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_NUBS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           MO_LC8,  TG_LI2, SFT_ESC,    CTL_SPC, LC3_ENT, ALT_TAB \
+                                           MO_LC8,  TT_LI2, SFT_ESC,    CTL_SPC, LC3_ENT, ALT_TAB \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           MO_LC8,  TG_LA2, SFT_ESC,    CTL_SPC, LC3_ENT, ALT_TAB \
+                                           MO_LC8,  TT_LA2, SFT_ESC,    CTL_SPC, LC3_ENT, ALT_TAB \
                                       //`--------------------------'  `--------------------------'
   ),
 
