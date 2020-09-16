@@ -425,6 +425,12 @@ install fonts
 noto-fonts noto-fonts-emoji
 ```
 
+for east Asian and south Korean fonts
+```
+opendesktop-fonts ttf-baekmuk
+```
+
+
 install programs used in config
 ```
 picom

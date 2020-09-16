@@ -14,6 +14,9 @@
 #define LI2_TAB LT(LAY_LI2, KC_TAB)
 #define LC3_ENT LT(LAY_LC3, KC_ENT)
 
+#define TT_LI2  TT(LAY_LI2)
+#define TT_LA2  TT(LAY_LA2)
+
 #define MO_LC6  MO(LAY_LC6)
 #define MO_LC8  MO(LAY_LC8)
 
@@ -25,6 +28,7 @@
 // Mod Tap Keys
 #define SFT_ESC LSFT_T(KC_ESC)
 #define CTL_SPC LCTL_T(KC_SPC)
+#define ALT_TAB LALT_T(KC_TAB)
 
 // Misc Keys
 #define SFT_GUI SGUI(KC_NO)
@@ -55,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_NUBS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           MO_LC8, LI2_TAB, SFT_ESC,    CTL_SPC, LC3_ENT, KC_LALT \
+                                           MO_LC8,  TT_LI2, SFT_ESC,    CTL_SPC, LC3_ENT, ALT_TAB \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -67,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,   KC_LT,   KC_GT, CURLY_L, CURLY_R, KC_CIRC,                         KC_0,    KC_1,    KC_2,    KC_3, KC_PERC,  UK_PND,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           MO_LC8, KC_TRNS, KC_LSFT,    CTL_SPC, KC_BSPC, KC_LALT \
+                                           MO_LC8, KC_TRNS, KC_LSFT,    CTL_SPC, KC_BSPC, ALT_TAB \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -79,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_BSLS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           MO_LC8, LA2_TAB, SFT_ESC,    CTL_SPC, LC3_ENT, KC_LALT \
+                                           MO_LC8,  TT_LA2, SFT_ESC,    CTL_SPC, LC3_ENT, ALT_TAB \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -91,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,   KC_LT,   KC_GT, CURLY_L, CURLY_R, KC_CIRC,                         KC_0,    KC_1,    KC_2,    KC_3, KC_PERC,   KC_NO,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           MO_LC8, KC_TRNS, KC_LSFT,    CTL_SPC, KC_BSPC, KC_LALT \
+                                           MO_LC8, KC_TRNS, KC_LSFT,    CTL_SPC, KC_BSPC, ALT_TAB \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -103,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SFT_GUI,   KC_NO,   KC_F1,   KC_F2,   KC_F3,  KC_F10,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, CTL_ALT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           MO_LC8,  KC_ESC,  KC_TAB,     KC_SPC, KC_TRNS, KC_LALT \
+                                           MO_LC8,  KC_ESC,  KC_TAB,     KC_SPC, KC_TRNS, ALT_TAB \
                                       //`--------------------------'  `--------------------------'
   ),
 
