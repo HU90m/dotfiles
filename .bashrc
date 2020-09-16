@@ -38,7 +38,7 @@ alias tls="tmux ls"
 # safety
 alias rm="rm -ir"
 alias cp="cp -vir"
-alias mv="mv -v"
+alias mv="mv -iv"
 
 # preferences
 alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
@@ -47,9 +47,11 @@ alias flite="flite -voice ~/.config/flite/voices/cmu_us_awb.flitevox"
 # because I can never remember
 alias vpnsoton="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
 alias sshsoton="ssh hm6g17@ssh.soton.ac.uk"
-alias sshiridis5="ssh -J hm6g17@ssh.soton.ac.uk hm6g17@iridis5_a.soton.ac.uk"
+alias sshiridis5="ssh -J hm6g17@ssh.soton.ac.uk hm6g17@iridis5_a.soton.ac.uk -Y"
 alias sshjustiridis5="ssh hm6g17@iridis5_a.soton.ac.uk"
-alias sshheadless="ssh pi@hms-headless.fritz.box"
+alias sshiridis4="ssh -J hm6g17@ssh.soton.ac.uk hm6g17@iridis4_b.soton.ac.uk -Y"
+alias sshjustiridis4="ssh hm6g17@iridis4_b.soton.ac.uk"
+alias sshheadless="ssh -Y pi@hms-headless.fritz.box"
 
 alias mntsd="sudo mount /dev/sdb -o uid=1000,gid=1000"
 alias mntheadless="sudo mount hms-headless.fritz.box:/mnt/one/"
@@ -64,6 +66,25 @@ alias changewallpaper="find ~/.wallpapers -type f | sort -R | head -1 | xargs fe
 
 # functions
 function za {
-    zathura "$1" &
-    disown zathura
+    for pdffile in "$@"
+    do
+        zathura "$pdffile" 2>/dev/null 1>/dev/null &
+        disown zathura
+    done
+}
+
+function g {
+    for file in "$@"
+    do
+        name="$(basename "$file")"
+        ext="${name##*.}"
+        case $ext in
+            "jpg"|"png")
+                sxiv "$file";;
+            "pdf")
+                za "$file";;
+            *)
+                cd "$file";;
+        esac
+    done
 }
