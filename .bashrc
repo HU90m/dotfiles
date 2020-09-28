@@ -80,10 +80,13 @@ function g {
         ext="${name##*.}"
         case $ext in
             "jpg"|"png")
+                echo "sxiv $file"
                 sxiv "$file";;
             "pdf")
+                echo "za $file"
                 za "$file";;
             *)
+                echo "cd $file"
                 cd "$file";;
         esac
     done
