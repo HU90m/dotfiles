@@ -10,7 +10,11 @@
 HISTSIZE=100000
 
 # prompt
-export PS1="\[\e[1m\] \u@\h:\[\e[35m\]\w\[\e[0m\e[2m\]\n \[\e[0m\]\$ "
+function return_value() {
+    RETURN_VAL=$?
+    [ $RETURN_VAL -ne 0 ] && echo " $RETURN_VAL |"
+}
+export PS1="\[\e[1;31m\]\$(return_value)\[\e[97m\] \u@\h:\[\e[35m\]\w\[\e[0m\e[2m\]\n \[\e[0m\]\$ "
 
 # colour
 alias ls='ls --color=auto'
