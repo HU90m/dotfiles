@@ -3,6 +3,8 @@ set editing-mode vi
 
 # show vi mode
 set show-mode-in-prompt on
+set vi-ins-mode-string " + "
+set vi-cmd-mode-string " : "
 
 # no terminal bell
 set bell-style none
