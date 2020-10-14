@@ -560,6 +560,11 @@ change the default application for a mime type
 xdg-mime default org.pwmt.zathura.desktop application/pdf
 ```
 
+change default browser
+```bash
+xdg-settings set default-web-browser firefox.desktop
+```
+
 query what application is used for a mime type
 ```bash
 xdg-mime query default application/pdf
