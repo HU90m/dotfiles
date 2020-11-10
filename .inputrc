@@ -1,3 +1,5 @@
+# Vi
+# --
 # set vi readlines
 set editing-mode vi
 
@@ -6,8 +8,26 @@ set show-mode-in-prompt on
 set vi-ins-mode-string " + "
 set vi-cmd-mode-string " : "
 
-# no terminal bell
-set bell-style none
+# Completion
+# ----------
+# ignore case on auto completion
+set completion-ignore-case on
+
+# max common characters to be present before using ellipsis (eg. ...-0.pdf)
+set completion-prefix-display-length 3
 
 # show completion matches immediately
 set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# uses LS_COLORS environment varaible to colour file completions
+set colored-stats on
+
+# add slash suffix to symlink directories
+set mark-symlinked-directories on
+
+
+# Misc
+# ----
+# no terminal bell
+set bell-style none
