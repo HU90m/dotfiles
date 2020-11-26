@@ -1,3 +1,4 @@
+" Enable or disable plug-ins (see bottom of file)
 let use_plugins = 1
 
 " Terminal Mode Maps
@@ -111,7 +112,7 @@ set wrap
 " Disables automatic new line (text width)
 set tw=0
 
-" Wrap on breatat character
+" Wrap on a 'break-at' character
 set linebreak
 
 " Enable Backspace
@@ -130,12 +131,12 @@ set showcmd
 set spelllang=en_gb
 
 " Activates/deactivates spell-check
-set spell
+set nospell
 
 " Activates/deactivates highlighting search results
 set hlsearch
 
-" Wildmenu
+" Wild Menu
 set wildmode=longest,list
 set wildmenu
 
@@ -183,7 +184,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 highlight Folded ctermbg=NONE guibg=NONE
 
 
-" Plugins
+" Plug-ins
 if use_plugins
     call plug#begin('~/.config/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
