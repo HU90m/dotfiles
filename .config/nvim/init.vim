@@ -1,3 +1,5 @@
+let use_plugins = 1
+
 " Terminal Mode Maps
 tnoremap <Esc><Esc> <C-\><C-n>
 tnoremap <C-w> <C-\><C-N><C-w>
@@ -68,7 +70,7 @@ endfunction
 
 " Number of milliseconds to wait for a key sequence
 set timeout
-set timeoutlen=400
+set timeoutlen=600
 
 " Tab bar verbosity
 set showtabline=0
@@ -179,3 +181,28 @@ endif
 " Colours
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 highlight Folded ctermbg=NONE guibg=NONE
+
+
+" Plugins
+if use_plugins
+    call plug#begin('~/.config/nvim/plugged')
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'flazz/vim-colorschemes'
+    call plug#end()
+
+    " neovim/nvim-lspconfig
+    lua require('lspconfig').jedi_language_server.setup{}
+
+    set omnifunc=v:lua.vim.lsp.omnifunc
+
+    nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap <silent> <Leader>r <cmd>lua vim.lsp.buf.rename()<CR>
+
+    " flazz/vim-colorschemes
+    colorscheme janah
+endif
+
+
