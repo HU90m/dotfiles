@@ -12,3 +12,4 @@ ln -vs ~1/.config/i3
 ln -vs ~1/.config/alacritty
 ln -vs ~1/.config/picom
 ln -vs ~1/.config/safeeyes
+ln -vs ~1/.config/nvim

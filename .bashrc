@@ -14,7 +14,7 @@ function return_value() {
     RETURN_VAL=$?
     [ $RETURN_VAL -ne 0 ] && echo " $RETURN_VAL |"
 }
-export PS1="\[\e[1;31m\]\$(return_value)\[\e[97m\] \u@\h:\[\e[35m\]\w\[\e[0m\e[2m\]\n \[\e[0m\]\$ "
+export PS1="\[\e[1;31m\]\$(return_value)\[\e[97m\] \u@\h:\[\e[35m\]\w\[\e[0m\]\n\$ "
 
 # colour
 alias ls='ls --color=auto'
@@ -38,6 +38,7 @@ alias d="dirs -v"
 alias pd="pushd"
 alias sls="screen -ls"
 alias tls="tmux ls"
+alias nterm="nvim +term +startinsert"
 
 # safety
 alias rm="rm -ir"
