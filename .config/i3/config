@@ -300,6 +300,7 @@ bindsym $mod+p         exec passmenu
 # windom class found using xprop
 for_window [class="matplotlib"] floating enable
 for_window [class="Sxiv"] floating enable
+for_window [class="Gvim"] floating enable
 
 
 # Audio
