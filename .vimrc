@@ -160,7 +160,7 @@ if has('gui_running')
     set go-=r
 
     " Sets font
-    set guifont=Droid\ Sans\ Mono\ 17
+    set guifont=Monospace\ 17
 
     " Set the size
     set lines=40 columns=90

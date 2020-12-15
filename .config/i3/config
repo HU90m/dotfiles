@@ -10,6 +10,7 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+Return exec alacritty -e tmux
+bindsym $mod+Ctrl+Return exec alacritty -e nvim -c term -c "normal a"
 bindsym $mod+BackSpace exec alacritty -e python
 
 # kill focused window
@@ -296,7 +297,9 @@ bindsym $mod+p         exec passmenu
 
 # Window Specific Settings
 #--------------------------
+# windom class found using xprop
 for_window [class="matplotlib"] floating enable
+for_window [class="Sxiv"] floating enable
 
 
 # Audio

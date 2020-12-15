@@ -192,7 +192,12 @@ if use_plugins
     call plug#end()
 
     " neovim/nvim-lspconfig
+    "   python:
     lua require('lspconfig').jedi_language_server.setup{}
+    "   latex:
+    lua require('lspconfig').texlab.setup{}
+    "   rust:
+    lua require('lspconfig').rust_analyzer.setup{}
 
     set omnifunc=v:lua.vim.lsp.omnifunc
 
