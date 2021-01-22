@@ -13,3 +13,6 @@ ln -vs ~1/.config/alacritty
 ln -vs ~1/.config/picom
 ln -vs ~1/.config/safeeyes
 ln -vs ~1/.config/nvim
+
+cd ~/.ssh
+ln -vs ~1/.ssh/config
