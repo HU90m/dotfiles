@@ -189,6 +189,7 @@ if use_plugins
     call plug#begin('~/.config/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
     Plug 'flazz/vim-colorschemes'
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     call plug#end()
 
     " neovim/nvim-lspconfig
@@ -209,6 +210,10 @@ if use_plugins
 
     " flazz/vim-colorschemes
     colorscheme janah
+
+    " glacambre/firenvim
+    if exists('g:started_by_firenvim')
+        colorscheme white
+        set colorcolumn=
+    endif
 endif
-
-
