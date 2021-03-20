@@ -215,5 +215,6 @@ if use_plugins
     if exists('g:started_by_firenvim')
         colorscheme white
         set colorcolumn=
+        set spell
     endif
 endif
