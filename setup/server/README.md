@@ -143,10 +143,21 @@ sudo ufw limit ssh
 sudo ufw enable
 ```
 
-### Brute force mitigation
+### Another mitigation
 
-Fail2ban can be used to ban ip addresses which are suspicious, like is done
-[here](https://www.digitalocean.com/community/tutorials/how-to-protect-an-nginx-server-with-fail2ban-on-ubuntu-14-04).
+```sh
+sudo apt install fail2ban
+cp /etc/fail2ban/fail2ban.{conf,local}
+cp /etc/fail2ban/jail.{conf,local}
+```
 
-I have key only ssh login and ufw is rate limiting ssh,
-as well as nginx rate limiting for the server.
+Then in `jail.local` add `enabled = true` under all appropriate services;
+I enabled `[sshd]`, `[nginx-http-auth]`,
+`[nginx-botsearch]` and `[nginx-limit-req]`.
+Probably a little overkill.
+
+Then enable fail2ban.
+
+```sh
+sudo systemctl enable fail2ban
+```
