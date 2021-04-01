@@ -1,0 +1,64 @@
+server {
+
+    server_name hugom.uk www.hugom.uk;
+
+    root /var/www/hugom/main/;
+
+    limit_req zone=ten burst=20 nodelay;
+
+    location / {
+        index index.html;
+    }
+
+    location /notes {
+        root /var/www/hugom;
+        index index.html;
+    }
+
+    location /notebook/ {
+        auth_basic "Try https://hugom.uk/notes instead";
+        auth_basic_user_file /etc/nginx/.htpasswd-hugom_notebook;
+
+        proxy_pass        http://localhost:8090/;
+        proxy_set_header  Host             $host;
+        proxy_set_header  X-Real-IP        $remote_addr;
+        proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+    }
+
+    error_page 403 = /error/403.html;
+    error_page 404 = /error/404.html;
+
+    location /error/ {
+        root /var/www/hugom/;
+    }
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/hugom.uk/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/hugom.uk/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
+}
+server {
+    if ($host = www.hugom.uk) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = hugom.uk) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name hugom.uk www.hugom.uk;
+    return 404; # managed by Certbot
+
+
+
+
+}

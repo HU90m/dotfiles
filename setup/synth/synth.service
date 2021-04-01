@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts fluidsynth when keyboard connected.
+
+[Service]
+Type=simple
+User=hugo
+Group=audio
+ExecStart=/home/hugo/scripts/synth.sh
+
+[Install]
+WantedBy=multi-user.target
