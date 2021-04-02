@@ -161,3 +161,11 @@ Then enable fail2ban.
 ```sh
 sudo systemctl enable fail2ban
 ```
+
+
+## Log Files
+
+To see who has been banned by fail2ban look at `/var/log/fail2ban.log`.
+To see successful and unsuccessful ssh and sudo logins look at `/var/log/auth.log`.
+To see nginx acess and error logs look at `/var/log/nginx/access.log`
+and `/var/log/nginx/error.log`.
