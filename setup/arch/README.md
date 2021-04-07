@@ -492,12 +492,21 @@ configs
 ~/.vimrc
 ```
 
-### YAY (Yet Another Yogurt)
+### Package Management
+
+#### YAY (Yet Another Yogurt)
 The following commands will install yay.
 ```bash
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+```
+
+#### paccache
+Pacman doesn't remove old and uninstalled versions of packages unless asked.
+```bash
+paccache -r # remove all cached packages
+systemctl enable paccache.timer # or enable a timer that does this every week
 ```
 
 ### Audio
