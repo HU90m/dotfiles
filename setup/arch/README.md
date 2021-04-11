@@ -593,10 +593,13 @@ install printer driver collection
 ```
 gutenprint
 ```
+For HP printers, install `hplip` and run `hp-setup`.
+
 I need a specific driver in the AUR for my printer
 ```
 epson-inkjet-printer-201211w
 ```
+
 #### Avahi
 install avahi to allow your computer to search the network for printers.
 ```
@@ -614,7 +617,7 @@ cups-pdf
 ```
 enable CUPS socket
 ```bash
-systemctl enable org.cups.cupsd.socket
+systemctl enable cups.socket
 ```
 search for printers and drivers
 ```bash
