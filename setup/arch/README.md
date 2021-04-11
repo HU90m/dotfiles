@@ -504,6 +504,7 @@ makepkg -si
 
 #### paccache
 Pacman doesn't remove old and uninstalled versions of packages unless asked.
+If paccache isn't installed, install the `pacman-contrib` package.
 ```bash
 paccache -r # remove all cached packages
 systemctl enable paccache.timer # or enable a timer that does this every week
