@@ -422,13 +422,10 @@ alacritty
 
 install fonts
 ```
-noto-fonts noto-fonts-emoji
+noto-fonts noto-fonts-emoji noto-fonts-cjk
 ```
 
-for east Asian and south Korean fonts
-```
-opendesktop-fonts ttf-baekmuk
-```
+(noto-fonts-cjk add korean, japanese and chinese characters)
 
 
 install programs used in config
