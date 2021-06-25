@@ -169,3 +169,18 @@ To see who has been banned by fail2ban look at `/var/log/fail2ban.log`.
 To see successful and unsuccessful ssh and sudo logins look at `/var/log/auth.log`.
 To see nginx acess and error logs look at `/var/log/nginx/access.log`
 and `/var/log/nginx/error.log`.
+
+### log2ram
+
+SD cards aren't typically rated for as many read-write cycles as SSDs and HDDs,
+so constantly writing logs to the sd card is not great. A solution is
+[log2ram](https://github.com/azlux/log2ram).
+
+To set up:
+
+```sh
+echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
+wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
+apt update
+apt install log2ram
+```
