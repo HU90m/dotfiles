@@ -480,6 +480,7 @@ tmux
 gvim
 git
 youtube-dl
+bash-completion
 ```
 
 configs
