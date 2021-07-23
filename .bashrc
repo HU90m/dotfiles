@@ -5,9 +5,21 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-
 # the size of the bash history
-HISTSIZE=100000
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+# Change GNU Readlines to vi
+# I have changed this universally in ~/.inputrc
+#set -o vi
 
 # prompt
 function return_value() {
@@ -51,23 +63,6 @@ alias flite="flite -voice ~/.config/flite/voices/cmu_us_awb.flitevox"
 
 # because I can never remember
 alias vpnsoton="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
-alias sshsoton="ssh hm6g17@ssh.soton.ac.uk"
-alias sshiridis5="ssh -J hm6g17@ssh.soton.ac.uk hm6g17@iridis5_a.soton.ac.uk -Y"
-alias sshjustiridis5="ssh hm6g17@iridis5_a.soton.ac.uk"
-alias sshiridis4="ssh -J hm6g17@ssh.soton.ac.uk hm6g17@iridis4_b.soton.ac.uk -Y"
-alias sshjustiridis4="ssh hm6g17@iridis4_b.soton.ac.uk"
-alias sshheadless="ssh -Y pi@hms-headless.fritz.box"
-
-alias mntsd="sudo mount /dev/sdb -o uid=1000,gid=1000"
-alias mntheadless="sudo mount hms-headless.fritz.box:/mnt/one/"
-alias umnt="sudo umount"
-
-alias changewallpaper="find ~/.wallpapers -type f | sort -R | head -1 | xargs feh --bg-fill"
-
-
-# Change GNU Readlines to vi
-# I have changed this universally in ~/.inputrc
-#set -o vi
 
 # functions
 function za {
