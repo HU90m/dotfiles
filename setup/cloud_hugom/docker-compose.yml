@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.5
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    volumes:
+      - /var/lib/maria_container:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    env_file:
+      - db_pass.env
+      - db_rpass.env
+
+  redis:
+    image: redis:6.2.5-alpine
+    restart: always
+
+  app:
+    image: nextcloud:22.1.1-fpm-alpine
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/www/cloud_hugom:/var/www/html
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
+    env_file:
+      - db_pass.env
+    depends_on:
+      - db
+
+  cron:
+    image: nextcloud:22.1.1-fpm-alpine
+    restart: always
+    volumes:
+      - /var/www/cloud_hugom:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
