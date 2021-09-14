@@ -24,25 +24,20 @@ One may have to create these directories before running the containers.
 To run the containers, run the following from the configuration's directory.
 
 ```sh
-docker-compose up
+docker-compose up -d
 ```
 
-Some useful commands are:
+To stop the containers:
 
 ```sh
-docker ps -a # to see all containers both running or otherwise
-docker rm $container_name # to remove a container
+docker-compose down
 ```
 
-## Systemd Service
+To see all the containers running (running or otherwise):
 
-There is a systemd service, `cloud.service`, which once enabled will
-automatically start the containers after the computer boots.
-
-This service expects the configuration files (`db_pass`, `db_rpass`, and
-`docker-compose.yml`) to be in `/etc/cloud_hugom/`,
-so these files should be moved to this directory before the service is enabled.
-
+```sh
+docker ps -a
+```
 
 ## Nginx
 
@@ -59,4 +54,18 @@ Then restart the nginx server:
 sudo nginx -t && sudo nginx -s reload
 ```
 
-**You should also set up HTTPS for the server!**
+*You should also set up HTTPS for the server!*
+
+## Systemd Service
+
+**The systemd service is not needed.
+The containers have the 'always' restart policy,
+so will automatically restart on reboot without the need of systemd,
+i.e. everything below this point can be ignored**
+
+There is a systemd service, `cloud.service`, which once enabled will
+automatically start the containers after the computer boots.
+
+This service expects the configuration files (`db_pass`, `db_rpass`, and
+`docker-compose.yml`) to be in `/etc/cloud_hugom/`,
+so these files should be moved to this directory before the service is enabled.
