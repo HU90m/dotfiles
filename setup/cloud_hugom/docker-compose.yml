@@ -22,7 +22,7 @@ services:
     image: nextcloud:22.1.1-fpm-alpine
     restart: always
     ports:
-      - 9000:9000
+      - 127.0.0.1:9000:9000
     volumes:
       - /var/www/cloud_hugom:/var/www/html
     environment:

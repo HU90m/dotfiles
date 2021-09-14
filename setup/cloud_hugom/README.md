@@ -39,6 +39,9 @@ To see all the containers running (running or otherwise):
 docker ps -a
 ```
 
+The nextcloud app container is set up so that it is only accessible from the
+host (127.0.0.1:8090).
+
 ## Nginx
 
 The FMP (FastCGI Process Manager) Nextcloud image is used.
