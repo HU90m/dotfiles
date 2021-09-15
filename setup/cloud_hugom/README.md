@@ -21,6 +21,15 @@ The nextcloud instance's persistent data is stored in `/var/www/cloud_hugom/`
 and the database's data is stored in `/var/lib/maria_container/`.
 One may have to create these directories before running the containers.
 
+The containers are run with user and group ids of 1002, so a new user is
+recommended with these ids. One can also add them selves to this user group in
+order to access the nextcloud data.
+
+```sh
+useradd -u 1002 nextcloud
+usermod -a -G nextcloud $user
+```
+
 To run the containers, run the following from the configuration's directory.
 
 ```sh
