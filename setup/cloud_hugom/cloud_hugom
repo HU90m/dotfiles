@@ -33,6 +33,7 @@ server {
 
         # Path to the root of your installation
 	root /var/www/cloud_hugom/;
+	set $data_root /mnt/NogginlessStomach/Cloud/nextcloud_data/;
 
 	# The container has a different document root!!
 	# see: https://help.nextcloud.com/t/primary-script-unknown-after-updating-nginx-php-fpm-configuration/65020/3
@@ -125,6 +126,10 @@ server {
 	# Rule borrowed from `.htaccess`
 	location /remote {
 	    return 301 /remote.php$request_uri;
+	}
+
+	location /data {
+	    root $data_root;
 	}
 	
 	location / {

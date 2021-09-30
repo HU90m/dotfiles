@@ -17,8 +17,9 @@ The configuration requires `db_pass` and `db_rpass` which contain the root
 password and the nextcloud user password of the database.
 One will have to set the passwords in these files before running.
 
-The nextcloud instance's persistent data is stored in `/var/www/cloud_hugom/`
-and the database's data is stored in `/var/lib/maria_container/`.
+The database's data is stored in `/var/lib/maria_container/` and
+the nextcloud instance's persistent data is stored in `/var/www/cloud_hugom/`
+and `/mnt/NogginlessStomach/Cloud/nextcloud_data/`.
 One may have to create these directories before running the containers.
 
 The containers are run with user and group ids of 1002, so a new user is
