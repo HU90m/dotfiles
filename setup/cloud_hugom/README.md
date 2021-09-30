@@ -82,3 +82,17 @@ automatically start the containers after the computer boots.
 This service expects the configuration files (`db_pass`, `db_rpass`, and
 `docker-compose.yml`) to be in `/etc/cloud_hugom/`,
 so these files should be moved to this directory before the service is enabled.
+
+
+## Adding Files to the Data Directory Manually
+
+Nextcloud will not be aware of any files which are added to the data directory
+but not through itself.
+
+To make nextcloud aware of these functions one has to rescan the directory.
+The following command rescans the whole directory and can be executed while
+nextcloud is running.
+
+```sh
+docker-compose exec app php occ files:scan --all
+```
