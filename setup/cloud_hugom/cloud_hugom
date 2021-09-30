@@ -7,7 +7,7 @@ server {
 	# Server Configuration adapted from: https://github.com/nextcloud/docker/blob/master/.examples/docker-compose/insecure/mariadb/fpm/web/nginx.conf
 
 	# set max upload size
-	client_max_body_size 512M;
+	client_max_body_size 10G;
 	fastcgi_buffers 64 4K;
 
 	# Enable gzip but do not remove ETag headers

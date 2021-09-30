@@ -33,6 +33,8 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
+      - PHP_MEMORY_LIMIT=2G
+      - PHP_UPLOAD_LIMIT=10G
     env_file:
       - db_pass.env
     depends_on:
