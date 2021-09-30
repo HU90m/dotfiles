@@ -28,6 +28,7 @@ services:
     user: 1002:1002
     volumes:
       - /var/www/cloud_hugom:/var/www/html
+      - /mnt/NogginlessStomach/Cloud/nextcloud_data:/var/www/html/data
     environment:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
@@ -43,6 +44,7 @@ services:
     user: 1002:1002
     volumes:
       - /var/www/cloud_hugom:/var/www/html
+      - /mnt/NogginlessStomach/Cloud/nextcloud_data:/var/www/html/data
     entrypoint: /cron.sh
     depends_on:
       - db
