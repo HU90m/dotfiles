@@ -183,13 +183,16 @@ endif
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 highlight Folded ctermbg=NONE guibg=NONE
 
+" File Behaviour
+au! BufNewFile,BufRead *.svelte set ft=html
 
 " Plug-ins
 if use_plugins
     call plug#begin('~/.config/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
-    Plug 'flazz/vim-colorschemes'
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    Plug 'mhinz/vim-janah'
+    Plug 'lifepillar/vim-solarized8'
     call plug#end()
 
     " neovim/nvim-lspconfig
@@ -199,22 +202,33 @@ if use_plugins
     lua require('lspconfig').texlab.setup{}
     "   rust:
     lua require('lspconfig').rust_analyzer.setup{}
+    "   cpp:
+    lua require('lspconfig').ccls.setup{}
+
+    " change how diagnostics are displayed
+lua << EOF
+    vim.diagnostic.config({
+        virtual_text = false,
+        signs = true,
+        underline = true,
+    })
+EOF
 
     set omnifunc=v:lua.vim.lsp.omnifunc
 
     nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>
     nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <silent> <Leader>K <cmd>lua vim.diagnostic.open_float()<CR>
     nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
     nnoremap <silent> <Leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 
-    " flazz/vim-colorschemes
-    colorscheme janah
-
     " glacambre/firenvim
     if exists('g:started_by_firenvim')
-        colorscheme white
+        colorscheme morning
         set colorcolumn=
         set spell
     endif
+
+    colorscheme janah
 endif
