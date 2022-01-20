@@ -202,9 +202,17 @@ if use_plugins
     lua require('lspconfig').rust_analyzer.setup{}
     "   cpp:
     lua require('lspconfig').ccls.setup{}
+    "   svelte:
+    lua require('lspconfig').svelte.setup{}
+    "   deno:
+    lua require('lspconfig').denols.setup{}
 
-    " change how diagnostics are displayed
 lua << EOF
+    -- For denols, from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#denols
+    vim.g.markdown_fenced_languages = {
+      "ts=typescript"
+    }
+    -- change how diagnostics are displayed
     vim.diagnostic.config({
         virtual_text = false,
         signs = true,
