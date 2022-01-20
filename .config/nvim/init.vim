@@ -183,9 +183,6 @@ endif
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 highlight Folded ctermbg=NONE guibg=NONE
 
-" File Behaviour
-au! BufNewFile,BufRead *.svelte set ft=html
-
 " Plug-ins
 if use_plugins
     call plug#begin('~/.config/nvim/plugged')
@@ -193,6 +190,7 @@ if use_plugins
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'mhinz/vim-janah'
     Plug 'lifepillar/vim-solarized8'
+    Plug 'sheerun/vim-polyglot'
     call plug#end()
 
     " neovim/nvim-lspconfig
