@@ -37,8 +37,8 @@ alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
 
 # set vim as default
-export EDITOR="vim"
-export VISUAL="vim"
+export EDITOR="nvr --remote-wait-silent"
+export VISUAL="nvr --remote-wait-silent"
 
 # time savers
 alias q="exit"
@@ -53,6 +53,7 @@ alias pd="pushd"
 alias sls="screen -ls"
 alias tls="tmux ls"
 alias nterm="nvim +term +startinsert"
+alias vi="nvr -o"
 
 # safety
 alias rm="rm -ir"
