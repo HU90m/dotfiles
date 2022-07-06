@@ -152,6 +152,9 @@ set nonumber
 " Set syntax highlighting
 syntax on
 
+" Change default filetype for some extensions
+au BufNewFile,BufRead *.S set filetype=asm
+
 " UI dependant settings
 if has('gui_running')
     " Remove tool-bar
