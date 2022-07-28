@@ -23,6 +23,11 @@ shopt -s globstar
 # I have changed this universally in ~/.inputrc
 #set -o vi
 
+# Start up the gpg-agent and set ssh to point to it.
+#export GPG_TTY="$(tty)"
+#export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+#gpgconf --launch gpg-agent
+
 # prompt
 function return_value() {
     RETURN_VAL=$?
