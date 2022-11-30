@@ -197,6 +197,8 @@ if use_plugins
     Plug 'mhinz/vim-janah'
     Plug 'lifepillar/vim-solarized8'
     Plug 'sheerun/vim-polyglot'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
     call plug#end()
 
     " neovim/nvim-lspconfig
@@ -234,6 +236,10 @@ EOF
     nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
     nnoremap <silent> <Leader>r <cmd>lua vim.lsp.buf.rename()<CR>
+
+    nnoremap <silent> <Leader>e :Files<CR>
+    nnoremap <silent> <Leader>f :Rg<CR>
+    nnoremap <silent> <Leader>/ :BLines<CR>
 
     " glacambre/firenvim
     if exists('g:started_by_firenvim')
