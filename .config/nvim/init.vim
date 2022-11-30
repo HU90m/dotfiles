@@ -23,9 +23,6 @@ nnoremap <silent> <Leader>N N
 nnoremap n nzz
 nnoremap N Nzz
 
-" Insert Mode Remaps
-inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
-
 " Commands
 command PandocToPDF !pandoc % -o %:r.pdf -V geometry:margin=6em -V fontsize=12pt
 command SaveSesh mksession! ~/.vim/sesh.vim
@@ -157,6 +154,9 @@ syntax on
 
 " Change default filetype for some extensions
 au BufNewFile,BufRead *.S set filetype=asm
+
+" Make nvr GIT_EDITOR more ergonomic
+autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 
 " UI dependant settings
 if has('gui_running')
