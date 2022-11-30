@@ -32,6 +32,9 @@ command SaveSesh mksession! ~/.vim/sesh.vim
 command RemoveTrailing %s/\s\+$//g
 command W w
 
+" Make the clipboard (the * register) the default register.
+set clipboard+=unnamed
+
 " Splitting Preferences
 set splitright
 set splitbelow
