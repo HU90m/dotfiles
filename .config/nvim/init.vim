@@ -193,7 +193,6 @@ highlight Folded ctermbg=NONE guibg=NONE
 if use_plugins
     call plug#begin('~/.config/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'mhinz/vim-janah'
     Plug 'lifepillar/vim-solarized8'
     Plug 'sheerun/vim-polyglot'
@@ -240,13 +239,6 @@ EOF
     nnoremap <silent> <Leader>e :Files<CR>
     nnoremap <silent> <Leader>f :Rg<CR>
     nnoremap <silent> <Leader>/ :BLines<CR>
-
-    " glacambre/firenvim
-    if exists('g:started_by_firenvim')
-        colorscheme morning
-        set colorcolumn=
-        set spell
-    endif
 
     colorscheme janah
 endif
