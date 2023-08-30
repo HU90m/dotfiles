@@ -42,8 +42,13 @@ alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
 
 # set vim as default
-export EDITOR="nvr --remote-wait-silent"
+export EDITOR="nvr -o"
+export GIT_EDITOR="nvr --remote-wait-silent"
 export VISUAL="nvr --remote-wait-silent"
+
+# setup completion (works in fedora)
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
 
 # time savers
 alias q="exit"
@@ -58,6 +63,7 @@ alias pd="pushd"
 alias sls="screen -ls"
 alias tls="tmux ls"
 alias nterm="nvim +term +startinsert"
+alias nterm2="nvim +term +term '+args # %' +startinsert"
 alias vi="nvr -o"
 
 # safety
