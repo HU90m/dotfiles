@@ -11,6 +11,7 @@ vim.keymap.set('n', '<Leader>h', ':noh<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>s', ':set spell!<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>%', ':let @*=@%<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>d', ':put =strftime(\'%F\', localtime())<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>b', ':ToggleBg<CR>', { silent = true })
 
 vim.keymap.set('n', '<Leader>j', ':n<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>k', ':N<CR>', { silent = true })
@@ -119,6 +120,10 @@ vim.opt.spelllang = 'en_gb'
 -- Activates/deactivates spell-check
 vim.opt.spell = true
 
+-- Ignore case if all characters used are lower-case.
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
 -- Activates/deactivates highlighting search results
 vim.opt.hlsearch = true
 
@@ -137,6 +142,18 @@ vim.opt.number = false
 
 -- User Commands
 vim.api.nvim_create_user_command('W', 'w', {})
+vim.api.nvim_create_user_command(
+    'ToggleBg',
+    function()
+        if 'light' == vim.opt.background:get() then
+            vim.opt.background = 'dark'
+        else
+            vim.opt.background = 'light'
+        end
+        print(vim.opt.background)
+    end,
+    { nargs = 0 }
+)
 
 -- Autocommands
 vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
@@ -170,6 +187,10 @@ local lazy = require('lazy')
 local plugins = {
     {
         'rebelot/kanagawa.nvim',
+    },
+    {
+        'catppuccin/nvim',
+        name = 'catppuccin',
     },
     {
         'neovim/nvim-lspconfig',
