@@ -150,7 +150,6 @@ vim.api.nvim_create_user_command(
         else
             vim.opt.background = 'light'
         end
-        print(vim.opt.background)
     end,
     { nargs = 0 }
 )
@@ -191,6 +190,12 @@ local plugins = {
     {
         'catppuccin/nvim',
         name = 'catppuccin',
+    },
+    {
+        'shaunsingh/nord.nvim',
+    },
+    {
+        'ellisonleao/gruvbox.nvim',
     },
     {
         'neovim/nvim-lspconfig',
@@ -273,7 +278,7 @@ treesitter_config.setup({
     },
 })
 
--- Colour Scheme
+-- Colour Schemes
 require('kanagawa').setup({
     compile = false,             -- enable compiling the colorscheme
     undercurl = true,            -- enable undercurls
@@ -291,4 +296,33 @@ require('kanagawa').setup({
         light = "lotus"
     },
 })
-vim.cmd('colorscheme kanagawa')
+
+function starts_with(str, pattern)
+    return string.sub(str, 1, #pattern) == pattern
+end
+
+colorschemes = {
+    'kanagawa',
+    'catppuccin',
+    'nord',
+    'gruvbox',
+}
+vim.api.nvim_create_user_command(
+    'ToggleColorscheme',
+    function()
+        local new_colorscheme_idx = 1
+        for i, colorscheme in ipairs(colorschemes) do
+            if starts_with(vim.g.colors_name, colorscheme) then
+                new_colorscheme_idx = i + 1
+            end
+        end
+        if new_colorscheme_idx > #colorschemes then
+            new_colorscheme_idx = 1
+        end
+        vim.cmd.colorscheme(colorschemes[new_colorscheme_idx])
+    end,
+    { nargs = 0 }
+)
+vim.keymap.set('n', '<Leader>c', ':ToggleColorscheme<CR>', { silent = true })
+
+vim.cmd.colorscheme(colorschemes[1])
