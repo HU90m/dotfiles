@@ -10,7 +10,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, lowrisc-it }: let
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    lowrisc-it,
+  }: let
     no_system_outputs = {
       nixosConfigurations = {
         HMS-Stealth = nixpkgs.lib.nixosSystem {

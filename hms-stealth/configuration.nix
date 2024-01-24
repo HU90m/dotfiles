@@ -1,14 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, nixpkgs, ... }:
-
 {
+  pkgs,
+  nixpkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.registry.nixpkgs.flake = nixpkgs;
 
   nix.settings.substituters = [
@@ -106,7 +107,7 @@
   users.users.hugom = {
     isNormalUser = true;
     description = "Hugo McNally";
-    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
+    extraGroups = ["networkmanager" "wheel" "plugdev"];
     packages = with pkgs; [
       firefox
       tor-browser-bundle-bin
@@ -143,14 +144,14 @@
   nixpkgs.overlays = [
     (final: prev: {
       crun = prev.crun.overrideAttrs (old: {
-      	src = prev.fetchFromGitHub {
+        src = prev.fetchFromGitHub {
           owner = "containers";
           repo = "crun";
           rev = "64105d96f72390c04a9d2328eea980fcefd34548";
           hash = "sha256-hJ0JgKGluC9M5mNeczI+0vODEL5KuQxcnTREMcYQDDM=";
           fetchSubmodules = true;
         };
-	doCheck = false;
+        doCheck = false;
       });
     })
   ];
@@ -190,7 +191,6 @@
     nerdfonts
   ];
 
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -218,5 +218,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }

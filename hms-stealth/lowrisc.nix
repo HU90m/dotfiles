@@ -1,5 +1,8 @@
-{ pkgs, lowrisc-it, ... }:
 {
+  pkgs,
+  lowrisc-it,
+  ...
+}: {
   imports = [
     lowrisc-it.nixosModules.lowrisc
   ];
