@@ -188,11 +188,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1705592281,
-        "narHash": "sha256-kYnUMfE774pEhIJrp5mJzWRmzF/8aIvpBEpYRUdJgmo=",
+        "lastModified": 1706525631,
+        "narHash": "sha256-jfoBD+AatC+UKmM05W3fbVqIAelojd7w4FUqGOZGY/U=",
         "ref": "refs/heads/master",
-        "rev": "5a8c936d28f14be52deb9ef2fab56946abcab577",
-        "revCount": 471,
+        "rev": "6a2a1bac6cb645e3485f02b5f038bddf521f13a7",
+        "revCount": 483,
         "type": "git",
         "url": "ssh://git@github.com/lowRISC/lowrisc-it"
       },
@@ -252,11 +252,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1705331948,
-        "narHash": "sha256-qjQXfvrAT1/RKDFAMdl8Hw3m4tLVvMCc8fMqzJv0pP4=",
+        "lastModified": 1706718339,
+        "narHash": "sha256-S+S97c/HzkO2A/YsU7ZmNF9w2s7Xk6P8dzmfDdckzLs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b8dd8be3c790215716e7c12b247f45ca525867e2",
+        "rev": "53fbe41cf76b6a685004194e38e889bc8857e8c2",
         "type": "github"
       },
       "original": {

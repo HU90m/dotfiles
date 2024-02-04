@@ -14,24 +14,29 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = ["kvm-amd" "amd-pstate"];
   boot.kernelParams = ["amd_pstate=passive"];
   boot.extraModulePackages = [];
   powerManagement.cpuFreqGovernor = "schedutil";
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/dade9845-3855-4fec-8aba-9bb8ac08197f";
-    fsType = "ext4";
+    device = "StealthReservoir/ROOT";
+    fsType = "zfs";
   };
 
-  boot.initrd.luks.devices."luks-a33ef09e-00c0-46d4-9285-28ffbb48a7c8".device = "/dev/disk/by-uuid/a33ef09e-00c0-46d4-9285-28ffbb48a7c8";
-
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2E9B-C8A6";
+    device = "/dev/disk/by-label/STEALTHBOOT";
     fsType = "vfat";
   };
 
-  swapDevices = [];
+  swapDevices = [
+    {device = "/dev/disk/by-label/StealthSwap";}
+  ];
+
+  networking.hostId = "81ba5bff";
+
+  boot.zfs.extraPools = [];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -42,5 +47,9 @@
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.amd.updateMicrocode = true;
+
+  services.zfs.autoScrub.enable = true;
+  services.zfs.autoSnapshot.enable = true;
 }

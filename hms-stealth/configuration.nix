@@ -23,11 +23,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
   networking.hostName = "HMS-Stealth";
 
   # Enable networking
@@ -104,7 +99,7 @@
   users.groups.plugdev = {};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.hugom = {
+  users.users.hugo = {
     isNormalUser = true;
     description = "Hugo McNally";
     extraGroups = ["networkmanager" "wheel" "plugdev"];
@@ -125,9 +120,9 @@
 
   services.syncthing = {
     enable = true;
-    user = "hugom";
-    dataDir = "/home/hugom/sync";
-    configDir = "/home/hugom/.config/syncthing";
+    user = "hugo";
+    dataDir = "/home/hugo/sync";
+    configDir = "/home/hugo/.config/syncthing";
   };
 
   # Allow unfree packages
