@@ -1,0 +1,22 @@
+[user]
+	name = Hugo McNally
+	email = hugo.mcnally@gmail.com
+	signingkey = D7810EF3B13837DAA7E8035B163536ECED337789
+
+[commit]
+	gpgsign = true
+
+[init]
+	defaultbranch = main
+
+[diff]
+	tool = nvr
+
+[difftool "nvr"]
+	cmd = nvr -s -d $LOCAL $REMOTE
+
+[merge]
+	tool = nvr
+
+[mergetool "nvr"]
+	cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
