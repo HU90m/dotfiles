@@ -6,9 +6,6 @@
   nixpkgs,
   ...
 }: {
-  imports = [
-    ./hardware-configuration.nix
-  ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.registry.nixpkgs.flake = nixpkgs;
 
@@ -22,8 +19,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "HMS-Stealth";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -99,7 +94,7 @@
   users.groups.plugdev = {};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.hugo = {
+  users.users.hugom = {
     isNormalUser = true;
     description = "Hugo McNally";
     extraGroups = ["networkmanager" "wheel" "plugdev"];
@@ -120,9 +115,9 @@
 
   services.syncthing = {
     enable = true;
-    user = "hugo";
-    dataDir = "/home/hugo/sync";
-    configDir = "/home/hugo/.config/syncthing";
+    user = "hugom";
+    dataDir = "/home/hugom/sync";
+    configDir = "/home/hugom/.config/syncthing";
   };
 
   # Allow unfree packages
@@ -134,22 +129,6 @@
     dedicatedServer.openFirewall = true;
   };
   hardware.opengl.driSupport32Bit = true;
-
-  # Allow unfree packages
-  nixpkgs.overlays = [
-    (final: prev: {
-      crun = prev.crun.overrideAttrs (old: {
-        src = prev.fetchFromGitHub {
-          owner = "containers";
-          repo = "crun";
-          rev = "64105d96f72390c04a9d2328eea980fcefd34548";
-          hash = "sha256-hJ0JgKGluC9M5mNeczI+0vODEL5KuQxcnTREMcYQDDM=";
-          fetchSubmodules = true;
-        };
-        doCheck = false;
-      });
-    })
-  ];
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [

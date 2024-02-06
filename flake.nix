@@ -17,16 +17,27 @@
     lowrisc-it,
   }: let
     no_system_outputs = {
-      nixosConfigurations = {
+      nixosConfigurations = let
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit nixpkgs lowrisc-it;
+        };
+      in {
         HMS-Stealth = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit system specialArgs;
           modules = [
-            ./hms-stealth/configuration.nix
-            ./hms-stealth/lowrisc.nix
+            ./mod/hms-stealth.nix
+            ./mod/workstation.nix
+            ./mod/lowrisc.nix
           ];
-          specialArgs = {
-            inherit nixpkgs lowrisc-it;
-          };
+        };
+        HMS-Think = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [
+            ./mod/hms-think.nix
+            ./mod/workstation.nix
+            ./mod/lowrisc.nix
+          ];
         };
       };
     };

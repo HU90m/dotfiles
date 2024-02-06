@@ -12,6 +12,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  networking.hostName = "HMS-Stealth";
+  networking.hostId = "81ba5bff";
+
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   #boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -33,8 +36,6 @@
   swapDevices = [
     {device = "/dev/disk/by-label/StealthSwap";}
   ];
-
-  networking.hostId = "81ba5bff";
 
   boot.zfs.extraPools = [];
 
