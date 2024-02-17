@@ -115,6 +115,12 @@
     nginx = {
       enable = true;
       virtualHosts = with config.services; {
+        "git.hugom.uk" = {
+          addSSL = true;
+          enableACME = true;
+          root = "/git/pub/";
+          locations."/".extraConfig = "autoindex on;";
+        };
         ${nextcloud.hostName} = {
           forceSSL = true;
           enableACME = true;
