@@ -39,6 +39,13 @@
             ./mod/lowrisc.nix
           ];
         };
+        HMS-Convenient = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [
+            ./mod/hms-convenient.nix
+            ./mod/server.nix
+          ];
+        };
       };
     };
     system_outputs = system: let
