@@ -53,7 +53,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "git"
       "nextcloud"
       "syncthing"
     ];
@@ -62,14 +61,6 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+YMaWXPE7CV3lOkBHX9XgUlh7j6+g3rY38GbaR85tbzIqqEY9Q0Os7oM9oXEhYR8qp0inaEIn6Qygnvx1/uvtec1EWauJyB68cVHmUViB6z5NIVupAY/qhTGm2pItLX6Lqq/FTBmHmJkIk/k3qvVHwN+yzU/JW43M0+vBDcD+G085JDi4l87lshijPCXtf12gnE7JmLBKd4k13Se2f1ezKGJivdxUZJRhGuRSRA9bUlaeWLJkizMWTYB33XcziBER1ncNg7ngL5IG6cDomb6MZs6ryt7yfJbeGaOVzarRGc3v0dpmPxlB9RcHZo9oKPjz+4WpifpKIHX8cM82ZXKWi8JBh27Gx5fBFyz3qAYXXBfHpTfME9zsDwtlfxdwTakzTHkoChKv2qUGevdQ0woFCN3SGSMxXDTel5ufYgISAkuW9ZSUJbLUtI/KoQVk5T0OrZCMMftZb/V+v8mwoI1cRz3DiY5EvSI5f3yFS9nzu+jXUzJ/0mjwb5GpFa3pdqtG8TSMp1ZpeNkhNGuNRVFd/DfS0GYL7Z3TWbjcdvZLLNIoTjlUe5V/90ra3PAjcibsDfFqPtmwDQr5UbuvSPZ0ShrqgcWohUsw2G6K3XM+lWwLIw21lgJBe8JQ4cHnMoMC2BmgZgq/YUR4LZHZRPrX7nvfnKy/b8jkvBdDBjxH8Q== cardno:12_041_936"
     ];
   };
-  users.users.${config.services.forgejo.user} = {
-    description = "Runs and manages Git services.";
-    isSystemUser = true;
-    useDefaultShell = true;
-    home = config.services.forgejo.stateDir;
-    group = config.services.forgejo.group;
-  };
-  users.groups.${config.services.forgejo.group} = {};
 
   networking.networkmanager.enable = true;
   networking.firewall = {
@@ -77,13 +68,11 @@
     allowedTCPPorts = [
       80
       443
-      3000 # git
       22000 # sync
     ];
     allowedUDPPorts = [
       80
       443
-      3000 # git
       22000 # sync
       21027 # sync discovery
     ];
@@ -115,12 +104,8 @@
     postgresql = {
       enable = true;
 
-      ensureDatabases = ["git" "nextcloud"];
+      ensureDatabases = ["nextcloud"];
       ensureUsers = [
-        {
-          name = "git";
-          ensureDBOwnership = true;
-        }
         {
           name = "nextcloud";
           ensureDBOwnership = true;
@@ -133,14 +118,6 @@
         ${nextcloud.hostName} = {
           forceSSL = true;
           enableACME = true;
-        };
-        ${forgejo.settings.server.DOMAIN} = {
-          forceSSL = true;
-          enableACME = true;
-          locations."/".proxyPass = let
-            addr = forgejo.settings.server.HTTP_ADDR;
-            port = toString forgejo.settings.server.HTTP_PORT;
-          in "http://${addr}:${port}";
         };
         "sync.hugom.uk" = {
           forceSSL = true;
@@ -209,40 +186,6 @@
           "OC\\Preview\\MP4"
           "OC\\Preview\\AVI"
         ];
-      };
-    };
-
-    forgejo = {
-      enable = true;
-      user = "git";
-      group = "git";
-      stateDir = "/var/lib/forgejo";
-      mailerPasswordFile = "/var/p/do-not-reply";
-      lfs.enable = true;
-      database = {
-        user = "git";
-        type = "postgres";
-        passwordFile = "/var/p/git-db";
-        createDatabase = false;
-      };
-      settings = {
-        server.DOMAIN = "git.hugom.uk";
-        server.HTTP_ADDR = "127.0.0.1";
-        server.HTTP_PORT = 3000;
-        server.ROOT_URL = "https://git.hugom.uk";
-        server.SSH_PORT = 9543;
-        service.DISABLE_REGISTRATION = true;
-        session.COOKIE_SECURE = true;
-
-        mailer = {
-          ENABLED = true;
-          FROM = "do-not-reply@themcnallys.co.uk";
-          MAILER_TYPE = "smtp";
-          SMTP_ADDR = "smtp-auth.mythic-beasts.com";
-          SMTP_PORT = 587;
-          IS_TLS_ENABLED = false; # should use STARTTLS
-          USER = "do-not-reply@themcnallys.co.uk";
-        };
       };
     };
 
