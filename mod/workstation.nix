@@ -110,6 +110,7 @@
       marksman
       python311Packages.jedi-language-server
       nil
+      mdbook
     ];
   };
 

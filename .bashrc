@@ -106,6 +106,9 @@ function g {
     done
 }
 
+# Add rust binaries to the path
+PATH=$PATH:~/.cargo/bin/
+
 # use GPG Key for SSH
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then

@@ -53,6 +53,11 @@
         inherit system;
       };
     in {
+      devShells = {
+        llvm = pkgs.mkShell {
+          packages = with pkgs; [cmake ninja];
+        };
+      };
       formatter = pkgs.alejandra;
     };
   in

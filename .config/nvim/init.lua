@@ -159,6 +159,10 @@ vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
     pattern = {'*.S'},
     callback = function() vim.opt.filetype = 'asm' end,
 })
+vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+    pattern = {'*.core'},
+    callback = function() vim.opt.filetype = 'yaml' end,
+})
 vim.api.nvim_create_autocmd('FileType', {
     pattern = {'gitcommit', 'gitrebase', 'gitconfig'},
     callback = function() vim.opt.bufhidden = 'delete' end,
@@ -186,6 +190,12 @@ local lazy = require('lazy')
 local plugins = {
     {
         'rebelot/kanagawa.nvim',
+        -- This is the default colour scheme,
+        -- so we should priorities it's loading.
+        priority = 1000,
+    },
+    {
+        'ellisonleao/gruvbox.nvim',
     },
     {
         'catppuccin/nvim',
@@ -195,7 +205,7 @@ local plugins = {
         'shaunsingh/nord.nvim',
     },
     {
-        'ellisonleao/gruvbox.nvim',
+        "miikanissi/modus-themes.nvim",
     },
     {
         'neovim/nvim-lspconfig',
@@ -303,9 +313,10 @@ end
 
 colorschemes = {
     'kanagawa',
+    'gruvbox',
     'catppuccin',
     'nord',
-    'gruvbox',
+    'modus',
 }
 vim.api.nvim_create_user_command(
     'ToggleColorscheme',

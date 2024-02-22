@@ -20,3 +20,13 @@
 
 [mergetool "nvr"]
 	cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
+[alias]
+	detective = blame -w -C -C -C
+	wd = diff --word-diff
+	fpush = push --force-with-lease
+[rerere]
+	enable = true
+[branch]
+	sort = -committerdate
+[fetch]
+	writeCommitGraph = true
