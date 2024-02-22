@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "HU90m's Personal Packages, Shells and Machines";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -7,6 +7,12 @@
     lowrisc-it = {
       url = "git+ssh://git@github.com/lowRISC/lowrisc-it";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    lowrisc-nix = {
+      url = "github:lowRISC/lowrisc-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -15,12 +21,13 @@
     nixpkgs,
     flake-utils,
     lowrisc-it,
+    lowrisc-nix,
   }: let
     no_system_outputs = {
       nixosConfigurations = let
         system = "x86_64-linux";
         specialArgs = {
-          inherit nixpkgs lowrisc-it;
+          inherit nixpkgs lowrisc-it lowrisc-nix;
         };
       in {
         HMS-Stealth = nixpkgs.lib.nixosSystem {
@@ -31,10 +38,10 @@
             ./mod/lowrisc.nix
           ];
         };
-        HMS-Think = nixpkgs.lib.nixosSystem {
+        HMS-Celestial = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
           modules = [
-            ./mod/hms-think.nix
+            ./mod/hms-celestial.nix
             ./mod/workstation.nix
             ./mod/lowrisc.nix
           ];
@@ -52,6 +59,7 @@
       pkgs = import nixpkgs {
         inherit system;
       };
+      lr_pkgs = lowrisc-nix.outputs.packages.${system};
     in {
       devShells = {
         llvm = pkgs.mkShell {

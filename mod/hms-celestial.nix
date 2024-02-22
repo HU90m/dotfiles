@@ -5,12 +5,8 @@
   modulesPath,
   ...
 }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
-
-  networking.hostName = "HMS-Think";
-  networking.hostId = "81ba5a18";
+  networking.hostName = "HMS-Celestial";
+  networking.hostId = "81b79b18";
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
@@ -20,17 +16,17 @@
   powerManagement.cpuFreqGovernor = "schedutil";
 
   fileSystems."/" = {
-    device = "ThinkPond/ROOT";
+    device = "CelestialPond/ROOT";
     fsType = "zfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/THINKBOOT";
+    device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-label/ThinkSwap";}
+    {device = "/dev/disk/by-label/CelestialSwap";}
   ];
 
   boot.zfs.extraPools = [];
