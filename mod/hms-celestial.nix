@@ -25,6 +25,11 @@
     fsType = "vfat";
   };
 
+  fileSystems."/var/cache/fscache" = {
+    device = "/dev/zvol/CelestialPool/DISK/fscache";
+    fsType = "ext4";
+  };
+
   swapDevices = [
     {device = "/dev/disk/by-label/CelestialSwap";}
   ];
