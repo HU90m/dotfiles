@@ -28,6 +28,11 @@
   fileSystems."/var/cache/fscache" = {
     device = "/dev/zvol/CelestialPool/DISK/fscache";
     fsType = "ext4";
+    options = [
+      # Lazily mount on use.
+      "x-systemd.automount"
+      "noauto"
+    ];
   };
 
   swapDevices = [
