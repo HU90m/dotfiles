@@ -26,7 +26,7 @@
   };
 
   fileSystems."/var/cache/fscache" = {
-    device = "/dev/zvol/CelestialPool/DISK/fscache";
+    device = "/dev/zvol/CelestialPond/DISK/fscache";
     fsType = "ext4";
     options = [
       # Lazily mount on use.
