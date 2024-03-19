@@ -17,6 +17,7 @@
 
 [merge]
 	tool = nvr
+	conflictStyle = zdiff3
 
 [mergetool "nvr"]
 	cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
