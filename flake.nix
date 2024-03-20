@@ -59,11 +59,27 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      lr_pkgs = lowrisc-nix.outputs.packages.${system};
+      lowriscPkgs = {
+        std = lowrisc-nix.outputs.packages.${system};
+        it = lowrisc-it.outputs.packages.${system};
+      };
     in {
       devShells = {
         llvm = pkgs.mkShell {
+          name = "llvm-dev";
           packages = with pkgs; [cmake ninja];
+          buildInputs = with pkgs; [stdenv.cc.cc.lib];
+        };
+        lychee = pkgs.mkShell {
+          name = "lychee-dev";
+          packages = with pkgs; [pkg-config openssl];
+        };
+        sunburst = pkgs.mkShell {
+          name = "sunburst-dev";
+          packages =
+            (with pkgs; [libelf zlib openfpgaloader python311Packages.pip])
+            ++ (with lowriscPkgs.std; [python_ot verilator_ot])
+            ++ (with lowriscPkgs.it; [vivado]);
         };
       };
       formatter = pkgs.alejandra;

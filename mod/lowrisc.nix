@@ -16,6 +16,9 @@
   nix.registry.lowrisc-it.flake = lowrisc-it;
   nix.registry.lowrisc-nix.flake = lowrisc-nix;
 
+  # These options will hopefully improve the NAS' caching
+  fileSystems."/nas/lowrisc/tools".options = ["nocto" "actimeo=14400"];
+
   services.udev = {
     # FTDI Device Rules
     packages = [pkgs.libftdi1];
