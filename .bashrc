@@ -117,5 +117,5 @@ fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-# Sharship prompt
+# Carcinisation
 eval "$(starship init bash)"
