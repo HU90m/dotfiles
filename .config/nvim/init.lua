@@ -88,7 +88,7 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 4
 
 -- The number of spaces inserted for indentation
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 
 -- Set auto-indent for standard files
 vim.opt.autoindent = true
@@ -226,7 +226,10 @@ lazy.setup(plugins, opts)
 local lspconfig = require('lspconfig')
 lspconfig.rust_analyzer.setup{} -- rust
 lspconfig.jedi_language_server.setup{} -- python
-lspconfig.marksman.setup{} -- markdown
+lspconfig.marksman.setup{
+    root_dir = function(fname) return lspconfig.util.root_pattern(".marksman.toml")(fname) end,
+    --cmd = {'marksman', 'server', '-v1000'}, -- Used for debugging issues
+} -- markdown
 lspconfig.clangd.setup{} -- c/cpp/objc
 
 -- Global mappings.
