@@ -16,6 +16,18 @@
   nix.registry.lowrisc-it.flake = lowrisc-it;
   nix.registry.lowrisc-nix.flake = lowrisc-nix;
 
+  # Versions which aren't following my nixpkgs version,
+  # useful for when I want to make use of the lowRISC cache.
+  nix.registry.lr-it.to = {
+    type = "git";
+    url = "ssh://git@github.com/lowRISC/lowrisc-it";
+  };
+  nix.registry.lr-nix.to = {
+    owner = "lowRISC";
+    repo = "lowrisc-nix";
+    type = "github";
+  };
+
   # These options will hopefully improve the NAS' caching
   fileSystems."/nas/lowrisc/tools".options = ["nocto" "actimeo=14400"];
 
