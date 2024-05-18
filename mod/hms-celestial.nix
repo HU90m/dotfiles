@@ -10,10 +10,7 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd" "amd-pstate"];
-  boot.kernelParams = ["amd_pstate=passive"];
-  boot.extraModulePackages = [];
-  powerManagement.cpuFreqGovernor = "schedutil";
+  boot.kernelModules = ["kvm_intel" "intel_pstate"];
 
   fileSystems."/" = {
     device = "CelestialPond/ROOT";

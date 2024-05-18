@@ -161,11 +161,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1710858338,
-        "narHash": "sha256-Ml4JrwE1dkv8LJ9iKrmM/0gcoxzOcAVZf8Kf/CVWP/M=",
+        "lastModified": 1711110533,
+        "narHash": "sha256-/hWr7ybdP+P5qPPJlPyEgrRfNmxxKpIgyMNmv3cualo=",
         "ref": "refs/heads/master",
-        "rev": "22c95f95e5df7d831b1d537367f99182080b06f5",
-        "revCount": 521,
+        "rev": "f91e0769501216610ff0285134368c3766cdca09",
+        "revCount": 547,
         "type": "git",
         "url": "ssh://git@github.com/lowRISC/lowrisc-it"
       },
@@ -211,11 +211,11 @@
         "poetry2nix": "poetry2nix_2"
       },
       "locked": {
-        "lastModified": 1710858853,
-        "narHash": "sha256-RV4ul45DkRLUWdEwWb5k3RN6TiBenKJMh1OvFUjI2u0=",
+        "lastModified": 1710961538,
+        "narHash": "sha256-Rjzidr7HlJr5WA5JYkh2XgbHuTxGOO1rBKOc1v5pOhU=",
         "owner": "lowRISC",
         "repo": "lowrisc-nix",
-        "rev": "e771073ec262157a7ea4316250a45706a95362cb",
+        "rev": "a5ad90b25ce4d1019795cd154eebf659df2e6616",
         "type": "github"
       },
       "original": {
@@ -271,11 +271,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1710838473,
-        "narHash": "sha256-RLvwdQSENKOaLdKhNie8XqHmTXzNm00/M/THj6zplQo=",
+        "lastModified": 1711124224,
+        "narHash": "sha256-l0zlN/3CiodvWDtfBOVxeTwYSRz93muVbXWSpaMjXxM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fa9f817df522ac294016af3d40ccff82f5fd3a63",
+        "rev": "56528ee42526794d413d6f244648aaee4a7b56c0",
         "type": "github"
       },
       "original": {

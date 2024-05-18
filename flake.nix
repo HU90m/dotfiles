@@ -58,28 +58,33 @@
     system_outputs = system: let
       pkgs = import nixpkgs {
         inherit system;
+        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) ["vivado" "updatemem"];
       };
       lowriscPkgs = {
         std = lowrisc-nix.outputs.packages.${system};
         it = lowrisc-it.outputs.packages.${system};
       };
+      vivado = pkgs.callPackage ./env/vivado.nix {};
     in {
+      packages = {
+        inherit vivado;
+      };
       devShells = {
         llvm = pkgs.mkShell {
           name = "llvm-dev";
-          packages = with pkgs; [cmake ninja];
+          packages = with pkgs; [clang cmake ninja python311];
           buildInputs = with pkgs; [stdenv.cc.cc.lib];
         };
-        lychee = pkgs.mkShell {
-          name = "lychee-dev";
-          packages = with pkgs; [pkg-config openssl];
+        rust = pkgs.mkShell {
+          name = "rust-dev";
+          meta.description = "An environment with libraries commonly linked to by rust projects.";
+          packages = with pkgs; [pkg-config openssl systemd];
         };
-        sunburst = pkgs.mkShell {
-          name = "sunburst-dev";
-          packages =
-            (with pkgs; [libelf zlib openfpgaloader python311Packages.pip])
-            ++ (with lowriscPkgs.std; [python_ot verilator_ot])
-            ++ (with lowriscPkgs.it; [vivado]);
+        surfer = pkgs.mkShell rec {
+          name = "surfer-dev";
+          packages = with pkgs; [pkg-config openssl];
+          buildInputs = with pkgs; [wayland libxkbcommon libGL];
+          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath buildInputs}";
         };
       };
       formatter = pkgs.alejandra;
