@@ -25,6 +25,7 @@
 	detective = blame -w -C -C -C
 	wd = diff --word-diff
 	fpush = push --force-with-lease
+	c = clean -xfd
 [rerere]
 	enable = true
 [branch]
