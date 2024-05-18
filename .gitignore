@@ -1,5 +1,6 @@
-# Neovim binary spell files
+# Neovim binary spell
 *.spl
+*.add
 
 # Ignore Lazy's lock file
 .config/nvim/lazy-lock.json
