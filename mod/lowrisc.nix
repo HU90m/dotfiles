@@ -10,7 +10,7 @@
   lowrisc = {
     identity = "hugom@lowrisc.org";
     network = true;
-    toolnas = true;
+    toolnas.enable = true;
     usePublicCache = true;
   };
   nix.registry.lowrisc-it.flake = lowrisc-it;
@@ -27,9 +27,6 @@
     repo = "lowrisc-nix";
     type = "github";
   };
-
-  # These options will hopefully improve the NAS' caching
-  fileSystems."/nas/lowrisc/tools".options = ["nocto" "actimeo=14400"];
 
   services.udev = {
     # FTDI Device Rules
