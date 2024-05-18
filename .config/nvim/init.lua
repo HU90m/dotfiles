@@ -1,3 +1,6 @@
+-- Set to false if you don't want to use plugins.
+use_plugins = true
+
 -- Set up leaders
 vim.g.mapleader = '\\'
 vim.g.maplocalleader = ','
@@ -171,172 +174,174 @@ vim.api.nvim_create_autocmd('TermOpen', {
     callback = function() vim.opt.spell = false end,
 })
 
--- If not already installed, install lazy.
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
+if use_plugins then
+    -- If not already installed, install lazy.
+    local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+    if not vim.loop.fs_stat(lazypath) then
+      vim.fn.system({
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
+        lazypath,
+      })
+    end
+    vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy
-local lazy = require('lazy')
-local plugins = {
-    {
-        'rebelot/kanagawa.nvim',
-        -- This is the default colour scheme,
-        -- so we should priorities it's loading.
-        priority = 1000,
-    },
-    {
-        'ellisonleao/gruvbox.nvim',
-    },
-    {
-        'catppuccin/nvim',
-        name = 'catppuccin',
-    },
-    {
-        'shaunsingh/nord.nvim',
-    },
-    {
-        "miikanissi/modus-themes.nvim",
-    },
-    {
-        'neovim/nvim-lspconfig',
-    },
-    {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.2',
-        dependencies = { 'nvim-lua/plenary.nvim' }
-    },
-    {
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
-    },
-}
-lazy.setup(plugins, opts)
+    -- Setup lazy
+    local lazy = require('lazy')
+    local plugins = {
+        {
+            'rebelot/kanagawa.nvim',
+            -- This is the default colour scheme,
+            -- so we should priorities it's loading.
+            priority = 1000,
+        },
+        {
+            'ellisonleao/gruvbox.nvim',
+        },
+        {
+            'catppuccin/nvim',
+            name = 'catppuccin',
+        },
+        {
+            'shaunsingh/nord.nvim',
+        },
+        {
+            "miikanissi/modus-themes.nvim",
+        },
+        {
+            'neovim/nvim-lspconfig',
+        },
+        {
+            'nvim-telescope/telescope.nvim',
+            tag = '0.1.2',
+            dependencies = { 'nvim-lua/plenary.nvim' }
+        },
+        {
+            'nvim-treesitter/nvim-treesitter',
+            build = ':TSUpdate',
+        },
+    }
+    lazy.setup(plugins, opts)
 
--- LSP Setup
-local lspconfig = require('lspconfig')
-lspconfig.rust_analyzer.setup{} -- rust
-lspconfig.jedi_language_server.setup{} -- python
-lspconfig.marksman.setup{
-    root_dir = function(fname) return lspconfig.util.root_pattern(".marksman.toml")(fname) end,
-    --cmd = {'marksman', 'server', '-v1000'}, -- Used for debugging issues
-} -- markdown
-lspconfig.clangd.setup{} -- c/cpp/objc
+    -- LSP Setup
+    local lspconfig = require('lspconfig')
+    lspconfig.rust_analyzer.setup{} -- rust
+    lspconfig.jedi_language_server.setup{} -- python
+    lspconfig.marksman.setup{
+        root_dir = function(fname) return lspconfig.util.root_pattern(".marksman.toml")(fname) end,
+        --cmd = {'marksman', 'server', '-v1000'}, -- Used for debugging issues
+    } -- markdown
+    lspconfig.clangd.setup{} -- c/cpp/objc
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist)
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    -- Global mappings.
+    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+    vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+    vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist)
+    -- Use LspAttach autocommand to only map the following keys
+    -- after the language server attaches to the current buffer
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+      callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<Leader>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<Leader>fmt', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
-  end,
-})
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local opts = { buffer = ev.buf }
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set('n', '<Leader>wl', function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, opts)
+        vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', '<Leader>fmt', function()
+          vim.lsp.buf.format { async = true }
+        end, opts)
+      end,
+    })
 
--- Telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+    -- Telescope
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+    vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+    vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+    vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
--- Treesitter
-local treesitter_config = require('nvim-treesitter.configs')
-treesitter_config.setup({
-    ensure_installed = { "rust", "c", "python", "lua" },
-    sync_install = false,
-    auto_install = false,
-    highlight = {
-        enable = true,
-        aditional_vim_regex_highlighting = true,
-    },
-    indent = {
-        enable = true,
-    },
-})
+    -- Treesitter
+    local treesitter_config = require('nvim-treesitter.configs')
+    treesitter_config.setup({
+        ensure_installed = { "rust", "c", "python", "lua" },
+        sync_install = false,
+        auto_install = false,
+        highlight = {
+            enable = true,
+            aditional_vim_regex_highlighting = true,
+        },
+        indent = {
+            enable = true,
+        },
+    })
 
--- Colour Schemes
-require('kanagawa').setup({
-    compile = false,             -- enable compiling the colorscheme
-    undercurl = true,            -- enable undercurls
-    commentStyle = { italic = true },
-    functionStyle = {},
-    keywordStyle = { italic = true},
-    statementStyle = { bold = true },
-    typeStyle = {},
-    transparent = false,         -- do not set background color
-    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
-    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
-    theme = "wave",              -- Load "wave" theme when 'background' option is not set
-    background = {               -- map the value of 'background' option to a theme
-        dark = "wave",
-        light = "lotus"
-    },
-})
+    -- Colour Schemes
+    require('kanagawa').setup({
+        compile = false,             -- enable compiling the colorscheme
+        undercurl = true,            -- enable undercurls
+        commentStyle = { italic = true },
+        functionStyle = {},
+        keywordStyle = { italic = true},
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = false,         -- do not set background color
+        dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+        theme = "wave",              -- Load "wave" theme when 'background' option is not set
+        background = {               -- map the value of 'background' option to a theme
+            dark = "wave",
+            light = "lotus"
+        },
+    })
 
-function starts_with(str, pattern)
-    return string.sub(str, 1, #pattern) == pattern
-end
+    function starts_with(str, pattern)
+        return string.sub(str, 1, #pattern) == pattern
+    end
 
-colorschemes = {
-    'kanagawa',
-    'gruvbox',
-    'catppuccin',
-    'nord',
-    'modus',
-}
-vim.api.nvim_create_user_command(
-    'ToggleColorscheme',
-    function()
-        local new_colorscheme_idx = 1
-        for i, colorscheme in ipairs(colorschemes) do
-            if starts_with(vim.g.colors_name, colorscheme) then
-                new_colorscheme_idx = i + 1
+    colorschemes = {
+        'kanagawa',
+        'gruvbox',
+        'catppuccin',
+        'nord',
+        'modus',
+    }
+    vim.api.nvim_create_user_command(
+        'ToggleColorscheme',
+        function()
+            local new_colorscheme_idx = 1
+            for i, colorscheme in ipairs(colorschemes) do
+                if starts_with(vim.g.colors_name, colorscheme) then
+                    new_colorscheme_idx = i + 1
+                end
             end
-        end
-        if new_colorscheme_idx > #colorschemes then
-            new_colorscheme_idx = 1
-        end
-        vim.cmd.colorscheme(colorschemes[new_colorscheme_idx])
-    end,
-    { nargs = 0 }
-)
-vim.keymap.set('n', '<Leader>c', ':ToggleColorscheme<CR>', { silent = true })
+            if new_colorscheme_idx > #colorschemes then
+                new_colorscheme_idx = 1
+            end
+            vim.cmd.colorscheme(colorschemes[new_colorscheme_idx])
+        end,
+        { nargs = 0 }
+    )
+    vim.keymap.set('n', '<Leader>c', ':ToggleColorscheme<CR>', { silent = true })
 
-vim.cmd.colorscheme(colorschemes[1])
+    vim.cmd.colorscheme(colorschemes[1])
+end
