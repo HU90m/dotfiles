@@ -1,8 +1,4 @@
-#
-# ~/.bashrc
-#
-
-PATH=$PATH:~/.local/bin/
+#!/usr/bin/env bash
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -11,6 +7,13 @@ PATH=$PATH:~/.local/bin/
 HISTSIZE=10000
 HISTFILESIZE=20000
 
+# Add user directories to PATH
+for directory in ~/.local/bin/ ~/.cargo/bin/; do
+  if [ -d $directory ]; then
+    PATH=$PATH:$directory
+  fi
+done
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -18,15 +21,6 @@ shopt -s checkwinsize
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
-
-# Change GNU Readlines to vi
-# I have changed this universally in ~/.inputrc
-#set -o vi
-
-# Start up the gpg-agent and set ssh to point to it.
-#export GPG_TTY="$(tty)"
-#export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-#gpgconf --launch gpg-agent
 
 # prompt
 function return_value() {
@@ -45,10 +39,6 @@ alias fgrep='fgrep --colour=auto'
 export EDITOR="nvr -o"
 export GIT_EDITOR="nvr --remote-wait-silent"
 export VISUAL="nvr --remote-wait-silent"
-
-# setup completion (works in fedora)
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-    . /usr/share/bash-completion/bash_completion
 
 # time savers
 alias q="exit"
@@ -71,51 +61,20 @@ alias rm="rm -ir"
 alias cp="cp -vir"
 alias mv="mv -iv"
 
-# preferences
-alias yt-dl-music="youtube-dl -f bestaudio[ext=m4a] -o \"%(title)s.%(ext)s\""
-alias flite="flite -voice ~/.config/flite/voices/cmu_us_awb.flitevox"
-
-# because I can never remember
-alias vpnsoton="sudo openconnect --protocol=gp -u hm6g17 globalprotect.soton.ac.uk"
-
-# functions
-function za {
-    for pdffile in "$@"
-    do
-        zathura "$pdffile" 2>/dev/null 1>/dev/null &
-        disown zathura
-    done
-}
-
-function g {
-    for file in "$@"
-    do
-        name="$(basename "$file")"
-        ext="${name##*.}"
-        case $ext in
-            "jpg"|"png")
-                echo "sxiv $file"
-                sxiv "$file";;
-            "pdf")
-                echo "za $file"
-                za "$file";;
-            *)
-                echo "cd $file"
-                cd "$file";;
-        esac
-    done
-}
-
-# Add rust binaries to the path
-PATH=$PATH:~/.cargo/bin/
-
 # use GPG Key for SSH
-unset SSH_AGENT_PID
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+USE_GPG_SSH_AGENT=true
+if $USE_GPG_SSH_AGENT; then
+  unset SSH_AGENT_PID
+  if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+    SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+    export SSH_AUTH_SOCK
+  fi
+  GPG_TTY="$(tty)"
+  export GPG_TTY
+  gpg-connect-agent updatestartuptty /bye >/dev/null
 fi
-export GPG_TTY=$(tty)
-gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # Carcinisation
-eval "$(starship init bash)"
+if command -v starship &> /dev/null; then
+  eval "$(starship init bash)"
+fi
