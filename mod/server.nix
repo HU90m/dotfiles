@@ -38,6 +38,7 @@
     neovim
     neovim-remote
     git
+    gnupg
     rsync
     ripgrep
     fd
@@ -118,7 +119,7 @@
         "git.hugom.uk" = {
           addSSL = true;
           enableACME = true;
-          root = "/git/pub/";
+          root = "/git/www/";
           locations."/".extraConfig = "autoindex on;";
         };
         ${nextcloud.hostName} = {
