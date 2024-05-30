@@ -1,29 +1,6 @@
 -- Set to false if you don't want to use plugins.
 use_plugins = true
 
--- Set up leaders
-vim.g.mapleader = '\\'
-vim.g.maplocalleader = ','
-
--- Terminal Mode Maps
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
-vim.keymap.set('t', '<C-w>', '<C-\\><C-N><C-w>')
-
--- Normal Mode Maps
-vim.keymap.set('n', '<Leader>h', ':noh<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>s', ':set spell!<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>%', ':let @*=@%<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>d', ":put =strftime('%F', localtime())<CR>", { silent = true })
-vim.keymap.set('n', '<Leader>b', ':ToggleBg<CR>', { silent = true })
-
-vim.keymap.set('n', '<Leader>j', ':n<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>k', ':N<CR>', { silent = true })
-
-vim.keymap.set('n', '<Leader>n', 'n')
-vim.keymap.set('n', '<Leader>N', 'N')
-vim.keymap.set('n', 'n', 'nzz')
-vim.keymap.set('n', 'N', 'Nzz')
-
 -- Number of milliseconds to wait for a key sequence
 vim.opt.timeout = true
 vim.opt.timeoutlen = 600
@@ -152,6 +129,25 @@ vim.api.nvim_create_user_command('ToggleBg', function()
     end
 end, { nargs = 0 })
 
+vim.api.nvim_create_user_command('Float', function()
+    api = vim.api
+    if table.getn(api.nvim_list_wins()) < 2 then
+        vim.print("The last window doesn't float.")
+        return
+    end
+    ui = api.nvim_list_uis()[1]
+    width = 100
+    height = ui.height - 12
+    api.nvim_win_set_config(0, {
+        relative = 'editor',
+        width = width,
+        height = height,
+        col = (ui.width / 2) - (width / 2),
+        row = (ui.height / 2) - (height / 2),
+        border = 'rounded',
+    })
+end, {})
+
 -- Autocommands
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
     pattern = { '*.S' },
@@ -176,6 +172,8 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.opt.spell = false
     end,
 })
+
+vim.filetype.add({ extension = { typ = 'typst' } })
 
 if use_plugins then
     -- If not already installed, install lazy.
@@ -241,54 +239,10 @@ if use_plugins then
     }) -- markdown
     lspconfig.clangd.setup({}) -- c/cpp/objc
 
-    -- Global mappings.
-    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-    vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist)
-    -- Use LspAttach autocommand to only map the following keys
-    -- after the language server attaches to the current buffer
-    vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-        callback = function(ev)
-            -- Enable completion triggered by <c-x><c-o>
-            vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-            -- Buffer local mappings.
-            -- See `:help vim.lsp.*` for documentation on any of the below functions
-            local opts = { buffer = ev.buf }
-            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-            vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-            vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-            vim.keymap.set('n', '<Leader>wl', function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, opts)
-            vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
-            vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-            vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
-            vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-            vim.keymap.set('n', '<Leader>fmt', function()
-                vim.lsp.buf.format({ async = true })
-            end, opts)
-        end,
-    })
-
-    -- Telescope
-    local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-    vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-    vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-    vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-
     -- Treesitter
     local treesitter_config = require('nvim-treesitter.configs')
     treesitter_config.setup({
-        ensure_installed = { 'rust', 'c', 'python', 'lua' },
+        ensure_installed = { 'vimdoc', 'rust', 'c', 'cpp', 'python', 'lua' },
         sync_install = false,
         auto_install = false,
         highlight = {
@@ -342,7 +296,78 @@ if use_plugins then
         end
         vim.cmd.colorscheme(colorschemes[new_colorscheme_idx])
     end, { nargs = 0 })
-    vim.keymap.set('n', '<Leader>c', ':ToggleColorscheme<CR>', { silent = true })
 
     vim.cmd.colorscheme(colorschemes[1])
+end
+
+-- Set up leaders
+vim.g.mapleader = '\\'
+vim.g.maplocalleader = ','
+
+-- Terminal Mode Maps
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
+vim.keymap.set('t', '<C-w>', '<C-\\><C-N><C-w>')
+
+-- Normal Mode Maps
+vim.keymap.set('n', '<Leader>h', ':noh<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>s', ':set spell!<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>%', ':let @*=@%<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>d', ":put =strftime('%F', localtime())<CR>", { silent = true })
+
+vim.keymap.set('n', '<Leader>j', ':n<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>k', ':N<CR>', { silent = true })
+
+vim.keymap.set('n', '<Leader>n', 'n')
+vim.keymap.set('n', '<Leader>N', 'N')
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
+
+vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist)
+
+vim.keymap.set('n', '<Leader>b', ':ToggleBg<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>p', ':Float<CR>', { silent = true }) -- p for popup
+
+if use_plugins then
+    -- Telescope
+    local tele_builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>ff', tele_builtin.find_files, {})
+    vim.keymap.set('n', '<leader>fg', tele_builtin.live_grep, {})
+    vim.keymap.set('n', '<leader>fb', tele_builtin.buffers, {})
+    vim.keymap.set('n', '<leader>fh', tele_builtin.help_tags, {})
+
+    vim.keymap.set('n', '<Leader>c', ':ToggleColorscheme<CR>', { silent = true })
+
+    -- Use LspAttach autocommand to only map the following keys
+    -- after the language server attaches to the current buffer
+    vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+        callback = function(ev)
+            -- Enable completion triggered by <c-x><c-o>
+            vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+            -- Buffer local mappings.
+            -- See `:help vim.lsp.*` for documentation on any of the below functions
+            local opts = { buffer = ev.buf }
+            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+            vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+            vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+            vim.keymap.set('n', '<Leader>wl', function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            end, opts)
+            vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
+            vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
+            vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
+            vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+            vim.keymap.set('n', '<Leader>fmt', function()
+                vim.lsp.buf.format({ async = true })
+            end, opts)
+        end,
+    })
 end
