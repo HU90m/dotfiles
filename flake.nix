@@ -87,6 +87,17 @@
           LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath buildInputs}";
         };
       };
+      checks = {
+        stylua = pkgs.stdenv.mkDerivation {
+          name = "stylua-check";
+          src = ./.;
+          dontBuild = true;
+          doCheck = true;
+          nativeBuildInputs = with pkgs; [stylua];
+          checkPhase = "stylua -ac .";
+          installPhase = "mkdir $out";
+        };
+      };
       formatter = pkgs.alejandra;
     };
   in
