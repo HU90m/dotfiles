@@ -194,23 +194,7 @@ if use_plugins then
     local lazy = require('lazy')
     local plugins = {
         {
-            'rebelot/kanagawa.nvim',
-            -- This is the default colour scheme,
-            -- so we should priorities it's loading.
-            priority = 1000,
-        },
-        {
-            'ellisonleao/gruvbox.nvim',
-        },
-        {
-            'catppuccin/nvim',
-            name = 'catppuccin',
-        },
-        {
-            'shaunsingh/nord.nvim',
-        },
-        {
-            'miikanissi/modus-themes.nvim',
+            'RRethy/base16-nvim',
         },
         {
             'neovim/nvim-lspconfig',
@@ -254,50 +238,24 @@ if use_plugins then
         },
     })
 
-    -- Colour Schemes
-    require('kanagawa').setup({
-        compile = false, -- enable compiling the colorscheme
-        undercurl = true, -- enable undercurls
-        commentStyle = { italic = true },
-        functionStyle = {},
-        keywordStyle = { italic = true },
-        statementStyle = { bold = true },
-        typeStyle = {},
-        transparent = false, -- do not set background color
-        dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-        terminalColors = true, -- define vim.g.terminal_color_{0,17}
-        theme = 'wave', -- Load "wave" theme when 'background' option is not set
-        background = { -- map the value of 'background' option to a theme
-            dark = 'wave',
-            light = 'lotus',
-        },
-    })
+    vim.opt.termguicolors = true
+    colorschemes = vim.fn.getcompletion('base16-', 'color')
+    prev_colorschemes = {}
 
-    function starts_with(str, pattern)
-        return string.sub(str, 1, #pattern) == pattern
-    end
-
-    colorschemes = {
-        'kanagawa',
-        'gruvbox',
-        'catppuccin',
-        'nord',
-        'modus',
-    }
-    vim.api.nvim_create_user_command('ToggleColorscheme', function()
-        local new_colorscheme_idx = 1
-        for i, colorscheme in ipairs(colorschemes) do
-            if starts_with(vim.g.colors_name, colorscheme) then
-                new_colorscheme_idx = i + 1
-            end
-        end
-        if new_colorscheme_idx > #colorschemes then
-            new_colorscheme_idx = 1
-        end
-        vim.cmd.colorscheme(colorschemes[new_colorscheme_idx])
+    vim.api.nvim_create_user_command('RandomColorscheme', function()
+        local next = colorschemes[math.random(table.getn(colorschemes))]
+        table.insert(prev_colorschemes, vim.g.colors_name)
+        vim.print(next)
+        vim.cmd.colorscheme(next)
     end, { nargs = 0 })
 
-    vim.cmd.colorscheme(colorschemes[1])
+    vim.api.nvim_create_user_command('PreviousColorscheme', function()
+        local prev = table.remove(prev_colorschemes)
+        vim.print(prev)
+        if prev then
+            vim.cmd.colorscheme(prev)
+        end
+    end, { nargs = 0 })
 end
 
 -- Set up leaders
@@ -338,7 +296,8 @@ if use_plugins then
     vim.keymap.set('n', '<leader>fb', tele_builtin.buffers, {})
     vim.keymap.set('n', '<leader>fh', tele_builtin.help_tags, {})
 
-    vim.keymap.set('n', '<Leader>c', ':ToggleColorscheme<CR>', { silent = true })
+    vim.keymap.set('n', '<Leader>c', ':RandomColorscheme<CR>', { silent = true })
+    vim.keymap.set('n', '<Leader>C', ':PreviousColorscheme<CR>', { silent = true })
 
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
@@ -367,6 +326,9 @@ if use_plugins then
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
             vim.keymap.set('n', '<Leader>fmt', function()
                 vim.lsp.buf.format({ async = true })
+            end, opts)
+            vim.keymap.set('n', '<Leader>U', function()
+                vim.print(colors)
             end, opts)
         end,
     })
