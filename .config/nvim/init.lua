@@ -173,8 +173,13 @@ vim.api.nvim_create_autocmd('TermOpen', {
     end,
 })
 
+-- Filetypes
 vim.filetype.add({ extension = { typ = 'typst' } })
 
+-- Lua Specific Setup
+math.randomseed(vim.fn.localtime())
+
+-- Install and Setup Plug-ins
 if use_plugins then
     -- If not already installed, install lazy.
     local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
