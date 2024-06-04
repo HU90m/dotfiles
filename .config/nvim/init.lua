@@ -149,18 +149,6 @@ vim.api.nvim_create_user_command('Float', function()
 end, {})
 
 -- Autocommands
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
-    pattern = { '*.S' },
-    callback = function()
-        vim.opt.filetype = 'asm'
-    end,
-})
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
-    pattern = { '*.core' },
-    callback = function()
-        vim.opt.filetype = 'yaml'
-    end,
-})
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'gitcommit', 'gitrebase', 'gitconfig' },
     callback = function()
@@ -175,6 +163,8 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
 -- Filetypes
 vim.filetype.add({ extension = { typ = 'typst' } })
+vim.filetype.add({ extension = { core = 'yaml' } })
+vim.filetype.add({ extension = { S = 'asm' } })
 
 -- Lua Specific Setup
 math.randomseed(vim.fn.localtime())
