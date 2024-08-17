@@ -137,7 +137,7 @@
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       hostName = "cloud.hugom.uk";
       https = true;
       datadir = "/mnt/storage/cloud";
@@ -160,16 +160,6 @@
 
       extraApps = with config.services.nextcloud.package.packages.apps; {
         inherit contacts calendar mail tasks spreed notes cospend maps forms;
-        collectives = pkgs.fetchNextcloudApp {
-          url = "https://github.com/nextcloud/collectives/releases/download/v2.9.2/collectives-2.9.2.tar.gz";
-          sha256 = "sha256-DtceLtfi79HJ2whOdjaYONZJ91ldTW/2f+allNWZLKA=";
-          license = "agpl3Plus";
-        };
-        tables = pkgs.fetchNextcloudApp {
-          url = "https://github.com/nextcloud/tables/releases/download/v0.6.5/tables.tar.gz";
-          sha256 = "sha256-Srtvp+Ty7OE7cNdX60cBNxOiT69+VJDsC66TlH9OX1Y=";
-          license = "agpl3Plus";
-        };
       };
       extraAppsEnable = true;
 
