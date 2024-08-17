@@ -57,8 +57,8 @@ alias nterm2="nvim +term +term '+args # %' +startinsert"
 alias vi="nvr -o"
 
 # safety
-alias rm="rm -ir"
-alias cp="cp -vir"
+alias rm="rm -I"
+alias cp="cp -ivr"
 alias mv="mv -iv"
 
 # use GPG Key for SSH
