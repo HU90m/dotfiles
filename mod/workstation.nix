@@ -100,7 +100,7 @@
   users.users.hugom = {
     isNormalUser = true;
     description = "Hugo McNally";
-    extraGroups = ["networkmanager" "wheel" "plugdev"];
+    extraGroups = ["networkmanager" "wheel" "plugdev" "dialout"];
     packages = with pkgs; [
       firefox
       tor-browser-bundle-bin
