@@ -149,11 +149,16 @@ vim.api.nvim_create_user_command('Float', function()
 end, {})
 
 -- Autocommands
+function delete_when_hidden()
+  vim.opt.bufhidden = 'delete'
+end
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'gitcommit', 'gitrebase', 'gitconfig' },
-    callback = function()
-        vim.opt.bufhidden = 'delete'
-    end,
+    callback = delete_when_hidden,
+})
+vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = { '/tmp/bash-fc.*' }, -- Bash GNU Readlines Vi Visual Mode
+    callback = delete_when_hidden,
 })
 vim.api.nvim_create_autocmd('TermOpen', {
     callback = function()
