@@ -26,6 +26,8 @@
 	wd = diff --word-diff
 	fpush = push --force-with-lease
 	c = clean -xfd
+	crebase = rebase --continue
+	acommit = commit --amend --no-edit
 [rerere]
 	enable = true
 [branch]
