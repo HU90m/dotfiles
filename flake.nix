@@ -2,7 +2,7 @@
   description = "HU90m's Personal Packages, Shells and Machines";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     flake-utils.url = "github:numtide/flake-utils";
     lowrisc-it = {
       url = "git+ssh://git@github.com/lowRISC/lowrisc-it";

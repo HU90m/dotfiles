@@ -173,7 +173,7 @@
       };
       extraAppsEnable = true;
 
-      extraOptions = {
+      settings = {
         default_phone_region = "GB";
         enabledPreviewProviders = [
           "OC\\Preview\\Image"

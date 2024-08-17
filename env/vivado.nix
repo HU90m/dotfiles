@@ -13,12 +13,11 @@
   xorg,
   zlib,
 }: let
-  vivado-version = "2023.2";
+  version = "2023.2";
   env = binName:
     pkgs.buildFHSEnv {
+      inherit version;
       pname = binName;
-      version = null;
-      name = null;
 
       targetPkgs = _: let
         ncurses5-fhs = ncurses5.overrideAttrs (old: {
@@ -47,7 +46,7 @@
       ];
 
       profile = ''
-        source /home/hugom/.local/bin/Xilinx/Vivado/${vivado-version}/settings64.sh
+        source /home/hugom/.local/bin/Xilinx/Vivado/${version}/settings64.sh
       '';
       runScript = binName;
 
