@@ -5,6 +5,9 @@
   modulesPath,
   ...
 }: {
+  networking.hostName = "HMS-Convenient";
+  networking.hostId = "81b79b25";
+
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = [];
@@ -21,18 +24,17 @@
   };
 
   fileSystems."/mnt/storage" = {
-    device = "/dev/disk/by-uuid/0e827c6f-bdc2-42ab-b0d4-2bb08920a8d3";
-    fsType = "ext4";
-    options = [
-      "noatime"
-      "nofail" # continue to boot if not available
-      "x-systemd.device-timeout=5" # only wait 5 seconds, when trying to mount
-    ];
+    device = "ConvenientReservoir/STORAGE";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/media" = {
+    device = "ConvenientReservoir/MEDIA";
+    fsType = "zfs";
   };
 
   swapDevices = [];
 
-  networking.hostName = "HMS-Convenient";
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
@@ -43,9 +45,15 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
+  services = {
+    logind = {
+      lidSwitch = "ignore";
+      lidSwitchDocked = "ignore";
+      lidSwitchExternalPower = "ignore";
+    };
+    zfs = {
+      autoScrub.enable = true;
+      autoSnapshot.enable = true;
+    };
   };
 }
