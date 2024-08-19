@@ -164,6 +164,7 @@
       extraAppsEnable = true;
 
       settings = {
+        log_type = "file";
         default_phone_region = "GB";
         enabledPreviewProviders = [
           "OC\\Preview\\Image"
