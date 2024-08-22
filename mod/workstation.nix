@@ -7,6 +7,7 @@
   ...
 }: {
   nix.settings = {
+    trusted-users = ["root" "@wheel"];
     experimental-features = ["nix-command" "flakes"];
     accept-flake-config = true;
     substituters = [
