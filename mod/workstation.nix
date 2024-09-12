@@ -54,7 +54,6 @@
 
   services.flatpak.enable = true;
   services.blueman.enable = true;
-  services.safeeyes.enable = true;
 
   virtualisation.podman = {
     enable = true;
