@@ -147,11 +147,11 @@ vim.api.nvim_create_user_command('Float', function(args)
         row = (ui.height / 2) - (height / 2),
         border = 'rounded',
     })
-end, { desc = "Floats the current window.", count = true })
+end, { desc = 'Floats the current window.', count = true })
 
 -- Autocommands
 function delete_when_hidden()
-  vim.opt.bufhidden = 'delete'
+    vim.opt.bufhidden = 'delete'
 end
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'gitcommit', 'gitrebase', 'gitconfig' },
@@ -239,7 +239,7 @@ if use_plugins then
             'python',
             'lua',
             'markdown',
-            'markdown_inline'
+            'markdown_inline',
         },
         sync_install = false,
         auto_install = false,
