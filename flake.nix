@@ -27,7 +27,7 @@
       nixosConfigurations = let
         system = "x86_64-linux";
         specialArgs = {
-          inherit nixpkgs lowrisc-it lowrisc-nix;
+          inherit self nixpkgs lowrisc-it lowrisc-nix;
         };
       in {
         HMS-Stealth = nixpkgs.lib.nixosSystem {
@@ -59,10 +59,6 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) ["vivado" "updatemem"];
-      };
-      lowriscPkgs = {
-        std = lowrisc-nix.outputs.packages.${system};
-        it = lowrisc-it.outputs.packages.${system};
       };
       vivado = pkgs.callPackage ./env/vivado.nix {};
     in {

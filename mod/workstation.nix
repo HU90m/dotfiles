@@ -2,6 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
+  self,
   pkgs,
   nixpkgs,
   ...
@@ -18,7 +19,14 @@
     ];
   };
 
+  nix.registry.self.flake = self;
   nix.registry.nixpkgs.flake = nixpkgs;
+  nix.registry.unstable.to = {
+    owner = "NixOS";
+    repo = "nixpkgs";
+    ref = "nixpkgs-unstable";
+    type = "github";
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
