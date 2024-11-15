@@ -129,14 +129,15 @@ vim.api.nvim_create_user_command('ToggleBg', function()
     end
 end, { nargs = 0 })
 
-vim.api.nvim_create_user_command('Float', function()
+vim.api.nvim_create_user_command('Float', function(args)
     api = vim.api
     if table.getn(api.nvim_list_wins()) < 2 then
         vim.print("The last window doesn't float.")
         return
     end
     ui = api.nvim_list_uis()[1]
-    width = 100
+    vim.print(args.count)
+    width = args.count > 0 and args.count or ui.width - 12
     height = ui.height - 12
     api.nvim_win_set_config(0, {
         relative = 'editor',
@@ -146,7 +147,7 @@ vim.api.nvim_create_user_command('Float', function()
         row = (ui.height / 2) - (height / 2),
         border = 'rounded',
     })
-end, {})
+end, { desc = "Floats the current window.", count = true })
 
 -- Autocommands
 function delete_when_hidden()
