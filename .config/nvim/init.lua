@@ -215,24 +215,37 @@ if use_plugins then
     -- LSP Setup
     local lspconfig = require('lspconfig')
     lspconfig.rust_analyzer.setup({}) -- rust
-    lspconfig.jedi_language_server.setup({}) -- python
     lspconfig.marksman.setup({
         root_dir = function(fname)
             return lspconfig.util.root_pattern('.marksman.toml')(fname)
         end,
         --cmd = {'marksman', 'server', '-v1000'}, -- Used for debugging issues
     }) -- markdown
+    lspconfig.dotls.setup({}) -- graphviz dot
     lspconfig.clangd.setup({}) -- c/cpp/objc
+    lspconfig.nil_ls.setup({}) -- Nix
+    --lspconfig.pyright.setup({}) -- python
+    --lspconfig.veridian.setup({}) -- System Verilog
 
     -- Treesitter
     local treesitter_config = require('nvim-treesitter.configs')
     treesitter_config.setup({
-        ensure_installed = { 'vimdoc', 'rust', 'c', 'cpp', 'python', 'lua' },
+        ensure_installed = {
+            'vimdoc',
+            'rust',
+            'verilog',
+            'c',
+            'cpp',
+            'python',
+            'lua',
+            'markdown',
+            'markdown_inline'
+        },
         sync_install = false,
         auto_install = false,
         highlight = {
             enable = true,
-            aditional_vim_regex_highlighting = true,
+            aditional_vim_regex_highlighting = false,
         },
         indent = {
             enable = true,
