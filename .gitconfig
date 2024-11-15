@@ -23,11 +23,14 @@
 	cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
 [alias]
 	detective = blame -w -C -C -C
-	wd = diff --word-diff
+	wd = diff --word-diff=color
 	fpush = push --force-with-lease
-	c = clean -xfd
+	deepclean = clean -xfd
 	crebase = rebase --continue
 	acommit = commit --amend --no-edit
+	tree = log --oneline --graph --decorate --all
+	stat = show --stat
+	diffstaged = diff --staged
 [rerere]
 	enable = true
 [branch]
