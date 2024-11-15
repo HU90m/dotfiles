@@ -195,6 +195,9 @@ if use_plugins then
     local lazy = require('lazy')
     local plugins = {
         {
+            'jeffkreeftmeijer/vim-dim',
+        },
+        {
             'RRethy/base16-nvim',
         },
         {
@@ -252,11 +255,12 @@ if use_plugins then
         },
     })
 
-    vim.opt.termguicolors = true
+    vim.cmd.colorscheme('dim')
     colorschemes = vim.fn.getcompletion('base16-', 'color')
     prev_colorschemes = {}
 
     vim.api.nvim_create_user_command('RandomColorscheme', function()
+        vim.opt.termguicolors = true
         local next = colorschemes[math.random(table.getn(colorschemes))]
         table.insert(prev_colorschemes, vim.g.colors_name)
         vim.print(next)
