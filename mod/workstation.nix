@@ -105,13 +105,14 @@
       firefox
       tor-browser-bundle-bin
       alacritty
+      foot
       pass
       wl-clipboard
       rustup
       cmake
       ninja
       marksman
-      python311Packages.jedi-language-server
+      dot-language-server
       nil
       mdbook
     ];
