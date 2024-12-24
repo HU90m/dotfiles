@@ -51,11 +51,13 @@ vim.opt.scrolloff = 6
 -- Show prompt when closing unsaved file
 vim.opt.confirm = true
 
--- When saving, create a seperate backup and overwrite the original.
+-- When saving, create a separate backup and overwrite the original.
 vim.opt.backupcopy = 'yes'
 
--- Enables/disables swap file
+-- Enables/disables swap and backup files
 vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
 
 -- For fear of madness
 vim.opt.belloff = 'all'
@@ -109,6 +111,7 @@ vim.opt.hlsearch = true
 -- Wild Menu
 vim.opt.wildmode = { 'longest', 'list' }
 vim.opt.wildmenu = true
+vim.opt.wildoptions = { 'pum', 'tagfile' }
 
 -- Don't underline current line
 vim.opt.cursorline = false
