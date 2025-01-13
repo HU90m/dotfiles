@@ -64,6 +64,9 @@
   services.blueman.enable = true;
   services.fwupd.enable = true;
 
+  services.clamav.scanner.enable = true;
+  services.clamav.updater.enable = true;
+
   virtualisation.podman = {
     enable = true;
     defaultNetwork.settings.dns_enabled = true;
