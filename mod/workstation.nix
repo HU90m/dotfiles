@@ -62,6 +62,7 @@
 
   services.flatpak.enable = true;
   services.blueman.enable = true;
+  services.fwupd.enable = true;
 
   virtualisation.podman = {
     enable = true;
