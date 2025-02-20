@@ -46,7 +46,7 @@ vim.opt.laststatus = 1
 vim.opt.hidden = true
 
 -- Adds 6 lines of context when scrolling
-vim.opt.scrolloff = 6
+vim.opt.scrolloff = 0
 
 -- Show prompt when closing unsaved file
 vim.opt.confirm = true
@@ -227,8 +227,10 @@ if use_plugins then
         },
         {
             'nvim-telescope/telescope.nvim',
-            tag = '0.1.2',
-            dependencies = { 'nvim-lua/plenary.nvim' },
+            dependencies = {
+                'nvim-lua/plenary.nvim',
+                'nvim-telescope/telescope-live-grep-args.nvim',
+            },
         },
         {
             'nvim-treesitter/nvim-treesitter',
@@ -378,13 +380,20 @@ vim.keymap.set('n', '<Leader>p', ':Float<CR>', { silent = true }) -- p for popup
 
 if use_plugins then
     -- Telescope
+    local telescope = require('telescope')
     local tele_builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', tele_builtin.find_files, {})
-    vim.keymap.set('n', '<leader>fg', tele_builtin.live_grep, {})
+    vim.keymap.set('n', '<leader>fg', telescope.extensions.live_grep_args.live_grep_args, {})
     vim.keymap.set('n', '<leader>fb', tele_builtin.buffers, {})
-    vim.keymap.set('n', '<leader>fh', tele_builtin.help_tags, {})
+    vim.keymap.set('n', '<leader>fr', tele_builtin.resume, {})
 
     vim.keymap.set('n', '<Leader>c', ':ToggleColorscheme<CR>', { silent = true })
+
+    -- Disable folding in the telescope picker
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'TelescopeResults',
+        command = [[setlocal foldlevelstart=42]],
+    })
 
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
