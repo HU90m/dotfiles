@@ -174,6 +174,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 vim.filetype.add({ extension = { typ = 'typst' } })
 vim.filetype.add({ extension = { core = 'yaml' } })
 vim.filetype.add({ extension = { S = 'asm' } })
+vim.filetype.add({ extension = { djot = 'djot' } })
 
 -- Lua Specific Setup
 math.randomseed(vim.fn.localtime())
