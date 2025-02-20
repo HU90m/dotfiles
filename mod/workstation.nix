@@ -60,6 +60,19 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings.main = {
+        capslock = "layer(control)";
+        esc = "noop";
+        leftcontrol = "noop";
+        rightcontrol = "capslock";
+      };
+    };
+  };
+
   services.flatpak.enable = true;
   services.blueman.enable = true;
   services.fwupd.enable = true;
@@ -111,7 +124,7 @@
   users.users.hugom = {
     isNormalUser = true;
     description = "Hugo McNally";
-    extraGroups = ["networkmanager" "wheel" "plugdev" "dialout"];
+    extraGroups = ["networkmanager" "wheel" "plugdev" "keyd" "dialout"];
     packages = with pkgs; [
       firefox
       tor-browser-bundle-bin
