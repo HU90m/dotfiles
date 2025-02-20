@@ -38,18 +38,14 @@ style = "Block"
 unfocused_hollow = true
 
 [font]
-size = 10
+size = 12
 
 [font.glyph_offset]
 x = 0
 y = 0
 
 [font.normal]
-family = "SpaceMono Nerd Font"
-#family = "Latin Modern Mono"
-#family = "Terminess Nerd Font Mono"
-#family = "VictorMono Nerd Font"
-#family = "Monofur Nerd Font Mono"
+family = "Atkinson Hyperlegible Mono"
 
 [font.offset]
 x = 0
