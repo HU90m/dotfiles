@@ -350,7 +350,7 @@ if use_plugins then
 end
 
 -- Set up leaders
-vim.g.mapleader = '\\'
+vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
 -- Terminal Mode Maps
@@ -358,13 +358,18 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
 vim.keymap.set('t', '<C-w>', '<C-\\><C-N><C-w>')
 
 -- Normal Mode Maps
-vim.keymap.set('n', '<Leader>h', ':noh<CR>', { silent = true })
+vim.keymap.set('n', '<Space>', '<Nop>')
+vim.keymap.set('n', '<C-l>', ':nohl<CR><C-l>', { silent = true })
+
 vim.keymap.set('n', '<Leader>s', ':set spell!<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>%', ':let @*=@%<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>d', ":put =strftime('%F', localtime())<CR>", { silent = true })
+vim.keymap.set('n', '<Leader>d', ":put =strftime('%F', localtime())<CR>kJ$", { silent = true })
 
 vim.keymap.set('n', '<Leader>j', ':n<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>k', ':N<CR>', { silent = true })
+
+vim.keymap.set('n', '<Leader>l', ':cn<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>h', ':cN<CR>', { silent = true })
 
 vim.keymap.set('n', '<Leader>n', 'n')
 vim.keymap.set('n', '<Leader>N', 'N')
