@@ -45,8 +45,8 @@ vim.opt.laststatus = 1
 -- Enables/disables changed buffers to be hidden
 vim.opt.hidden = true
 
--- Adds 6 lines of context when scrolling
-vim.opt.scrolloff = 0
+-- Adds 10 lines of context when scrolling
+vim.opt.scrolloff = 10
 
 -- Show prompt when closing unsaved file
 vim.opt.confirm = true
@@ -393,7 +393,7 @@ if use_plugins then
     -- Disable folding in the telescope picker
     vim.api.nvim_create_autocmd('FileType', {
         pattern = 'TelescopeResults',
-        command = [[setlocal foldlevelstart=42]],
+        command = [[setlocal foldlevelstart=42 scrolloff=0]],
     })
 
     -- Use LspAttach autocommand to only map the following keys
