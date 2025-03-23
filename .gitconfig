@@ -5,11 +5,16 @@
 
 [commit]
 	gpgsign = true
+	verbose = true
 
 [init]
 	defaultbranch = main
 
 [diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 	tool = nvr
 
 [difftool "nvr"]
@@ -21,6 +26,7 @@
 
 [mergetool "nvr"]
 	cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
+
 [alias]
 	detective = blame -w -C -C -C
 	wd = diff --word-diff=color
@@ -31,9 +37,26 @@
 	tree = log --oneline --graph --decorate --all
 	stat = show --stat
 	diffstaged = diff --staged
+
 [rerere]
 	enable = true
+
+[column]
+	ui = auto
+
 [branch]
 	sort = -committerdate
+
 [fetch]
 	writeCommitGraph = true
+	prune = true
+	pruneTags = true
+
+[push]
+	default = simple
+	autoSetupRemote = true
+	followTags = true
+
+[rebase]
+	autoSquash = true
+	autoStash = true
