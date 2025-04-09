@@ -64,9 +64,10 @@
       };
       pkgsUnstable = import nixpkgs-unstable { inherit system; };
       vivado = pkgs.callPackage ./env/vivado.nix {};
+      gubbins = pkgs.callPackage ./gubbins.nix {};
     in {
       packages = {
-        inherit vivado;
+        inherit vivado gubbins;
       };
       devShells = {
         circt = pkgs.mkShell {
