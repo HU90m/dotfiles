@@ -22,16 +22,6 @@
     fsType = "vfat";
   };
 
-  fileSystems."/var/cache/fscache" = {
-    device = "/dev/zvol/CelestialPond/DISK/fscache";
-    fsType = "ext4";
-    options = [
-      # Lazily mount on use.
-      "x-systemd.automount"
-      "noauto"
-    ];
-  };
-
   swapDevices = [
     {device = "/dev/disk/by-label/CelestialSwap";}
   ];

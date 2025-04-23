@@ -10,11 +10,15 @@
   lowrisc = {
     identity = "hugom@lowrisc.org";
     network = true;
-    toolnas.enable = true;
+    tools.enable = true;
     usePublicCache = true;
+    auth.gcloudCli.enable = true;
+    auth.gcloudCli.user = "hugom";
+    nebula.enable = true;
   };
   nix.registry.lowrisc-it.flake = lowrisc-it;
   nix.registry.lowrisc-nix.flake = lowrisc-nix;
+
 
   # Versions which aren't following my nixpkgs version,
   # useful for when I want to make use of the lowRISC cache.
