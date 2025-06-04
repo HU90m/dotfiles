@@ -4,7 +4,6 @@
 	signingkey = D7810EF3B13837DAA7E8035B163536ECED337789
 
 [commit]
-	gpgsign = true
 	verbose = true
 
 [init]
@@ -34,7 +33,7 @@
 	deepclean = clean -xfd
 	crebase = rebase --continue
 	acommit = commit --amend --no-edit
-	tree = log --oneline --graph --decorate --all
+	tree = log --oneline --graph --decorate
 	stat = show --stat
 	diffstaged = diff --staged
 
@@ -55,7 +54,6 @@
 [push]
 	default = simple
 	autoSetupRemote = true
-	followTags = true
 
 [rebase]
 	autoSquash = true
