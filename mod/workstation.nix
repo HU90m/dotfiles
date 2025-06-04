@@ -63,7 +63,6 @@
       ids = [ "*" ];
       settings.main = {
         capslock = "layer(control)";
-        esc = "noop";
         leftcontrol = "noop";
         rightcontrol = "capslock";
       };
