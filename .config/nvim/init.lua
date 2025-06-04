@@ -355,6 +355,7 @@ vim.g.maplocalleader = ','
 
 -- Terminal Mode Maps
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
+vim.keymap.set('t', '<C-[><C-[>', '<C-\\><C-n>')
 vim.keymap.set('t', '<C-w>', '<C-\\><C-N><C-w>')
 
 -- Normal Mode Maps
