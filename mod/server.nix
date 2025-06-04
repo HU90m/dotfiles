@@ -140,7 +140,7 @@
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud31;
       hostName = "cloud.hugom.uk";
       https = true;
       datadir = "/mnt/storage/cloud";
