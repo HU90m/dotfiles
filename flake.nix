@@ -5,16 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    lowrisc-it = {
-      url = "git+ssh://git@github.com/lowRISC/lowrisc-it";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    lowrisc-nix = {
-      url = "github:lowRISC/lowrisc-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
   };
 
   outputs = {
@@ -22,14 +12,12 @@
     nixpkgs,
     nixpkgs-unstable,
     flake-utils,
-    lowrisc-it,
-    lowrisc-nix,
   }: let
     no_system_outputs = {
       nixosConfigurations = let
         system = "x86_64-linux";
         specialArgs = {
-          inherit self nixpkgs lowrisc-it lowrisc-nix;
+          inherit self nixpkgs;
         };
       in {
         HMS-Stealth = nixpkgs.lib.nixosSystem {
@@ -37,7 +25,6 @@
           modules = [
             ./mod/hms-stealth.nix
             ./mod/workstation.nix
-            ./mod/lowrisc.nix
           ];
         };
         HMS-Celestial = nixpkgs.lib.nixosSystem {
@@ -45,7 +32,6 @@
           modules = [
             ./mod/hms-celestial.nix
             ./mod/workstation.nix
-            ./mod/lowrisc.nix
           ];
         };
         HMS-Convenient = nixpkgs.lib.nixosSystem {
