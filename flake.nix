@@ -46,7 +46,7 @@
     system_outputs = system: let
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) ["vivado" "updatemem"];
+        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) ["vivado" "updatemem" "xsdb"];
       };
       pkgsUnstable = import nixpkgs-unstable { inherit system; };
       vivado = pkgs.callPackage ./env/vivado.nix {};

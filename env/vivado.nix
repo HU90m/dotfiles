@@ -60,5 +60,5 @@
 in
   pkgs.symlinkJoin {
     name = "vivado";
-    paths = [(env "vivado") (env "updatemem")];
+    paths = [(env "vivado") (env "updatemem") (env "xsdb")];
   }
