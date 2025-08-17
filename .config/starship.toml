@@ -3,3 +3,6 @@ truncate_to_repo = false
 
 [git_status]
 style = "blue"
+
+[aws]
+disabled = true
