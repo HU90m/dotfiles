@@ -252,7 +252,8 @@ if use_plugins then
     lspconfig.dotls.setup({}) -- graphviz dot
     lspconfig.clangd.setup({}) -- c/cpp/objc
     lspconfig.nil_ls.setup({}) -- Nix
-    --lspconfig.pyright.setup({}) -- python
+    lspconfig.pyright.setup({}) -- python
+    lspconfig.tinymist.setup({}) -- typst
     --lspconfig.veridian.setup({}) -- System Verilog
 
     -- Treesitter
@@ -381,6 +382,8 @@ vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist)
+
+vim.keymap.set('n', '<Leader>r', ':%s/\\v')
 
 vim.keymap.set('n', '<Leader>b', ':ToggleBg<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>p', ':Float<CR>', { silent = true }) -- p for popup
