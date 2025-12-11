@@ -140,7 +140,7 @@
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       hostName = "cloud.hugom.uk";
       https = true;
       datadir = "/mnt/storage/cloud";
@@ -162,7 +162,7 @@
       phpOptions."opcache.interned_strings_buffer" = "23";
 
       extraApps = with config.services.nextcloud.package.packages.apps; {
-        inherit contacts calendar mail tasks spreed notes cospend maps forms;
+        inherit contacts calendar mail tasks spreed notes cospend forms;
       };
       extraAppsEnable = true;
 

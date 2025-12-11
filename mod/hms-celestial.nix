@@ -15,6 +15,7 @@
   fileSystems."/" = {
     device = "CelestialPond/ROOT";
     fsType = "zfs";
+    options = [ "zfsutil" ];
   };
 
   fileSystems."/boot" = {

@@ -54,8 +54,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   services.keyd = {
     enable = true;
@@ -71,9 +71,6 @@
   services.flatpak.enable = true;
   services.blueman.enable = true;
   services.fwupd.enable = true;
-
-  services.clamav.scanner.enable = true;
-  services.clamav.updater.enable = true;
 
   virtualisation.podman = {
     enable = true;
@@ -122,7 +119,7 @@
     extraGroups = ["networkmanager" "wheel" "plugdev" "keyd" "dialout"];
     packages = with pkgs; [
       firefox
-      tor-browser-bundle-bin
+      tor-browser
       alacritty
       foot
       pass
@@ -178,7 +175,7 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     atkinson-hyperlegible
     atkinson-monolegible
   ];
