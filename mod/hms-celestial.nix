@@ -41,6 +41,12 @@
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
 
+  services.fwupd = {
+    enable = true;
+    extraRemotes = [ "lvfs-testing" ];
+  };
+  boot.kernelParams = [ "iomem=relaxed" ];
+
   services.zfs.autoScrub.enable = true;
   services.zfs.autoSnapshot.enable = true;
 }
