@@ -4,3 +4,6 @@
 
 # Ignore Lazy's lock file
 .config/nvim/lazy-lock.json
+
+# Ignore nushell's history
+.config/nushell/history.*

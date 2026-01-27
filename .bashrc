@@ -70,7 +70,6 @@ if $USE_GPG_SSH_AGENT; then
   gpg-connect-agent updatestartuptty /bye >/dev/null
 fi
 
-# Carcinisation
-if command -v starship &> /dev/null; then
-  eval "$(starship init bash)"
+if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
+  exec nu
 fi
