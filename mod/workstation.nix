@@ -53,9 +53,16 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
+  # Enable the Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.system76-scheduler.enable = true;
+  environment.cosmic.excludePackages = with pkgs; [
+    cosmic-edit
+    cosmic-player
+    cosmic-randr
+  ];
 
   services.keyd = {
     enable = true;
@@ -123,13 +130,6 @@
       foot
       pass
       wl-clipboard
-      rustup
-      cmake
-      ninja
-      marksman
-      dot-language-server
-      nil
-      mdbook
     ];
   };
 
@@ -154,21 +154,16 @@
   environment.systemPackages = with pkgs; [
     neovim
     neovim-remote
+    nushell
     clang
     clang-tools
-    python311
-    gdb
+    python3
     git
     ripgrep
     file
     fd
-    bat
     btop
-    tree
-    shellcheck
-    nfs-utils
     nix-output-monitor
-    starship
   ];
 
   fonts.packages = with pkgs; [
@@ -189,17 +184,6 @@
     enableSSHSupport = true;
   };
   services.pcscd.enable = true;
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
