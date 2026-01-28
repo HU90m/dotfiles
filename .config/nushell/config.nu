@@ -887,21 +887,30 @@ $env.config = {
 }
 
 $env.PROMPT_COMMAND = { ||
+  let default_style = (ansi reset) + (ansi grey)
+
   let last_exit_code = if ($env.LAST_EXIT_CODE != 0) {
-      (ansi red_bold) + ($env.LAST_EXIT_CODE | into string) + (ansi reset) + " | "
+      (ansi red_bold) + ($env.LAST_EXIT_CODE | into string) + $default_style + " | "
   } else {
     ""
   }
-  (
-    (ansi reset)
-    + (ansi grey)
-    + (
-      " " + $last_exit_code + (ansi reset) + (ansi grey) + (pwd) + " "
-      | fill -c "─" -a middle -w (term size).columns
-    )
-    + (ansi reset)
-    + "\n"
+
+  let git_id = (
+    git rev-parse --abbrev-ref HEAD
+    | complete
+    | match $in {
+      { exit_code: 0, stdout: "HEAD\n" } => (git rev-parse --short HEAD | complete),
+      _ => $in,
+    }
+    | match $in {
+      { exit_code: 0, stdout: $id } => { $id | str trim | $in + " | "},
+      _ => "",
+    }
   )
+
+  let info = " " + $last_exit_code + $git_id + (pwd) + " "
+
+  $default_style + ($info | fill -c "─" -a middle -w (term size).columns) + (ansi reset) + "\n"
 }
 $env.PROMPT_COMMAND_RIGHT = ""
 
