@@ -70,6 +70,6 @@ if $USE_GPG_SSH_AGENT; then
   gpg-connect-agent updatestartuptty /bye >/dev/null
 fi
 
-if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
+if [ -z "$NONUSHELL" ] && ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
   exec nu
 fi
