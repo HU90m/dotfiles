@@ -10,7 +10,7 @@
 	defaultbranch = main
 
 [diff]
-	algorithm = histogram
+	algorithm = patience
 	colorMoved = plain
 	mnemonicPrefix = true
 	renames = true
