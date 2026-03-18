@@ -53,7 +53,7 @@ alias pd="pushd"
 alias sls="screen -ls"
 alias tls="tmux ls"
 alias nterm="nvim +term +startinsert"
-alias nterm2="nvim +term +term '+args # %' +startinsert"
+alias nterm2="SHELL=nu nvim +term +term '+args # %' +startinsert"
 alias vi="nvr -o"
 
 # safety
@@ -68,8 +68,4 @@ if $USE_GPG_SSH_AGENT; then
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
   gpgconf --launch gpg-agent
   gpg-connect-agent updatestartuptty /bye >/dev/null
-fi
-
-if [ -z "$NONUSHELL" ] && ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
-  exec nu
 fi

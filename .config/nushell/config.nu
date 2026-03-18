@@ -916,7 +916,7 @@ $env.PROMPT_COMMAND_RIGHT = ""
 
 
 use std/dirs
-alias nterm2 = nvim +term +term "+args # %" +startinsert
+alias nterm2 = with-env { SHELL: "nu" } { nvim +term +term "+args # %" +startinsert }
 alias dadd = dirs add
 alias dn = dirs next
 alias dp = dirs prev
