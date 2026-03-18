@@ -907,9 +907,9 @@ $env.PROMPT_COMMAND = { ||
       _ => "",
     }
   )
-  let time_taken = $env.CMD_DURATION_MS | into duration -u ms | into string
+  let time_taken = $env.CMD_DURATION_MS | into duration -u ms | if ($in > 0.5sec) { " | " + ($in | into string) } else { "" }
 
-  let info = " " + $last_exit_code + $git_id + (pwd) + " | " + $time_taken + " "
+  let info = " " + $last_exit_code + $git_id + (pwd) + $time_taken + " "
 
   $default_style + ($info | fill -c "━" -a middle -w (term size).columns) + (ansi reset) + "\n"
 }
