@@ -53,7 +53,7 @@ alias pd="pushd"
 alias sls="screen -ls"
 alias tls="tmux ls"
 alias nterm="nvim +term +startinsert"
-alias nterm2="SHELL=nu nvim +term +term '+args # %' +startinsert"
+alias nterm2="SHELL=$(which nu) nvim +term +term '+args # %' +startinsert"
 alias vi="nvr -o"
 
 # safety

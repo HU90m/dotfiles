@@ -924,7 +924,7 @@ gpg-connect-agent updatestartuptty /bye | ignore
 
 
 use std/dirs
-alias nterm2 = with-env { SHELL: "nu" } { nvim +term +term "+args # %" +startinsert }
+alias nterm2 = with-env { SHELL: (which nu | get 0.path) } { nvim +term +term "+args # %" +startinsert }
 alias dadd = dirs add
 alias dn = dirs next
 alias dp = dirs prev
