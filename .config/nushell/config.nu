@@ -916,6 +916,13 @@ $env.PROMPT_COMMAND = { ||
 $env.PROMPT_COMMAND_RIGHT = ""
 
 
+# Set-up GPG SSH socket
+$env.GPG_TTY = ^tty
+$env.SSH_AUTH_SOCK = ^gpgconf --list-dirs agent-ssh-socket
+gpgconf --launch gpg-agent
+gpg-connect-agent updatestartuptty /bye | ignore
+
+
 use std/dirs
 alias nterm2 = with-env { SHELL: "nu" } { nvim +term +term "+args # %" +startinsert }
 alias dadd = dirs add
