@@ -887,7 +887,7 @@ $env.config = {
 }
 
 $env.PROMPT_COMMAND = { ||
-  let default_style = (ansi reset) + (ansi grey)
+  let default_style = (ansi reset) + (ansi blue)
 
   let last_exit_code = if ($env.LAST_EXIT_CODE != 0) {
       (ansi red_bold) + ($env.LAST_EXIT_CODE | into string) + $default_style + " | "
@@ -907,10 +907,11 @@ $env.PROMPT_COMMAND = { ||
       _ => "",
     }
   )
+  let time_taken = $env.CMD_DURATION_MS | into duration -u ms | into string
 
-  let info = " " + $last_exit_code + $git_id + (pwd) + " "
+  let info = " " + $last_exit_code + $git_id + (pwd) + " | " + $time_taken + " "
 
-  $default_style + ($info | fill -c "─" -a middle -w (term size).columns) + (ansi reset) + "\n"
+  $default_style + ($info | fill -c "━" -a middle -w (term size).columns) + (ansi reset) + "\n"
 }
 $env.PROMPT_COMMAND_RIGHT = ""
 
