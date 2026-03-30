@@ -56,13 +56,7 @@
   # Enable the Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.system76-scheduler.enable = true;
-  environment.cosmic.excludePackages = with pkgs; [
-    cosmic-edit
-    cosmic-player
-    cosmic-randr
-  ];
+  programs.niri.enable = true;
 
   services.keyd = {
     enable = true;
