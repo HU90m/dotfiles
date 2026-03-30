@@ -1,8 +1,5 @@
 {
-  config,
   lib,
-  pkgs,
-  modulesPath,
   ...
 }: {
   networking.hostName = "HMS-Celestial";
@@ -21,6 +18,11 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
+  };
+
+  fileSystems."/tmp" = {
+    device = "none";
+    fsType = "tmpfs";
   };
 
   swapDevices = [
