@@ -916,6 +916,11 @@ $env.PROMPT_COMMAND = { ||
 $env.PROMPT_COMMAND_RIGHT = ""
 
 
+$env.EDITOR = "nvr -o"
+$env.GIT_EDITOR = "nvr --remote-wait-silent"
+$env.VISUAL = "nvr --remote-wait-silent"
+
+
 # Set-up GPG SSH socket
 $env.GPG_TTY = ^tty
 $env.SSH_AUTH_SOCK = ^gpgconf --list-dirs agent-ssh-socket
