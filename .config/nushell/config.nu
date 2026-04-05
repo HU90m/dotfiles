@@ -84,7 +84,7 @@ $env.PROMPT_COMMAND = { ||
   let default_style = (ansi reset) + (ansi blue)
 
   let last_exit_code = if ($env.LAST_EXIT_CODE != 0) {
-      (ansi red_bold) + ($env.LAST_EXIT_CODE | into string) + $default_style + " | "
+    " | " + (ansi red_bold) + ($env.LAST_EXIT_CODE | into string) + $default_style
   } else {
     ""
   }
@@ -97,15 +97,26 @@ $env.PROMPT_COMMAND = { ||
       _ => $in,
     }
     | match $in {
-      { exit_code: 0, stdout: $id } => { $id | str trim | $in + " | "},
+      { exit_code: 0, stdout: $id } => { $id | str trim | " | " + $in },
       _ => "",
     }
   )
   let time_taken = $env.CMD_DURATION_MS | into duration -u ms | if ($in > 0.5sec) { " | " + ($in | into string) } else { "" }
 
-  let info = " " + $last_exit_code + $git_id + (pwd) + $time_taken + " "
+  let battery_level = $'(open /sys/class/power_supply/BAT0/capacity_level | str trim)'
+  let battery = if $battery_level in [ Low Critical Unknown ] {
+    $' | (open /sys/class/power_supply/BAT0/capacity | str trim)%'
+  } else {
+    ""
+  }
 
-  $default_style + ($info | fill -c "━" -a middle -w (term size).columns) + (ansi reset) + "\n"
+  let time_now = date now | format date "%H:%M"
+
+  let start = $'($time_now) | (pwd)'
+
+  let info = $battery + $git_id + $time_taken + $last_exit_code
+
+  $default_style + "[ " + $start + $info + " ]\n" + (ansi reset)
 }
 $env.PROMPT_COMMAND_RIGHT = ""
 
@@ -114,6 +125,8 @@ $env.EDITOR = "nvr -o"
 $env.GIT_EDITOR = "nvr --remote-wait-silent"
 $env.VISUAL = "nvr --remote-wait-silent"
 
+use std/util "path add"
+path add ~/.cargo/bin ~/.local/bin
 
 # Set-up GPG SSH socket
 $env.GPG_TTY = ^tty
