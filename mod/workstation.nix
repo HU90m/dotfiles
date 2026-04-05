@@ -64,6 +64,7 @@
       ids = [ "*" ];
       settings.main = {
         capslock = "layer(control)";
+        compose = "rightmeta";
         "leftshift+rightshift" = "capslock";
       };
     };
@@ -157,7 +158,12 @@
     file
     fd
     btop
-    nix-output-monitor
+
+    # Useful utilities when not running a full desktop environment
+    fuzzel
+    swaylock
+    playerctl
+    bluetui
   ];
 
   fonts.packages = with pkgs; [
