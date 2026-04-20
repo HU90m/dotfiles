@@ -80,6 +80,22 @@ $env.config = {
     highlight_resolved_externals: false # true enables highlighting of external commands in the repl resolved by which.
 }
 
+def sys-bat [] {
+  $'(open /sys/class/power_supply/BAT0/capacity | str trim)%'
+}
+def toggle-theme [] {
+  let current = gsettings get org.gnome.desktop.interface color-scheme | str trim -c "'"
+  cd ~/.config/alacritty/themes
+  if $current == 'prefer-dark' {
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+    ln -fs gruvbox_light.toml current.toml
+  } else {
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    ln -fs gruvbox_dark.toml current.toml
+  }
+  touch ../alacritty.toml
+}
+
 $env.PROMPT_COMMAND = { ||
   let default_style = (ansi reset) + (ansi blue)
 
@@ -101,7 +117,13 @@ $env.PROMPT_COMMAND = { ||
       _ => "",
     }
   )
-  let time_taken = $env.CMD_DURATION_MS | into duration -u ms | if ($in > 0.5sec) { " | " + ($in | into string) } else { "" }
+  let time_taken = (
+    $env.CMD_DURATION_MS
+    | into duration -u ms
+    | if ($in > 0.84sec) { " | " + ($in | into string) } else { "" }
+  )
+
+  let nu_shell_name = if IN_NIX_SHELL in $env { $" | ($env.name)" } else { "" }
 
   let battery_level = $'(open /sys/class/power_supply/BAT0/capacity_level | str trim)'
   let battery = if $battery_level in [ Low Critical Unknown ] {
@@ -114,19 +136,17 @@ $env.PROMPT_COMMAND = { ||
 
   let start = $'($time_now) | (pwd)'
 
-  let info = $battery + $git_id + $time_taken + $last_exit_code
+  let info = $battery + $git_id + $nu_shell_name + $time_taken + $last_exit_code
 
   $default_style + "[ " + $start + $info + " ]\n" + (ansi reset)
 }
 $env.PROMPT_COMMAND_RIGHT = ""
 
 
-$env.EDITOR = "nvr -o"
-$env.GIT_EDITOR = "nvr --remote-wait-silent"
-$env.VISUAL = "nvr --remote-wait-silent"
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim"
 
-use std/util "path add"
-path add ~/.cargo/bin ~/.local/bin
+$env.PATH = $env.PATH ++ [ ~/.cargo/bin ~/.local/bin ]
 
 # Set-up GPG SSH socket
 $env.GPG_TTY = ^tty
@@ -144,7 +164,7 @@ alias ddrop = dirs drop
 
 use nu_scripts/custom-completions/rg/rg-completions.nu *
 use nu_scripts/custom-completions/uv/uv-completions.nu *
-use nu_scripts/custom-completions/gh/gh-completions.nu *
+use nu_scripts/custom-completions/jj/jj-completions.nu *
 use nu_scripts/custom-completions/git/git-completions.nu *
 use nu_scripts/custom-completions/nix/nix-completions.nu *
 use nu_scripts/custom-completions/aws/aws-completions.nu *
