@@ -40,7 +40,10 @@ vim.cmd([[
 vim.opt.showtabline = 0
 
 -- Status bar verbosity
-vim.opt.laststatus = 1
+vim.opt.laststatus = 3
+
+-- Sign column setting
+vim.opt.signcolumn = "no"
 
 -- Enables/disables changed buffers to be hidden
 vim.opt.hidden = true
@@ -121,6 +124,16 @@ vim.opt.ruler = true
 
 -- Activates/deactivates line numbers
 vim.opt.number = false
+
+-- Diff settings
+vim.opt.diffopt = {
+  "internal",
+  "filler",
+  "closeoff",
+  "indent-heuristic",
+  "linematch:60",
+  "algorithm:histogram"
+}
 
 -- User Commands
 vim.api.nvim_create_user_command('W', 'w', {})
