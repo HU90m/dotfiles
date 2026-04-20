@@ -186,8 +186,13 @@ vim.api.nvim_create_autocmd('TermOpen', {
 -- Filetypes
 vim.filetype.add({ extension = { typ = 'typst' } })
 vim.filetype.add({ extension = { core = 'yaml' } })
+vim.filetype.add({ extension = { xdc = 'tcl' } })
+vim.filetype.add({ extension = { f = 'flist' } })
 vim.filetype.add({ extension = { S = 'asm' } })
 vim.filetype.add({ extension = { djot = 'djot' } })
+vim.filetype.add({ extension = { vi = 'vine', iv = 'ivy' } })
+
+vim.g.rust_recommended_style = false
 
 -- Lua Specific Setup
 math.randomseed(vim.fn.localtime())
@@ -240,6 +245,12 @@ if use_plugins then
             'neovim/nvim-lspconfig',
         },
         {
+          "hudson-trading/slang-server.nvim",
+          dependencies = {
+            "MunifTanjim/nui.nvim",
+          },
+        },
+        {
             'nvim-telescope/telescope.nvim',
             dependencies = {
                 'nvim-lua/plenary.nvim',
@@ -254,20 +265,42 @@ if use_plugins then
     lazy.setup(plugins, opts)
 
     -- LSP Setup
-    local lspconfig = require('lspconfig')
-    lspconfig.rust_analyzer.setup({}) -- rust
-    lspconfig.marksman.setup({
-        root_dir = function(fname)
-            return lspconfig.util.root_pattern('.marksman.toml')(fname)
-        end,
-        --cmd = {'marksman', 'server', '-v1000'}, -- Used for debugging issues
-    }) -- markdown
-    lspconfig.dotls.setup({}) -- graphviz dot
-    lspconfig.clangd.setup({}) -- c/cpp/objc
-    lspconfig.nil_ls.setup({}) -- Nix
-    lspconfig.pyright.setup({}) -- python
-    lspconfig.tinymist.setup({}) -- typst
-    --lspconfig.veridian.setup({}) -- System Verilog
+    vim.lsp.config("rust_analyzer", {
+      settings = {
+        diagnostics = {
+          disable = { "inactive-code" },
+        }
+      }
+    })
+    vim.lsp.enable('rust_analyzer') -- rust
+    vim.lsp.enable('dotls') -- graphviz dot
+    vim.lsp.enable('clangd') -- c/cpp/objc
+    vim.lsp.enable('nixd') -- Nix
+    vim.lsp.enable('tclsp') -- TCL
+    vim.lsp.enable('pyright') -- python
+    vim.lsp.enable('ty') -- python
+    vim.lsp.enable('ruff') -- python
+    vim.lsp.enable('tinymist') -- typst
+    vim.lsp.config("slang-server", {
+      cmd = { "slang-server" },
+      root_markers = { ".git", ".slang" },
+      filetypes = {
+        "systemverilog",
+        "verilog",
+      },
+    })
+    vim.lsp.enable("slang-server")
+    vim.lsp.config("vine", {
+      cmd = { "vine", "lsp", "main.vi" },
+      root_markers = { ".git" },
+      filetypes = { "vine" },
+    })
+    vim.lsp.enable("vine")
+    vim.lsp.config("mlir_lsp_server", {
+        cmd = { 'circt-lsp-server' },
+    })
+    vim.lsp.enable("mlir_lsp_server")
+    vim.lsp.enable('tblgen_lsp_server')
 
     -- Treesitter
     local treesitter_config = require('nvim-treesitter.configs')
