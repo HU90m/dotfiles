@@ -217,13 +217,16 @@ if use_plugins then
     local lazy = require('lazy')
     local plugins = {
         {
-            'rebelot/kanagawa.nvim',
+            'ellisonleao/gruvbox.nvim',
+            --config = {
+            --  contrast = "hard",
+            --},
             -- This is the default colour scheme,
             -- so we should priorities it's loading.
             priority = 1000,
         },
         {
-            'ellisonleao/gruvbox.nvim',
+            'rebelot/kanagawa.nvim',
         },
         {
             'catppuccin/nvim',
@@ -353,8 +356,8 @@ if use_plugins then
     end
 
     colorschemes = {
-        'kanagawa',
         'gruvbox',
+        'kanagawa',
         'catppuccin',
         'nord',
         'modus',
