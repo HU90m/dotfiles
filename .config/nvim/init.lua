@@ -5,8 +5,8 @@ use_plugins = true
 vim.opt.timeout = true
 vim.opt.timeoutlen = 600
 
--- Make the clipboard (the * register) the default register.
-vim.opt.clipboard = 'unnamed'
+-- Make the clipboard (the + register) the default register.
+vim.opt.clipboard = 'unnamedplus'
 
 -- Splitting Preferences
 vim.opt.splitright = true
@@ -411,7 +411,7 @@ vim.keymap.set('n', '<Space>', '<Nop>')
 vim.keymap.set('n', '<C-l>', ':nohl<CR><C-l>', { silent = true })
 
 vim.keymap.set('n', '<Leader>s', ':set spell!<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>%', ':let @*=@%<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>%', ':let @+=@%<CR>', { silent = true })
 vim.keymap.set('n', '<Leader>d', ":put =strftime('%F', localtime())<CR>kJ$", { silent = true })
 
 vim.keymap.set('n', '<Leader>j', ':n<CR>', { silent = true })
