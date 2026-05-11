@@ -80,8 +80,8 @@ $env.config = {
     highlight_resolved_externals: false # true enables highlighting of external commands in the repl resolved by which.
 }
 
-def sys-bat [] {
-  $'(open /sys/class/power_supply/BAT0/capacity | str trim)%'
+def battery-capacity [] {
+  return (open /sys/class/power_supply/BAT0/capacity | into int)
 }
 def toggle-theme [] {
   let current = gsettings get org.gnome.desktop.interface color-scheme | str trim -c "'"
@@ -125,9 +125,9 @@ $env.PROMPT_COMMAND = { ||
 
   let nu_shell_name = if IN_NIX_SHELL in $env { $" | ($env.name)" } else { "" }
 
-  let battery_level = $'(open /sys/class/power_supply/BAT0/capacity_level | str trim)'
-  let battery = if $battery_level in [ Low Critical Unknown ] {
-    $' | (open /sys/class/power_supply/BAT0/capacity | str trim)%'
+  let battery_level = battery-capacity
+  let battery = if $battery_level <= 20 {
+    $' | (ansi light_yellow) ($battery_level)% ($default_style)'
   } else {
     ""
   }
