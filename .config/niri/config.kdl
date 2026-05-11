@@ -9,14 +9,12 @@ layout {
     gaps 12
 
     preset-column-widths {
-        proportion 0.25
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
-        proportion 0.75
     }
 
-    default-column-width { proportion 0.25; }
+    default-column-width { proportion 0.5; }
 
     focus-ring {
         on
@@ -226,6 +224,7 @@ binds {
 
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
+    Mod+Shift+D { spawn "niri" "msg" "output" "eDP-1" "on"; }
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
 }
