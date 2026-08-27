@@ -65,6 +65,16 @@ $env.config = {
         use_ls_colors: true
     }
 
+    keybindings: [
+        {
+            name: ctrl_f_accept_hint
+            modifier: control
+            keycode: char_f
+            mode: [emacs, vi_normal, vi_insert]
+            event: { send: HistoryHintComplete }
+        }
+    ]
+
     cursor_shape: {
         emacs: line # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (line is the default)
         vi_insert: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (block is the default)
@@ -97,7 +107,7 @@ def toggle-theme [] {
 }
 
 $env.PROMPT_COMMAND = { ||
-  let default_style = (ansi reset) + (ansi blue)
+  let default_style = (ansi reset) + (ansi blue_reverse)
 
   let last_exit_code = if ($env.LAST_EXIT_CODE != 0) {
     " | " + (ansi red_bold) + ($env.LAST_EXIT_CODE | into string) + $default_style
@@ -105,12 +115,22 @@ $env.PROMPT_COMMAND = { ||
     ""
   }
 
-  let git_id = (
-    git rev-parse --abbrev-ref HEAD
+  let vcs_id = (
+    jj root
     | complete
     | match $in {
-      { exit_code: 0, stdout: "HEAD\n" } => (git rev-parse --short HEAD | complete),
-      _ => $in,
+      { exit_code: 0 } => (
+        jj log --no-graph --color never -r @ -T 'if(bookmarks, bookmarks, change_id.shortest())'
+        | complete
+      ),
+      _ => (
+        git rev-parse --abbrev-ref HEAD
+        | complete
+        | match $in {
+          { exit_code: 0, stdout: "HEAD\n" } => (git rev-parse --short HEAD | complete),
+          _ => $in,
+        }
+      ),
     }
     | match $in {
       { exit_code: 0, stdout: $id } => { $id | str trim | " | " + $in },
@@ -134,11 +154,11 @@ $env.PROMPT_COMMAND = { ||
 
   let time_now = date now | format date "%H:%M"
 
-  let start = $'($time_now) | (pwd)'
+  let start = $' ($time_now) | (pwd)'
 
-  let info = $battery + $git_id + $nu_shell_name + $time_taken + $last_exit_code
+  let info = $battery + $vcs_id + $nu_shell_name + $time_taken + $last_exit_code
 
-  $default_style + "[ " + $start + $info + " ]\n" + (ansi reset)
+  $default_style + $start + $info + " \n" + (ansi reset)
 }
 $env.PROMPT_COMMAND_RIGHT = ""
 
@@ -161,6 +181,15 @@ alias dadd = dirs add
 alias dn = dirs next
 alias dp = dirs prev
 alias ddrop = dirs drop
+
+# Useful functions:
+def randint [num] {
+  random int |
+    $in bit-and ((1 bit-shl $num) - 1) |
+    format number |
+    get lowerhex |
+    wl-copy
+}
 
 use nu_scripts/custom-completions/rg/rg-completions.nu *
 use nu_scripts/custom-completions/uv/uv-completions.nu *
