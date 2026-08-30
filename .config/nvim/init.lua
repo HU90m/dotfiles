@@ -262,6 +262,7 @@ if use_plugins then
         },
         {
             'nvim-treesitter/nvim-treesitter',
+            branch = 'main',
             build = ':TSUpdate',
         },
     }
@@ -309,29 +310,34 @@ if use_plugins then
     vim.lsp.enable("mlir_lsp_server")
     vim.lsp.enable('tblgen_lsp_server')
 
-    -- Treesitter
-    local treesitter_config = require('nvim-treesitter.configs')
-    treesitter_config.setup({
-        ensure_installed = {
-            'vimdoc',
+    require('nvim-treesitter').install({
+        'vimdoc',
+        'rust',
+        'systemverilog', -- replaces the old `verilog` parser; covers both
+        'c',
+        'cpp',
+        'python',
+        'lua',
+        'markdown',
+        'markdown_inline',
+    })
+
+    vim.treesitter.language.register('systemverilog', 'verilog')
+
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = {
+            'help',
             'rust',
-            'verilog',
+            'systemverilog',
             'c',
             'cpp',
             'python',
             'lua',
             'markdown',
-            'markdown_inline',
         },
-        sync_install = false,
-        auto_install = false,
-        highlight = {
-            enable = true,
-            aditional_vim_regex_highlighting = false,
-        },
-        indent = {
-            enable = true,
-        },
+        callback = function()
+            pcall(vim.treesitter.start)
+        end,
     })
 
     -- Colour Schemes
