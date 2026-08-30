@@ -281,8 +281,12 @@ if use_plugins then
     vim.lsp.enable('nixd') -- Nix
     vim.lsp.enable('tclsp') -- TCL
     vim.lsp.enable('pyright') -- python
-    vim.lsp.enable('ty') -- python
     vim.lsp.enable('ruff') -- python
+    vim.lsp.config("tinymist", {
+      settings = {
+        typstExtraArgs = { "--input", "experiment_data=/build/experiment_data.json" },
+      },
+    })
     vim.lsp.enable('tinymist') -- typst
     vim.lsp.config("slang-server", {
       cmd = { "slang-server" },
